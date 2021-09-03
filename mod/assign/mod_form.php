@@ -285,6 +285,13 @@ class mod_assign_mod_form extends moodleform_mod {
         $defaultvalues['introattachments'] = $draftitemid;
 
         $assignment->plugin_data_preprocessing($defaultvalues);
+
+        // Overriding default values in activity completion section of mod edit form
+        $defaultvalues['completion'] = COMPLETION_TRACKING_AUTOMATIC;
+        $defaultvalues['completionview'] = 0;
+        $defaultvalues['completionusegrade'] = 1;
+        $defaultvalues['completionsubmit'] = 1;
+
     }
 
     /**
