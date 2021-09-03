@@ -128,7 +128,7 @@ class mod_assign_mod_form extends moodleform_mod {
         $mform->addHelpButton('attemptreopenmethod', 'attemptreopenmethod', 'mod_assign');
 
         $options = array(ASSIGN_UNLIMITED_ATTEMPTS => get_string('unlimitedattempts', 'mod_assign'));
-        $options += array_combine(range(1, 30), range(1, 30));
+        $options += array_combine(range(1, 40), range(1, 40));  // Max value changed from 30 to 40
         $mform->addElement('select', 'maxattempts', get_string('maxattempts', 'mod_assign'), $options);
         $mform->addHelpButton('maxattempts', 'maxattempts', 'assign');
         $mform->hideIf('maxattempts', 'attemptreopenmethod', 'eq', ASSIGN_ATTEMPT_REOPEN_METHOD_NONE);
