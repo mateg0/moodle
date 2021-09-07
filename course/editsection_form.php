@@ -24,8 +24,10 @@ class editsection_form extends moodleform {
 
         $mform->addElement('header', 'generalhdr', get_string('general'));
 
+        // In function addElement() 'defaultvalue' option was set to "null" (instead of
+        // "$this->_customdata['defaultsectionname']") to hide default\custom checkbox in section edit form
         $mform->addElement('defaultcustom', 'name', get_string('sectionname'), [
-            'defaultvalue' => $this->_customdata['defaultsectionname'],
+            'defaultvalue' => null,
             'customvalue' => $sectioninfo->name,
         ], ['size' => 30, 'maxlength' => 255]);
         $mform->setDefault('name', false);
@@ -88,7 +90,10 @@ class editsection_form extends moodleform {
         $default_values = file_prepare_standard_editor($default_values, 'summary', $editoroptions,
                 $editoroptions['context'], 'course', 'section', $default_values->id);
         if (strval($default_values->name) === '') {
-            $default_values->name = false;
+            // $default_values->name = false;
+            // When section name is undefined set defaultsectionname (like "Theme 1" and etc.) as
+            // default value of section name field in section edit form
+            $default_values->name = $this->_customdata['defaultsectionname'];
         }
         parent::set_data($default_values);
     }
