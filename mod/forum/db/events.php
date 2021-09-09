@@ -41,10 +41,15 @@ $observers = array(
         'callback'  => 'mod_forum_observer::course_module_created',
     ),
 
+
+    // This comment stopped creating forum during course creation
+    // If you want to bring back this functionality, just uncomment this
+    /*
     array(
         'eventname' => '\core\event\course_created',
         'callback'  => 'mod_forum_observer::course_created',
     ),
+    */
 
     array(
         'eventname' => '\core\event\course_updated',
