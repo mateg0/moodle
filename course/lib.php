@@ -722,7 +722,7 @@ function course_create_section($courseorid, $position = 0, $skipcheck = false) {
     $cw->summary  = '';
     $cw->summaryformat = FORMAT_HTML;
     $cw->sequence = '';
-    $cw->name = null;
+    $cw->name = $position == 0 ? '' : null;
     $cw->visible = 1;
     $cw->availability = null;
     $cw->timemodified = time();
