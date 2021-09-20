@@ -156,14 +156,24 @@ $userform = new user_editadvanced_form(new moodle_url($PAGE->url, array('returnt
 
 
 // Deciding where to send the user back in most cases.
-if ($returnto === 'profile') {
-    if ($course->id != SITEID) {
-        $returnurl = new moodle_url('/user/view.php', array('id' => $user->id, 'course' => $course->id));
+if ($user->id == -1) {
+    // Handle moodle bug when user cancels the form and is redirected to non-existent user's page (id = -1)
+    if (has_capability('moodle/site:config', $systemcontext)) {
+        $returnurl = "$CFG->wwwroot/$CFG->admin/user.php";
     } else {
-        $returnurl = new moodle_url('/user/profile.php', array('id' => $user->id));
+        $returnurl = new moodle_url('/my');
     }
 } else {
-    $returnurl = new moodle_url('/user/preferences.php', array('userid' => $user->id));
+    // Standard moodle $returnulr definition ops
+    if ($returnto === 'profile') {
+        if ($course->id != SITEID) {
+            $returnurl = new moodle_url('/user/view.php', array('id' => $user->id, 'course' => $course->id));
+        } else {
+            $returnurl = new moodle_url('/user/profile.php', array('id' => $user->id));
+        }
+    } else {
+        $returnurl = new moodle_url('/user/preferences.php', array('userid' => $user->id));
+    }
 }
 
 if ($userform->is_cancelled()) {
@@ -310,7 +320,12 @@ if ($userform->is_cancelled()) {
         }
     } else {
         \core\session\manager::gc(); // Remove stale sessions.
-        redirect("$CFG->wwwroot/$CFG->admin/user.php");
+        if (has_capability('moodle/site:config', $systemcontext)) {
+            redirect("$CFG->wwwroot/$CFG->admin/user.php");
+        } else {
+            // Added redirect on new user creation for non-admin user
+            redirect(new moodle_url('/user/profile.php', array('id' => $usernew->id)));
+        }
     }
     // Never reached..
 }
