@@ -918,6 +918,20 @@ function user_get_user_navigation_info($user, $page, $options = array()) {
         $returnobject->navitems[] = $item;
     }
 
+    // Links: Add new user. (some kind of custom item for special users)
+    // Added as temporary solution for teacher role "add user" button example
+    $systemcontext = context_system::instance();
+    if (has_capability('moodle/user:create', $systemcontext, $user) &&
+        !has_capability('moodle/site:config', $systemcontext, $user))
+    {
+        $addnewuser = new stdClass();
+        $addnewuser->itemtype = 'link';
+        $addnewuser->url = new moodle_url('/user/editadvanced.php', array('id' => -1, 'returnto' => 'profile'));
+        $addnewuser->title = 'Добавить пользователя';
+        $addnewuser->titleidentifier = 'add,user';
+        $addnewuser->pix = "i/enrolusers";
+        $returnobject->navitems[] = $addnewuser;
+    }
 
     if ($returnobject->metadata['asotheruser'] = \core\session\manager::is_loggedinas()) {
         $realuser = \core\session\manager::get_realuser();
