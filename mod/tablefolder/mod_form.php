@@ -60,19 +60,22 @@ class mod_tablefolder_mod_form extends moodleform_mod {
         $mform->setExpanded('content');
 
         // Adding option to show sub-tablefolders expanded or collapsed by default.
-        $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'tablefolder'));
-        $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_tablefolder');
-        $mform->setDefault('showexpanded', $config->showexpanded);
+        $mform->addElement('hidden', 'showexpanded', $config->showexpanded);
+        // $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'tablefolder'));
+        // $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_tablefolder');
+        // $mform->setDefault('showexpanded', $config->showexpanded);
 
         // Adding option to enable downloading archive of tablefolder.
-        $mform->addElement('advcheckbox', 'showdownloadtablefolder', get_string('showdownloadtablefolder', 'tablefolder'));
-        $mform->addHelpButton('showdownloadtablefolder', 'showdownloadtablefolder', 'mod_tablefolder');
-        $mform->setDefault('showdownloadtablefolder', true);
+        $mform->addElement('hidden', 'showdownloadtablefolder', true);
+        // $mform->addElement('advcheckbox', 'showdownloadtablefolder', get_string('showdownloadtablefolder', 'tablefolder'));
+        // $mform->addHelpButton('showdownloadtablefolder', 'showdownloadtablefolder', 'mod_tablefolder');
+        // $mform->setDefault('showdownloadtablefolder', true);
 
         // Adding option to enable viewing of individual files.
-        $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'tablefolder'));
-        $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_tablefolder');
-        $mform->setDefault('forcedownload', true);
+        $mform->addElement('hidden', 'forcedownload', false);
+        // $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'tablefolder'));
+        // $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_tablefolder');
+        // $mform->setDefault('forcedownload', true);
 
         //-------------------------------------------------------
         $this->standard_coursemodule_elements();

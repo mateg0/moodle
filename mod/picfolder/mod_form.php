@@ -60,19 +60,22 @@ class mod_picfolder_mod_form extends moodleform_mod {
         $mform->setExpanded('content');
 
         // Adding option to show sub-picfolders expanded or collapsed by default.
-        $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'picfolder'));
-        $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_picfolder');
-        $mform->setDefault('showexpanded', $config->showexpanded);
+        $mform->addElement('hidden', 'showexpanded', $config->showexpanded);
+        // $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'picfolder'));
+        // $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_picfolder');
+        // $mform->setDefault('showexpanded', $config->showexpanded);
 
         // Adding option to enable downloading archive of picfolder.
-        $mform->addElement('advcheckbox', 'showdownloadpicfolder', get_string('showdownloadpicfolder', 'picfolder'));
-        $mform->addHelpButton('showdownloadpicfolder', 'showdownloadpicfolder', 'mod_picfolder');
-        $mform->setDefault('showdownloadpicfolder', true);
+        $mform->addElement('hidden', 'showdownloadpicfolder', true);
+        // $mform->addElement('advcheckbox', 'showdownloadpicfolder', get_string('showdownloadpicfolder', 'picfolder'));
+        // $mform->addHelpButton('showdownloadpicfolder', 'showdownloadpicfolder', 'mod_picfolder');
+        // $mform->setDefault('showdownloadpicfolder', true);
 
         // Adding option to enable viewing of individual files.
-        $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'picfolder'));
-        $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_picfolder');
-        $mform->setDefault('forcedownload', true);
+        $mform->addElement('hidden', 'forcedownload', false);
+        // $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'picfolder'));
+        // $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_picfolder');
+        // $mform->setDefault('forcedownload', true);
 
         //-------------------------------------------------------
         $this->standard_coursemodule_elements();

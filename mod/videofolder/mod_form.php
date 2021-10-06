@@ -60,19 +60,22 @@ class mod_videofolder_mod_form extends moodleform_mod {
         $mform->setExpanded('content');
 
         // Adding option to show sub-videofolders expanded or collapsed by default.
-        $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'videofolder'));
-        $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_videofolder');
-        $mform->setDefault('showexpanded', $config->showexpanded);
+        $mform->addElement('hidden', 'showexpanded', $config->showexpanded);
+        // $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'videofolder'));
+        // $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_videofolder');
+        // $mform->setDefault('showexpanded', $config->showexpanded);
 
         // Adding option to enable downloading archive of videofolder.
-        $mform->addElement('advcheckbox', 'showdownloadvideofolder', get_string('showdownloadvideofolder', 'videofolder'));
-        $mform->addHelpButton('showdownloadvideofolder', 'showdownloadvideofolder', 'mod_videofolder');
-        $mform->setDefault('showdownloadvideofolder', true);
+        $mform->addElement('hidden', 'showdownloadvideofolder', true);
+        // $mform->addElement('advcheckbox', 'showdownloadvideofolder', get_string('showdownloadvideofolder', 'videofolder'));
+        // $mform->addHelpButton('showdownloadvideofolder', 'showdownloadvideofolder', 'mod_videofolder');
+        // $mform->setDefault('showdownloadvideofolder', true);
 
         // Adding option to enable viewing of individual files.
-        $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'videofolder'));
-        $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_videofolder');
-        $mform->setDefault('forcedownload', true);
+        $mform->addElement('hidden', 'forcedownload', false);
+        // $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'videofolder'));
+        // $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_videofolder');
+        // $mform->setDefault('forcedownload', true);
 
         //-------------------------------------------------------
         $this->standard_coursemodule_elements();

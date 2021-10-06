@@ -60,19 +60,22 @@ class mod_audiofolder_mod_form extends moodleform_mod {
         $mform->setExpanded('content');
 
         // Adding option to show sub-audiofolders expanded or collapsed by default.
-        $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'audiofolder'));
-        $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_audiofolder');
-        $mform->setDefault('showexpanded', $config->showexpanded);
+        $mform->addElement('hidden', 'showexpanded', $config->showexpanded);
+        // $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'audiofolder'));
+        // $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_audiofolder');
+        // $mform->setDefault('showexpanded', $config->showexpanded);
 
         // Adding option to enable downloading archive of audiofolder.
-        $mform->addElement('advcheckbox', 'showdownloadaudiofolder', get_string('showdownloadaudiofolder', 'audiofolder'));
-        $mform->addHelpButton('showdownloadaudiofolder', 'showdownloadaudiofolder', 'mod_audiofolder');
-        $mform->setDefault('showdownloadaudiofolder', true);
+        $mform->addElement('hidden', 'showdownloadaudiofolder', true);
+        // $mform->addElement('advcheckbox', 'showdownloadaudiofolder', get_string('showdownloadaudiofolder', 'audiofolder'));
+        // $mform->addHelpButton('showdownloadaudiofolder', 'showdownloadaudiofolder', 'mod_audiofolder');
+        // $mform->setDefault('showdownloadaudiofolder', true);
 
         // Adding option to enable viewing of individual files.
-        $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'audiofolder'));
-        $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_audiofolder');
-        $mform->setDefault('forcedownload', true);
+        $mform->addElement('hidden', 'forcedownload', false);
+        // $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'audiofolder'));
+        // $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_audiofolder');
+        // $mform->setDefault('forcedownload', true);
 
         //-------------------------------------------------------
         $this->standard_coursemodule_elements();

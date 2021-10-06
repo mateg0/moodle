@@ -60,19 +60,22 @@ class mod_textfolder_mod_form extends moodleform_mod {
         $mform->setExpanded('content');
 
         // Adding option to show sub-textfolders expanded or collapsed by default.
-        $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'textfolder'));
-        $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_textfolder');
-        $mform->setDefault('showexpanded', $config->showexpanded);
+        $mform->addElement('hidden', 'showexpanded', $config->showexpanded);
+        // $mform->addElement('advcheckbox', 'showexpanded', get_string('showexpanded', 'textfolder'));
+        // $mform->addHelpButton('showexpanded', 'showexpanded', 'mod_textfolder');
+        // $mform->setDefault('showexpanded', $config->showexpanded);
 
         // Adding option to enable downloading archive of textfolder.
-        $mform->addElement('advcheckbox', 'showdownloadtextfolder', get_string('showdownloadtextfolder', 'textfolder'));
-        $mform->addHelpButton('showdownloadtextfolder', 'showdownloadtextfolder', 'mod_textfolder');
-        $mform->setDefault('showdownloadtextfolder', true);
+        $mform->addElement('hidden', 'showdownloadtextfolder', true);
+        // $mform->addElement('advcheckbox', 'showdownloadtextfolder', get_string('showdownloadtextfolder', 'textfolder'));
+        // $mform->addHelpButton('showdownloadtextfolder', 'showdownloadtextfolder', 'mod_textfolder');
+        // $mform->setDefault('showdownloadtextfolder', true);
 
         // Adding option to enable viewing of individual files.
-        $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'textfolder'));
-        $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_textfolder');
-        $mform->setDefault('forcedownload', true);
+        $mform->addElement('hidden', 'forcedownload', false);
+        // $mform->addElement('advcheckbox', 'forcedownload', get_string('forcedownload', 'textfolder'));
+        // $mform->addHelpButton('forcedownload', 'forcedownload', 'mod_textfolder');
+        // $mform->setDefault('forcedownload', true);
 
         //-------------------------------------------------------
         $this->standard_coursemodule_elements();
