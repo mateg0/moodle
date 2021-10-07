@@ -127,7 +127,7 @@ class mod_audiofolder_renderer extends plugin_renderer_base {
         }
         $result = '<ul>';
         foreach ($dir['subdirs'] as $subdir) {
-            $image = $this->output->pix_icon(audiofolder_icon(), $subdir['dirname'], 'moodle');
+            $image = $this->output->pix_icon($this->audiofolder_icon(), $subdir['dirname'], 'moodle');
             $filename = html_writer::tag('span', $image, array('class' => 'fp-icon')).
                     html_writer::tag('span', s($subdir['dirname']), array('class' => 'fp-filename'));
             $filename = html_writer::tag('div', $filename, array('class' => 'fp-filename-icon'));
