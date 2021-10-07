@@ -127,7 +127,7 @@ class mod_audiofolder_renderer extends plugin_renderer_base {
         }
         $result = '<ul>';
         foreach ($dir['subdirs'] as $subdir) {
-            $image = $this->output->pix_icon(file_folder_icon(24), $subdir['dirname'], 'moodle');
+            $image = $this->output->pix_icon(audiofolder_icon(), $subdir['dirname'], 'moodle');
             $filename = html_writer::tag('span', $image, array('class' => 'fp-icon')).
                     html_writer::tag('span', s($subdir['dirname']), array('class' => 'fp-filename'));
             $filename = html_writer::tag('div', $filename, array('class' => 'fp-filename-icon'));
@@ -159,6 +159,10 @@ class mod_audiofolder_renderer extends plugin_renderer_base {
         $result .= '</ul>';
 
         return $result;
+    }
+
+    private function audiofolder_icon(){
+        return '/f/audiofolder-24';
     }
 }
 
