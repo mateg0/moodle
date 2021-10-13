@@ -3376,7 +3376,7 @@ EOD;
 
     private function not_loggedin_block()
     {
-        global $USER, $CFG, $SESSION, $OUTPUT;
+        global $USER, $CFG, $SESSION, $OUTPUT, $PAGE;
         require_once($CFG->libdir . '/authlib.php');
         $signup = '';
 
@@ -3451,7 +3451,7 @@ EOD;
             }
 
             $login_form .= '<div class="form-group">';
-            $login_form .= '<input type="submit" class="btn btn-primary btn-block" value="' . get_string('login') . '" />';
+            $login_form .= '<input type="submit" class="btn btn-primary btn-block btn-login" value="' . get_string('login') . '" />';
             $login_form .= '</div>';
             $login_form .= '<input type="hidden" name="logintoken" value="' . s(\core\session\manager::get_login_token()) . '" />';
 
@@ -3461,6 +3461,8 @@ EOD;
             $login_form .= '</div>'; //login_wrap
             $login_form .= '<a href="#" class="close-login-popup"></a>';
             $login_form .= '</div>'; //login_popup
+
+            $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/local/login_page/login.js'));
         }
 
         return $login_form;
