@@ -3391,6 +3391,22 @@ EOD;
 
         $username = get_moodle_cookie();
         $login_form = '<div id="login_popup"><div class="login_popup_inner">';
+        $login_form .= "
+                <div class='spinner-login'>
+                    <div class='center'>
+                        <div class='block'>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                            <div class='item'></div>
+                        </div>
+                    </div>
+                </div>
+            ";
         $login_form .= '<a href="#" class="close">&times;</a>';
 
         $login_form .= '<div class="login_wrap">';
