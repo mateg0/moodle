@@ -3479,6 +3479,7 @@ EOD;
             $login_form .= '</div>'; //login_popup
 
             $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/local/login_page/login.js'));
+            $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/local/login_page/login-auth-error.js'));
         }
 
         return $login_form;

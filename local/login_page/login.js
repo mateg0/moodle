@@ -1,5 +1,6 @@
 const urlPostRequest = 'https://edu.bonch-ikt.ru/login/index.php';
 const urlAfterSuccessfulAuthorization = 'https://edu.bonch-ikt.ru/';
+const nameOfAuthError = 'auth-error';
 
 const loginButton = document.getElementsByClassName('btn-login')[0];
 const loginSpinner = document.getElementsByClassName('spinner-login')[0];
@@ -8,8 +9,14 @@ const loginWrap = document.getElementsByClassName('login_wrap')[0];
 loginButton.addEventListener('click', async (event) => {
     event.preventDefault();
 
-    const showAuthorizationError = () => {
+    const setAuthenticationErrorToSessionStorage = () => {
+        sessionStorage.setItem(nameOfAuthError, 'username');
+    };
 
+    const removeAuthenticationErrorFromSessionStorage = () => {
+        if(sessionStorage.getItem(nameOfAuthError)){
+            sessionStorage.removeItem(nameOfAuthError);
+        }
     };
 
     const setWaitingThemeLoginPage = () => {
@@ -17,12 +24,6 @@ loginButton.addEventListener('click', async (event) => {
         loginSpinner.classList.add('show-spinner');
         loginWrap.classList.add('brightless-login-wrap');
     };
-
-    const removeWaitingThemeLoginPage = () => {
-        loginButton.false = true;
-        loginSpinner.classList.remove('show-spinner');
-        loginWrap.classList.remove('brightless-login-wrap');
-    }
 
     setWaitingThemeLoginPage();
 
@@ -34,9 +35,10 @@ loginButton.addEventListener('click', async (event) => {
     const responseText = await response.text();
 
     if(responseText.includes('Личный кабинет')){
+        removeAuthenticationErrorFromSessionStorage();
         window.location.href = urlAfterSuccessfulAuthorization;
     } else {
-        removeWaitingThemeLoginPage();
-        showAuthorizationError();
+        setAuthenticationErrorToSessionStorage();
+        window.location.reload(false);
     }
 });
