@@ -2595,10 +2595,10 @@ function dayofweek($day, $month, $year) {
  *
  * @return string login url
  */
-function get_login_url() {
+function get_login_url($redirectParam = '') {
     global $CFG;
 
-    return "$CFG->wwwroot/#login_popup";
+    return "$CFG->wwwroot/?redirect=$redirectParam#login_popup";
 }
 
 /**
@@ -2741,7 +2741,7 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
 
             // If we're still not logged in then go to the login page
             if (!isloggedin()) {
-                redirect(get_login_url());
+                redirect(get_login_url($SESSION->wantsurl));
                 exit; // Never reached.
             }
         }

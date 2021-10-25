@@ -34,9 +34,15 @@ loginButton.addEventListener('click', async (event) => {
         });
     const responseText = await response.text();
 
+    let redirectUrl = urlAfterSuccessfulAuthorization;
+
     if(responseText.includes('Личный кабинет')){
         removeAuthenticationErrorFromSessionStorage();
-        window.location.href = urlAfterSuccessfulAuthorization;
+        
+        if(window.location.search){
+            redirectUrl = window.location.search.split('redirect=')[1];
+        }
+        window.location.href = redirectUrl;
     } else {
         setAuthenticationErrorToSessionStorage();
         window.location.reload(false);
