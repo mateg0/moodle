@@ -3,8 +3,8 @@ const urlAfterSuccessfulAuthorization = 'https://edu.bonch-ikt.ru/';
 const nameOfAuthError = 'auth-error';
 
 const loginButton = document.getElementsByClassName('btn-login')[0];
-const loginSpinner = document.getElementsByClassName('spinner-login')[0];
-const loginWrap = document.getElementsByClassName('login_wrap')[0];
+const loginForm = document.getElementsByClassName('loginform')[0];
+const loginLogo = document.getElementsByClassName('potentialidps')[0].firstElementChild;
 
 loginButton.addEventListener('click', async (event) => {
     event.preventDefault();
@@ -21,8 +21,8 @@ loginButton.addEventListener('click', async (event) => {
 
     const setWaitingThemeLoginPage = () => {
         loginButton.disabled = true;
-        loginSpinner.classList.add('show-spinner');
-        loginWrap.classList.add('brightless-login-wrap');
+        loginForm.classList.add('brightless-login-form');
+        loginLogo.classList.add('logo-pulse');
     };
 
     setWaitingThemeLoginPage();
