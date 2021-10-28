@@ -367,6 +367,8 @@ if ($user->id == -1 or ($user->id != $USER->id)) {
     echo $OUTPUT->header();
     echo $OUTPUT->heading($streditmyprofile);
 }
+// Initialize password generation procedure.
+$PAGE->requires->js_call_amd('core_user/passwordgenerator', 'init');
 
 // Finally display THE form.
 $userform->display();

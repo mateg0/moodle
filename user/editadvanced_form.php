@@ -125,6 +125,10 @@ class user_editadvanced_form extends moodleform {
         $mform->setType('newpassword', core_user::get_property_type('password'));
         $mform->disabledIf('newpassword', 'createpassword', 'checked');
 
+	// Password generation button for new (or editing) user
+        $mform->addElement('button', 'generatepasswordbutton', get_string('generatepassword', 'auth'));
+        $mform->disabledIf('generatepasswordbutton', 'createpassword', 'checked');
+
         $mform->disabledIf('newpassword', 'auth', 'in', $cannotchangepass);
 
         // Check if the user has active external tokens.
