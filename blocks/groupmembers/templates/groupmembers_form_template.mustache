@@ -1,0 +1,38 @@
+<div class="cs-cource-select">
+    <div class="cs-cource-line current-line" id="cs-gmsc-select">
+        <div class="cs-data-section" id="cs-data-section">
+            <div class="cs-logo">
+
+            </div>
+            <div class="cs-cource-name">
+                Выберите курс
+            </div>
+        </div>
+        <div class="cs-cource-selector">
+            <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 2L10.5 11L19 2" stroke-width="3"/>
+            </svg>
+        </div>
+    </div>
+    <!-- list -->
+    <div class="cs-cource-list hide" id="cs-gmsc-list">
+        {{#courses}}
+        <div class="cs-cource-line">
+            <div class="cs-data-section">
+                <div class="cs-logo">
+
+                </div>
+                <div class="cs-cource-name" data-id="{{courseid}}">
+                    {{coursename}}
+                </div>
+            </div>
+            <div class="cs-cource-selector">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" version="1.1">
+                    <circle cx="5" cy="5" r="3"></circle>
+                </svg>
+            </div>
+        </div>
+        {{/courses}}
+    </div>
+    <!-- list -->
+</div>

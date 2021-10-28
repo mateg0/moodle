@@ -1,0 +1,38 @@
+<div class="cs-group-select">
+    <div class="cs-group-line current-line" id="cs-gms-select">
+        <div class="cs-data-section" id="cs-group-data-section">
+            <div class="cs-logo">
+
+            </div>
+            <div class="cs-group-name">
+                Выберите группу
+            </div>
+        </div>
+        <div class="cs-group-selector">
+            <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 2L10.5 11L19 2" stroke-width="3"/>
+            </svg>
+        </div>
+    </div>
+    <!-- list -->
+    <div class="cs-group-list hide" id="cs-gms-list">
+        {{#groups}}
+        <div class="cs-group-line">
+            <div class="cs-data-section">
+                <div class="cs-group-logo">
+                    <img src="{{groupimage}}" />
+                </div>
+                <div class="cs-group-name" data-id="{{groupid}}">
+                    {{groupname}}
+                </div>
+            </div>
+            <div class="cs-group-selector">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" version="1.1">
+                    <circle cx="5" cy="5" r="3"></circle>
+                </svg>
+            </div>
+        </div>
+        {{/groups}}
+    </div>
+    <!-- list -->
+</div>

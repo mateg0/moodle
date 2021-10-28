@@ -1,0 +1,452 @@
+/**********************************************/
+
+.gs-cs-form-holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gs-cs-group-select .hide,
+.gs-cs-cource-select .hide {
+    display: none;
+    transition: height .3s linear;
+}
+
+.gs-cs-group-select {
+    z-index: 5;
+}
+
+.gs-cs-cource-select {
+    z-index: 7;
+}
+
+.gs-cs-group-select .show,
+.gs-cs-cource-select .show {
+    display: block;
+    transition: height .3s linear;
+}
+
+.gs-cs-group-select,
+.gs-cs-cource-select {
+    margin-right: 20px;
+    max-width: 310px;
+    min-width: 280px;
+    min-height: 50px;
+    //margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.gs-cs-logo {
+    width: 35px;
+    height: inherit;
+}
+
+.gs-cs-group-line,
+.gs-cs-cource-line {
+    min-height: 47px;
+    flex-wrap: nowrap;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+    background: white;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.gs-cs-group-list,
+.gs-cs-cource-list {
+    width: 100%;
+    position: absolute;
+    max-height: 300px;
+    overflow: auto;
+    border: 1px solid lightgrey;
+    padding-bottom: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+.gs-cs-group-list .gs-cs-group-line:hover,
+.gs-cs-cource-list .gs-cs-cource-line:hover {
+    border-radius: 5px;
+    color: forestgreen;
+    border: 1px solid forestgreen;
+}
+
+.gs-cs-group-line.current-line .gs-cs-group-selector,
+.gs-cs-cource-line.current-line .gs-cs-cource-selector {
+    transition: height .3s linear;
+}
+
+.gs-cs-group-line.current-line.active,
+.gs-cs-cource-line.current-line.active {
+    /*border: 1px solid forestgreen;*/
+    background: #f0fff6;
+    border-radius: 5px;
+}
+
+.gs-cs-group-line.current-line.active .gs-cs-group-selector,
+.gs-cs-cource-line.current-line.active .gs-cs-cource-selector {
+    transform: rotate(-180deg);
+    transition: .3s;
+}
+
+.gs-cs-group-line.current-line.active .gs-cs-group-selector svg,
+.gs-cs-cource-line.current-line.active .gs-cs-cource-selector svg {
+    stroke: forestgreen;
+}
+
+.gs-cs-group-line.current-line,
+.gs-cs-cource-line.current-line {
+    border: 1px solid lightgrey;
+}
+
+.gs-cs-group-line.current-line:hover,
+.gs-cs-cource-line.current-line:hover {
+    border: 1px solid forestgreen;
+}
+
+.gs-cs-group-line.current-line:hover .gs-cs-group-selector svg,
+.gs-cs-cource-line.current-line:hover .gs-cs-cource-selector svg {
+    stroke: forestgreen;
+}
+
+.current-line svg,
+.current-line svg {
+    fill: none !important;
+}
+
+.gs-cs-group-line:hover svg,
+.gs-cs-cource-line:hover svg {
+    fill: forestgreen;
+}
+
+.gs-cs-group-logo,
+.gs-cs-cource-logo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.gs-cs-group-logo img,
+.gs-cs-cource-logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.gs-cs-group-name,
+.gs-cs-cource-name {
+    height: inherit;
+    max-width: 150px;
+    word-wrap: break-word;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-left: 15px;
+}
+
+.gs-cs-group-selector,
+.gs-cs-cource-selector {
+    margin-left: auto;
+}
+
+.gs-cs-group-selector svg,
+.gs-cs-cource-selector svg {
+    display: block;
+    stroke: #C0C7BA
+}
+
+.gs-cs-data-section {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+}
+
+.gs-cs-division-line {
+    margin-top: 20px;
+    margin-left: 30px;
+    height: 1px;
+    background: #bfbfbf;
+}
+
+.gs-cs-form-header {
+    max-width: 700px;
+    margin: 0 auto;
+}
+/******************************/
+.group-stats .gst-color-well{
+    background: #accca6;
+}
+.group-stats .gst-color-good{
+    background: #edeab0;
+}
+.group-stats .gst-color-okay{
+    background: #d7883f;
+}
+.group-stats .gst-color-bad{
+    background: #dca1a1;
+}
+
+.group-stats .active {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    color: #353535;
+}
+
+.blank-template-gst {
+}
+
+.group-stats.blank-template-gst .gst-line {
+    margin-top: 9px;
+}
+
+.group-stats.blank-template-gst .gst-line:hover {
+    cursor: default;
+    border: 1px solid transparent !important;
+}
+
+.group-stats.blank-template-gst .gst-tab.active {
+    cursor: default;
+    color: rgba(53, 53, 53, 0.2) !important;
+}
+
+.group-stats.blank-template-gst .gst-tab:hover {
+    cursor: default;
+    color: rgba(53, 53, 53, 0.2) !important;
+}
+
+.group-stats .blank {
+    width: 100%;
+    height: 100%;
+    background: darkgray !important;
+    border-radius: 5px;
+}
+
+.gst-line-bold .blank {
+    margin-top: 4px;
+}
+
+.gst-line .blank{
+
+}
+
+.gst-line .blank, .gst-line-bold .blank {
+    height: 15px;
+}
+
+.student-name .blank{
+    width: 85px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.group-stats .gst-tabs-contents.hide,
+.group-stats .student-list.hide {
+    display: none !important;
+}
+
+.group-stats .show
+{
+    display: flex;
+}
+
+.group-stats .student-list.show{
+    display: block;
+}
+
+.group-performance .gst-line.active,
+.group-attendance .gst-line.active{
+    font-size: 14px;
+    line-height: 14px;
+    border-radius: 5px;
+    outline: 1px solid #599A4E;
+    background: #599A4E;
+    color: white;
+}
+
+.diagram-sample-color{
+    margin-top: 2px;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.group-stats {
+    max-width: 700px;
+    margin: 0 auto;
+    min-height: 270px;
+    color: #353535;
+    width: 100%;
+    transition: .3s;
+}
+
+.gst-tabs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gst-tab {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: rgba(53, 53, 53, 0.2);
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.gst-tab:hover{
+    color: #599A4E;
+}
+
+.gst-tabs-contents {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gst-tab-content{}
+
+.gst-pie-diagram {
+    padding: 5px;
+    margin-top: 15px;
+    width: 255px;
+    height: 255px;
+    margin-right: 35px;
+}
+
+.group-performance,
+.group-attendance,
+.group-payment {
+    width: 40%;
+    min-width: 220px;
+    flex: auto;
+}
+
+.gst-line,
+.gst-line-bold {
+    min-width: 200px;
+    max-width: 220px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.gst-line-bold {
+    margin-top: 15px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.gst-line-bold .gst-line-value {
+    margin-top: 2px;
+    line-height: 21px;
+}
+
+.group-performance .gst-line:hover,
+.group-attendance .gst-line:hover {
+    border-radius: 5px;
+    border: 1px solid #599A4E;
+}
+
+.gst-line {
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 3px;
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.gst-line-text {}
+
+.gst-line-value {
+    padding-left: 10px;
+    justify-content: end;
+    flex: auto;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+.gst-students-list {
+    padding-top: 3px;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 440px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.gst-students-list a{
+    color: #353535;
+    text-decoration: none;
+}
+
+.gst-students-list a:hover{
+    color: #599A4E !important;
+}
+
+.gst-students-list a:hover .student-image{
+    border: 2px solid #599A4E;
+}
+
+.gst-student {
+    margin-right: 10px;
+    text-align: center;
+}
+
+.student-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 2px solid transparent;
+}
+
+.student-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.student-name {
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+@media(max-width: 510px){
+    .gst-pie-diagram{
+        margin: 0 auto;
+    }
+    .gst-line,
+    .gst-line-bold{
+        max-width: 300px;
+    }
+    .gst-students-list{
+        justify-content: space-between;
+    }
+    .gst-tab{
+        width: 100%;
+    }
+}

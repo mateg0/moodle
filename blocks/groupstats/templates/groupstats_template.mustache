@@ -1,0 +1,361 @@
+<div class="group-stats" id="group-stats">
+
+    <div class="gst-tabs">
+        <div class="gst-tab active" id="GroupPerformanceTab">
+            Успеваемость
+        </div>
+        <div class="gst-tab" id="GroupAttendanceTab">
+            Посещаемость
+        </div>
+        <div class="gst-tab" id="GroupPaymentTab">
+            Оплата
+        </div>
+    </div>
+
+    <div class="gst-tabs-contents show" id="group-performance">
+
+        <div class="gst-pie-diagram">
+            <canvas id="gst-pie-diagram-performance" width="100%" height="100%"></canvas>
+        </div>
+
+        <div class="group-performance">
+            <div class="gst-line-bold">
+                <div class="gst-line-text">
+                    Занятий пройдено
+                </div>
+                <div class="gst-line-value">
+                    12
+                </div>
+            </div>
+            <div class="gst-line active" id="well-students">
+                <div class="diagram-sample-color gst-color-well"></div>
+                <div class="gst-line-text">
+                    Отличники
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-wellstudentscount">{{wellstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div class="gst-line" id="good-students">
+                <div class="diagram-sample-color gst-color-good"></div>
+                <div class="gst-line-text">
+                    Хорошисты
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-goodstudentscount">{{goodstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div class="gst-line" id="okay-students">
+                <div class="diagram-sample-color gst-color-okay"></div>
+                <div class="gst-line-text">
+                    Успевающие
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-okaystudentscount">{{okaystudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div class="gst-line" id="bad-students">
+                <div class="diagram-sample-color gst-color-bad"></div>
+                <div class="gst-line-text">
+                    Неуспевающие
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-badstudentscount">{{badstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div id="well-students-list" class="student-list show">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Отличники
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#wellstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/wellstudents}}
+                </div>
+            </div>
+            <div id="good-students-list" class="student-list hide">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Хорошисты
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#goodstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/goodstudents}}
+                </div>
+            </div>
+            <div id="okay-students-list" class="student-list hide">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Успевающие
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#okaystudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/okaystudents}}
+                </div>
+            </div>
+            <div id="bad-students-list" class="student-list hide">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Неуспевающие
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#badstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/badstudents}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gst-tabs-contents hide" id="group-attendance">
+
+        <div class="gst-pie-diagram">
+            <canvas id="gst-pie-diagram-attendance" width="100%" height="100%"></canvas>
+        </div>
+
+        <div class="group-attendance">
+            <div class="gst-line-bold">
+                <div class="gst-line-text">
+                    Занятий пройдено
+                </div>
+                <div class="gst-line-value">
+                    12
+                </div>
+            </div>
+            <div class="gst-line active" id="well-attending-students">
+                <div class="diagram-sample-color gst-color-well"></div>
+                <div class="gst-line-text">
+                    Без прогулов
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-wellattendingstudentscount">{{wellattendingstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div class="gst-line" id="good-attending-students">
+                <div class="diagram-sample-color gst-color-good"></div>
+                <div class="gst-line-text">
+                    С 1-м прогулом
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-goodattendingstudentscount">{{goodattendingstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div class="gst-line" id="okay-attending-students">
+                <div class="diagram-sample-color gst-color-okay"></div>
+                <div class="gst-line-text">
+                    Успевающие
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-okayattendingstudentscount">{{okayattendingstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div class="gst-line" id="bad-attending-students">
+                <div class="diagram-sample-color gst-color-bad"></div>
+                <div class="gst-line-text">
+                    Не посещающие занятия
+                </div>
+                <div class="gst-line-value">
+                    <div id="gs-badattendingstudentscount">{{badattendingstudentscount}}</div>
+                    /
+                    <div>{{groupmemberscount}}</div>
+                </div>
+            </div>
+            <div id="well-attending-students-list" class="student-list show">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Без прогулов
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#wellattendingstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/wellattendingstudents}}
+                </div>
+            </div>
+            <div id="good-attending-students-list" class="student-list hide">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        С 1-м прогулом
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#goodattendingstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/goodattendingstudents}}
+                </div>
+            </div>
+            <div id="okay-attending-students-list" class="student-list hide">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Успевающие
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#okayattendingstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/okayattendingstudents}}
+                </div>
+            </div>
+            <div id="bad-attending-students-list" class="student-list hide">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Не посещающие занятия
+                    </div>
+                </div>
+                <div class="gst-students-list">
+                    {{#badattendingstudents}}
+                        <a href="{{userprofile}}">
+                            <div class="gst-student">
+                                <div class="student-image">
+                                    <img src="{{picturesrc}}"/>
+                                </div>
+                                <div class="student-name">
+                                    {{fullname}}
+                                </div>
+                            </div>
+                        </a>
+                    {{/badattendingstudents}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gst-tabs-contents hide" id="group-payment">
+        <div class="gst-pie-diagram">
+            <canvas id="gst-pie-diagram-payment" width="100%" height="100%"></canvas>
+        </div>
+        <div class="group-payment">
+            <div class="gst-line-bold">
+                <div class="diagram-sample-color gst-color-bad"></div>
+                <div class="gst-line-text">
+                    Не оплатили
+                </div>
+                <div class="gst-line-value" style="display: none;">
+                    <div id="gs-didntpaystudentscount">{{didntpaystudents}}</div>
+                </div>
+            </div>
+            <div class="gst-students-list">
+                {{#didntpaystudents}}
+                    <a href="{{userprofile}}">
+                        <div class="gst-student">
+                            <div class="student-image">
+                                <img src="{{picturesrc}}"/>
+                            </div>
+                            <div class="student-name">
+                                {{fullname}}
+                            </div>
+                        </div>
+                    </a>
+                {{/didntpaystudents}}
+            </div>
+            <div class="gst-line-bold">
+                <div class="diagram-sample-color gst-color-well"></div>
+                <div class="gst-line-text">
+                    Оплатили недавно
+                </div>
+                <div class="gst-line-value" style="display: none;">
+                    <div id="gs-paystudentscount">{{paystudents}}</div>
+                </div>
+            </div>
+            <div class="gst-students-list">
+                {{#paystudents}}
+                    <a href="{{userprofile}}">
+                        <div class="gst-student">
+                            <div class="student-image">
+                                <img src="{{picturesrc}}"/>
+                            </div>
+                            <div class="student-name">
+                                {{fullname}}
+                            </div>
+                        </div>
+                    </a>
+                {{/paystudents}}
+            </div>
+        </div>
+    </div>
+</div>
+
