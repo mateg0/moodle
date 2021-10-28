@@ -2598,7 +2598,13 @@ function dayofweek($day, $month, $year) {
 function get_login_url($redirectParam = '') {
     global $CFG;
 
-    return "$CFG->wwwroot/?redirect=$redirectParam#login_popup";
+    $redirectUrl = "$CFG->wwwroot/#login_popup";
+
+    if($redirectParam != '') {
+        $redirectUrl = "$CFG->wwwroot/?redirect=$redirectParam#login_popup";
+    }
+
+    return $redirectUrl;
 }
 
 /**
@@ -2693,7 +2699,7 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
             if ($setwantsurltome) {
                 $SESSION->wantsurl = qualified_me();
             }
-            redirect(get_login_url());
+            redirect(get_login_url($SESSION->wantsurl));
         }
     }
 
@@ -2702,7 +2708,7 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
         if ($autologinguest and !empty($CFG->guestloginbutton) and !empty($CFG->autologinguests)) {
             if (!$guest = get_complete_user_data('id', $CFG->siteguest)) {
                 // Misconfigured site guest, just redirect to login page.
-                redirect(get_login_url());
+                redirect(get_login_url($SESSION->wantsurl));
                 exit; // Never reached.
             }
             $lang = isset($SESSION->lang) ? $SESSION->lang : $CFG->lang;
