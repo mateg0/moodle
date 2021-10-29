@@ -10,6 +10,7 @@ use user_picture;
 
 class groupmembers implements renderable, templatable
 {
+    private $link;
     private $groupmembers;
     private $groupmemberscount;
     private $picturesrc;
@@ -20,6 +21,7 @@ class groupmembers implements renderable, templatable
     public function export_for_template(renderer_base $output){
         $imageurl = $output->image_url('alpha', 'block_groupmembers')->out();
         return [
+            'link' => $this->link,
             'alpha' => $imageurl,
             'students' => $this->students
         ];
@@ -27,6 +29,8 @@ class groupmembers implements renderable, templatable
 
     public function __construct($groupid)
     {
+        global $CFG;
+        $this->link = $CFG->wwwroot . '/group/members.php?group=' . $groupid;
         $this->groupmembers = groups_get_members($groupid);
         $this->groupmemberscount = count($this->groupmembers);
         $this->collect_data();

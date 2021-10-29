@@ -46,8 +46,8 @@ class block_groupstats extends block_base
             $renderer = $this->page->get_renderer('block_groupstats');
             $this->content->text .=$renderer->renderGroupStatsBlank($template);
 
-            $this->content->text .= '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                     <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>';
+            $this->content->text .= '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>' . '<br>' .
+                                    '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>';
 
             return $this->content;
     }

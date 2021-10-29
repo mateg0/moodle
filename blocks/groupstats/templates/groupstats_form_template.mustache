@@ -4,9 +4,17 @@
             <div class="gs-cs-logo">
 
             </div>
-            <div class="cs-cource-name">
-                Выберите курс
-            </div>
+            {{#lastcoursename}}
+                <div class="gs-cs-cource-name" data-id="{{lastcourseid}}">
+                    {{lastcoursename}}
+                </div>
+            {{/lastcoursename}}
+            {{^lastcoursename}}
+                <div class="cs-cource-name">
+                    Выберите курс
+                </div>
+                <div class="gs-cs-checker"></div>
+            {{/lastcoursename}}
         </div>
         <div class="gs-cs-cource-selector">
             <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,6 +24,14 @@
     </div>
     <!-- list -->
     <div class="gs-cs-cource-list hide" id="gs-cs-gmsc-list">
+        {{#searchcource}}
+            <div class="gs-cource-search-line">
+                <input type="search" placeholder="Найти курс" class="non-click" id="gs-cource-search">
+            </div>
+        {{/searchcource}}
+        {{^searchcource}}
+            <div class="gs-nodata">Нет доступных курсов</div>
+        {{/searchcource}}
         {{#courses}}
         <div class="gs-cs-cource-line">
             <div class="gs-cs-data-section">

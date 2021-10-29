@@ -1,4 +1,17 @@
 <div class="cource-group-members">
+    <!--div class="cs-division-line"></div>
+    <div class="cgm-filter-selector">
+        <div class="cgm-filter-selector-line">
+            <div class="cgm-filter-selector-line-text">
+                по успеваемости
+            </div>
+            <div class="cgm-filter-selector-line-svg">
+                <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7.5 8L14 0.999999" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </div-->
     <div class="cgm-student-list">
         {{#students}}
             <a href="{{userprofile}}">
@@ -19,5 +32,28 @@
                 </div>
             </a>
         {{/students}}
+    </div>
+    <div class="gm-block-add-user">
+        <a href="{{link}}">
+            <div class="gm-bau-button-add" id="block-add-user">
+                <div class="gm-bau-plus-image">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                         y="0px"
+                         width="512px" height="512px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
+                         xml:space="preserve">
+	                <g>
+		                <polygon class="gm-add-user-plus"
+                                 points="272,128 240,128 240,240 128,240 128,272 240,272 240,384 272,384 272,272 384,272 384,240 272,240 		"/>
+                        <path class="gm-add-user-plus" d="M256,0C114.609,0,0,114.609,0,256c0,141.391,114.609,256,256,256c141.391,0,256-114.609,256-256
+			                C512,114.609,397.391,0,256,0z M256,472c-119.297,0-216-96.703-216-216S136.703,40,256,40s216,96.703,216,216S375.297,472,256,472
+			            z"/>
+	                </g>
+                    </svg>
+                </div>
+                <div class="gm-bau-button-text">
+                    Добавить студента
+                </div>
+            </div>
+        </a>
     </div>
 </div>

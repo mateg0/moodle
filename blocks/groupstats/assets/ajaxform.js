@@ -10,10 +10,16 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
         const groupList = document.getElementById('gs-cs-gms-list');
         const courceListElements = document.getElementsByClassName('gs-cs-cource-line');
         const groupListElements = document.getElementsByClassName('gs-cs-group-line');
+        //const groupListElements = document.getElementsByClassName('gs-group-line');
+        const courseSearch = document.getElementById('gs-cource-search');
 
         // eslint-disable-next-line require-jsdoc
         function getDataSectionOf(element) {
             return element.getElementsByClassName('gs-cs-data-section')[0];
+        }
+
+        function getTextSectionOf(element, className) {
+            return element.getElementsByClassName('gs-cs-data-section')[0].getElementsByClassName(className)[0];
         }
 
         // eslint-disable-next-line require-jsdoc
@@ -36,11 +42,41 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
 
         // eslint-disable-next-line require-jsdoc
         function addEventCloseListOnDocumetClick(select, list) {
-            document.addEventListener('click', function () {
+            document.addEventListener('click', function (e) {
+                if(e.target.classList.contains('non-click')){
+                    return;
+                }
                 closeList(select, list);
             });
             document.addEventListener('focus', function () {
                 closeList(select, list);
+            });
+        }
+
+        function initSearch(search, listElements, className){
+            if(search == null) {
+                return;
+            }
+            search.addEventListener('input', function(e){
+                if(e.keyCode === 13){
+                    return false;
+                }
+                let clear = false;
+                let activeElement;
+                if (!search.value) {
+                    clear = true;
+                }
+                for (let i = 0; i < listElements.length; i++) {
+                    activeElement = getTextSectionOf(listElements[i], className);
+                    if (!clear && !activeElement.innerText.toLowerCase().includes(search.value.toLowerCase())) {
+                        if (listElements[i].classList.contains('current-line')){
+                            continue;
+                        }
+                        listElements[i].style.display = 'none';
+                        continue;
+                    }
+                    listElements[i].style = '';
+                }
             });
         }
 
@@ -72,7 +108,11 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
         }
 
         initList(courceSelect, courceList, courceListElements, activeCourseElement);
+        initSearch(courseSearch, courceListElements, 'gs-cs-cource-name');
         initList(groupSelect, groupList, groupListElements, activeGroupElement);
+
+        const currentLine = document.getElementById('gs-cs-gmsc-select');
+        let autochange = false;
 
         $('#gs-cs-gmsc-select').on('change', function() {
             $('#gs-block-groupstats-holder').html('');
@@ -90,10 +130,13 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
                   $('#gs-cs-groups-holder').html('');
                   $('#gs-cs-groups-holder').append(response);
 
-                  let newGroupSelect = document.getElementById('gs-cs-gms-select');
-                  let newGroupList = document.getElementById('gs-cs-gms-list');
-                  let newGroupListElements = document.getElementsByClassName('gs-cs-group-line');
+                  const newGroupSelect = document.getElementById('gs-cs-gms-select');
+                  const newGroupList = document.getElementById('gs-cs-gms-list');
+                  const newGroupListElements = document.getElementsByClassName('gs-cs-group-line');
+                  const groupSearch = document.getElementById('gs-group-search');
+
                   initList(newGroupSelect, newGroupList, newGroupListElements, activeGroupElement);
+                  initSearch(groupSearch, newGroupListElements, 'gs-cs-group-name');
 
                   $('#gs-cs-gms-select').on('change', function() {
                       let selectedgroupline = document.getElementById('gs-cs-group-data-section').getElementsByClassName('gs-cs-group-name').item(0);
@@ -122,6 +165,7 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
                           let didntpaystudentscount = document.getElementById('gs-didntpaystudentscount').innerHTML;
 
                           let performanceChart = {
+                              plugins: [ChartDataLabels],
                               type: 'pie',
                               data: {
                                   labels: ['Хорошисты', 'Успевающие', 'Неуспевающие', 'Отличники'],
@@ -135,18 +179,67 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
                                       ],
                                       borderWidth: 1,
                                       hoverBorderWidth: 3,
-                                      hoverBorderColor: '#599A4E'
+                                      hoverBorderColor: '#599A4E',
                                   }]
                               },
                               options: {
                                   plugins: {
                                       legend: {
                                           display: false,
+                                      },
+                                      datalabels: {
+                                          formatter: function (value) {
+                                              var countAllStudents = +goodstudentscount + +okaystudentscount
+                                                  + +badstudentscount + +wellstudentscount;
+
+                                              return Math.round((value*100)/countAllStudents) + '%';
+                                          }
                                       }
                                   }
                               }
                           };
 
+                          /*gst-pie-diagram-performance*/
+
+                          /*var chart = am4core.create("gst-pie-diagram-performance", am4charts.PieChart);
+                          chart.data = [{
+                              "students": "Хорошисты",
+                              "count": goodstudentscount
+                          }, {
+                              "students": "Успевающие",
+                              "count": okaystudentscount
+                          }, {
+                              "students": "Неуспевающие",
+                              "count": badstudentscount
+                          }, {
+                              "students": "Отличники",
+                              "count": wellstudentscount
+                          }];
+                          var pieSeries = chart.series.push(new am4charts.PieSeries());
+                          pieSeries.dataFields.value = "count";
+                          pieSeries.dataFields.category = "students";
+                          pieSeries.ticks.template.disabled = true;
+                          pieSeries.alignLabels = false;
+                          pieSeries.labels.template.text = "{value.percent.formatNumber('#.0')}%";
+                          pieSeries.labels.template.radius = am4core.percent(-40);
+                          pieSeries.labels.template.adapter.add("radius", function(radius, target) {
+                              if (target.dataItem && (target.dataItem.values.value.percent < 10)) {
+                                  return 0;
+                              }
+                              return radius;
+                          });
+
+                          pieSeries.labels.template.adapter.add("fill", function(color, target) {
+                              if (target.dataItem && (target.dataItem.values.value.percent < 10)) {
+                                  return am4core.color("#000");
+                              }
+                              return color;
+                          });
+                          pieSeries.labels.template.fill = am4core.color("white");
+                          pieSeries.slices.template.stroke = am4core.color("#4a2abb");
+                          pieSeries.slices.template.strokeWidth = 2;
+                          pieSeries.slices.template.strokeOpacity = 1;
+                          */
                           let attendanceChart = {
                               type: 'pie',
                               data: {
@@ -218,6 +311,7 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
                           addTabListeners(groupTabsIds, groupTabsContentIds);
                           addListListeners(performanceListSwitchIds, performanceListIds, "performance");
                           addListListeners(attendanceListSwitchIds, attendanceListIds, "attendance");
+
                           new Chart(pieDiagramPerformance, performanceChart);
                           new Chart(pieDiagramAttendance, attendanceChart);
                           new Chart(pieDiagramPayment, paymentChart);
@@ -285,13 +379,29 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
                           console.log(err);
                       });
                   });
+                  if(autochange){
+                      if(newGroupListElements.length === 1){
+                          return;
+                      }
+                      autochange = false;
+                      let istring = document.getElementById('gs-cs-group-data-section');
+                      istring.innerHTML = getDataSectionOf(newGroupListElements[1]).innerHTML;
 
-                  return;
+                      //console.log(getDataSectionOf(newGroupListElements[1]).innerHTML);
+
+                      let event = new Event('change', {bubbles: true});
+                      newGroupSelect.dispatchEvent(event);
+                  }
               }).fail(function (err) {
                   console.log(err);
                   //notification.exception(new Error('Failed to load data'));
                   return;
               });
         });
+        if(getDataSectionOf(currentLine).getElementsByClassName('gs-cs-checker').length === 0) {
+            autochange = true;
+            let event = new Event('change', {bubbles: true});
+            courceSelect.dispatchEvent(event);
+        }
     });
 });

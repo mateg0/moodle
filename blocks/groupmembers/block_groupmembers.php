@@ -42,6 +42,9 @@ class block_groupmembers extends block_base
         $this->content->text = $mform->render();
         $this->content->text .= '<div id="block-groupmembers-holder"></div>';
 
+        $template = new \block_groupmembers\output\groupmembers_blank();
+        $renderer = $this->page->get_renderer('block_groupmembers');
+        $this->content->text .=$renderer->renderGroupMembersBlank($template);
         return $this->content;
     }
     private function console_log($data)

@@ -1,4 +1,31 @@
 <div class="cs-group-select">
+    <div class="selector-variant-holder disabled-mouse-events" id="gm-addgroup-button">
+        <div style="color: #353535 !important;">
+            Группа
+        </div>
+        <a href="{{addgroup}}">
+            <div class="cs-add-group">
+                <div class="cs-add-group-ico">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         x="0px"
+                         y="0px"
+                         width="512px" height="512px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
+                         xml:space="preserve">
+	                <g>
+		                <polygon class="gm-add-user-plus"
+                                 points="272,128 240,128 240,240 128,240 128,272 240,272 240,384 272,384 272,272 384,272 384,240 272,240 		"/>
+                        <path class="gm-add-user-plus" d="M256,0C114.609,0,0,114.609,0,256c0,141.391,114.609,256,256,256c141.391,0,256-114.609,256-256
+			                C512,114.609,397.391,0,256,0z M256,472c-119.297,0-216-96.703-216-216S136.703,40,256,40s216,96.703,216,216S375.297,472,256,472
+			            z"/>
+	                </g>
+                    </svg>
+                </div>
+                <div class="cs-add-group-text">
+                    Добавить группу
+                </div>
+            </div>
+        </a>
+    </div>
     <div class="cs-group-line current-line" id="cs-gms-select">
         <div class="cs-data-section" id="cs-group-data-section">
             <div class="cs-logo">
@@ -16,22 +43,30 @@
     </div>
     <!-- list -->
     <div class="cs-group-list hide" id="cs-gms-list">
-        {{#groups}}
-        <div class="cs-group-line">
-            <div class="cs-data-section">
-                <div class="cs-group-logo">
-                    <img src="{{groupimage}}" />
-                </div>
-                <div class="cs-group-name" data-id="{{groupid}}">
-                    {{groupname}}
-                </div>
-            </div>
-            <div class="cs-group-selector">
-                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" version="1.1">
-                    <circle cx="5" cy="5" r="3"></circle>
-                </svg>
-            </div>
+        {{#searchgroups}}
+        <div class="cs-group-search-line">
+            <input type="search" placeholder="Найти группу" class="non-click" id="cs-group-search">
         </div>
+        {{/searchgroups}}
+        {{^searchgroups}}
+            <div class="cs-nodata">Нет доступных групп</div>
+        {{/searchgroups}}
+        {{#groups}}
+            <div class="cs-group-line">
+                <div class="cs-data-section">
+                    <div class="cs-group-logo">
+                        <img src="{{groupimage}}"/>
+                    </div>
+                    <div class="cs-group-name" data-id="{{groupid}}">
+                        {{groupname}}
+                    </div>
+                </div>
+                <div class="cs-group-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" version="1.1">
+                        <circle cx="5" cy="5" r="3"></circle>
+                    </svg>
+                </div>
+            </div>
         {{/groups}}
     </div>
     <!-- list -->

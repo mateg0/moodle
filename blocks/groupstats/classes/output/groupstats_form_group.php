@@ -13,9 +13,14 @@ class groupstats_form_group implements renderable, templatable {
     private $groupimage;
     private $groupname;
     private $groups;
+    private $searchgroups = false;
 
     public function export_for_template(renderer_base $output){
+        if(count($this->groups) > 0) {
+            $this->searchgroups = true;
+        }
         return [
+            'searchgroups' =>  $this->searchgroups,
             'groups' => $this->groups
         ];
     }

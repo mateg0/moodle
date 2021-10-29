@@ -16,6 +16,12 @@ class courcegroupform extends moodleform
     {
         global $PAGE, $DB;
 
+        $lastcourseteacher = new \block_groupmembers\course\last_course_teacher();
+
+        $lastcourses = $lastcourseteacher->get_last_acessed_courses_from_log();
+        $enrolledcourses = enrol_get_my_courses();
+        $lastcourceid = $lastcourseteacher->get_last_course_teacher_enrolled($lastcourses, $enrolledcourses);
+
         $mform = $this->_form; // Don't forget the underscore!
         $mform->disable_form_change_checker();
         $mform->addElement('html', '<div class="gs-cs-form-header">');
@@ -25,7 +31,7 @@ class courcegroupform extends moodleform
         $mform->setType('groupid', PARAM_INT);
         $mform->setDefault('groupid', -1);
 
-        $template = new \block_groupstats\output\groupstats_form_course();
+        $template = new \block_groupstats\output\groupstats_form_course($lastcourceid);
         $renderer = $PAGE->get_renderer('block_groupstats');
         $courseselect = $renderer->renderGroupStatsFormCourse($template);
         $mform->addElement('html', $courseselect);

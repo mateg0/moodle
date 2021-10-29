@@ -12,22 +12,38 @@ class groupstats_form_course implements renderable, templatable {
     private $courseid;
     private $coursename;
     private $courses;
+    private $searchcource = true;
+    private $lastcourseid;
+    private $lastcoursename;
 
     public function export_for_template(renderer_base $output){
+        if(count($this->courses) > 0 ){
+            $this->searchcource = true;
+        }
         return [
-            'courses' => $this->courses
+            'searchcource' => $this->searchcource,
+            'courses' => $this->courses,
+            'lastcourseid' => $this->lastcourseid,
+            'lastcoursename' => $this->lastcoursename
         ];
     }
 
-    public function __construct()
+    public function __construct($lastcourseid)
     {
-        global $DB;
-        $courses = $DB->get_records('course');
+        $courses = enrol_get_my_courses();
 
         foreach ($courses as $course) {
             $this->courseid = $course->id;
             $this->coursename = $course->fullname;
             $this->set_courses_array($this->courses);
+        }
+        if ($lastcourseid > 0) {
+            $course = get_course($lastcourseid);
+            $this->lastcourseid = $lastcourseid;
+            $this->lastcoursename = $course->fullname;
+        } else {
+            $this->lastcourseid = false;
+            $this->lastcoursename = false;
         }
     }
 

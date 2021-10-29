@@ -13,15 +13,22 @@ class groupmembers_form_group implements renderable, templatable {
     private $groupimage;
     private $groupname;
     private $groups;
+    private $searchgroups = false;
+    private $addgroup;
 
     public function export_for_template(renderer_base $output){
+        if(count($this->groups) > 0) {
+            $this->searchgroups = true;
+        }
         return [
+            'searchgroups' =>  $this->searchgroups,
+            'addgroup' => $this->addgroup,
             'groups' => $this->groups
         ];
     }
 
-    public function __construct($courseid, $groups)
-    {
+    public function __construct($courseid, $groups) {
+        global $CFG;
         foreach ($groups as $group) {
             $this->groupid = $group->id;
             $this->groupname = $group->name;
@@ -29,6 +36,7 @@ class groupmembers_form_group implements renderable, templatable {
             //$this->console_log(get_group_picture_url($courseid, $group));
             $this->set_groups_array($this->groups);
         }
+        $this->addgroup = $CFG->wwwroot . '/group/group.php?courseid=' . $courseid;
     }
 
     private function set_groups_array(&$array)

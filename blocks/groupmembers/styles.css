@@ -93,10 +93,37 @@
 }
 
 .cgm-filter-selector {
+    width: 100%;
+}
+
+.cgm-filter-selector-line{
+    height: 30px;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: end;
+}
+.cgm-filter-selector-line-text{
+    font-size: .875rem;
+}
+
+.cgm-filter-selector-line-svg {
+    margin-left: 10px;
+    stroke: #C0C7BA;
+}
+
+.cgm-filter-selector-line:hover .cgm-filter-selector-line-svg{
+    stroke: forestgreen;
+}
+
+.cgm-filter-selector-line:hover {
+    color: forestgreen;
 }
 
 .cgm-student-list {
-    margin-top: 25px;
+    border-bottom: 1px solid #353535;
+    margin-bottom: 5px;
+    margin-top: 15px;
     max-height: 400px;
     overflow: auto;
 }
@@ -151,7 +178,116 @@
     font-size: 1.125rem;
     line-height: 1.125rem;
 }
+
+.cs-nodata{
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+/**********************277**********************/
+
+.cs-cource-search-line input,
+.cs-group-search-line input{
+    width: 100%;
+    height: 40px !important;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid forestgreen;
+    padding-left: 10px;
+}
+
+.cs-cource-search-line input:focus,
+.cs-group-search-line input:focus{
+    outline: 1px solid forestgreen !important;
+    border-bottom: 1px solid transparent;
+}
+
+.cgm-student-image .blank{
+    width: 40px;
+    height: 40px;
+    background: #a9a9a9;
+    border-radius: 50%;
+}
+
+.gm-bau-plus-image .blank{
+    width: 25px;
+    height: 25px;
+    background: #a9a9a9;
+    border-radius: 50%;
+}
+
+.gm-bau-button-text .blank,
+.cgm-student-name .blank{
+    width: 150px;
+    height: 15px;
+    background: #a9a9a9;
+    border-radius: 5px;
+}
+
+.disabled-mouse-events{
+    pointer-events: none;
+}
+
+.disabled-mouse-events svg{
+    fill: lightgrey;
+}
+
+.disabled-mouse-events a{
+    cursor: default;
+    color: lightgrey !important;
+    text-decoration: none;
+}
+
 /**********************************************/
+.selector-variant-holder{
+    height: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 1.125rem;
+    margin-bottom: 5px;
+}
+
+.selector-variant-holder a {
+    color: #353535;
+    text-decoration: none;
+    margin-left: auto;
+}
+
+.selector-variant-holder a:hover {
+    color: forestgreen;
+}
+
+.selector-variant-holder a:hover .cs-add-group-ico svg{
+    fill: forestgreen;
+}
+
+.cs-add-group{
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.cs-add-group-ico{
+    margin-right: 7px;
+    width: 18px;
+    height: 18px;
+}
+
+.cs-add-group-ico svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.cs-add-group-text{
+    height: 20px;
+    line-height: 16px;
+    font-size: 1rem;
+}
+
 .cs-group-select .hide,
 .cs-cource-select .hide {
     display: none;
@@ -188,7 +324,9 @@
 }
 
 .cs-group-line,
-.cs-cource-line {
+.cs-cource-line,
+.cs-cource-search-line,
+.cs-group-search-line{
     min-height: 47px;
     flex-wrap: nowrap;
     display: -webkit-flex;
@@ -316,7 +454,63 @@
 
 .cs-division-line {
     margin-top: 20px;
-    margin-left: 30px;
+    margin-left: 20px;
     height: 1px;
     background: #bfbfbf;
+}
+/***************************************************/
+.gm-block-add-user{
+    // width: 300px;
+    margin: 0 auto;
+    //padding-bottom: 15px;
+}
+
+.gm-block-add-user a{
+    text-decoration: none;
+    color: #353535;
+}
+
+.gm-bau-button-add{
+
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 220px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.gm-bau-plus-image{
+    width: 25px;
+    height: 25px;
+}
+
+.gm-bau-plus-image svg{
+    width: 100%;
+    height: 100%;
+}
+
+
+.gm-block-add-user .gm-add-user-plus{
+    fill: #353535;
+}
+
+.gm-block-add-user .gm-bau-button-text{
+    width: 200px;
+    color: #353535;
+    font-size: 16px;
+    margin-left: 25px;
+}
+
+.gm-bau-button-add:hover .gm-add-user-plus{
+    fill: forestgreen;
+}
+
+.gm-bau-button-add:hover .gm-bau-button-text{
+    color: forestgreen;
+}
+
+.gm-bau-button-add:hover {
+    border: 1px solid forestgreen;
+    border-radius: 5px;
 }

@@ -1,5 +1,9 @@
 /**********************************************/
-
+.gs-nodata {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
 .gs-cs-form-holder {
     display: flex;
     flex-wrap: wrap;
@@ -181,6 +185,23 @@
     margin: 0 auto;
 }
 /******************************/
+.gs-cource-search-line input,
+.gs-group-search-line input {
+    width: 100%;
+    height: 40px !important;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid forestgreen;
+    padding-left: 10px;
+}
+
+.gs-cource-search-line input:focus,
+.gs-group-search-line input:focus{
+    outline: 1px solid forestgreen !important;
+    border-bottom: 1px solid transparent;
+}
+
+/******************************/
 .group-stats .gst-color-well{
     background: #accca6;
 }
@@ -207,6 +228,10 @@
 
 .group-stats.blank-template-gst .gst-line {
     margin-top: 9px;
+}
+
+.group-stats.blank-template-gst .gst-line-bold{
+    color: rgba(53, 53, 53, 0.2) !important;
 }
 
 .group-stats.blank-template-gst .gst-line:hover {

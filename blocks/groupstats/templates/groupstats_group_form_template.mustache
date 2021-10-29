@@ -16,6 +16,14 @@
     </div>
     <!-- list -->
     <div class="gs-cs-group-list hide" id="gs-cs-gms-list">
+        {{#searchgroups}}
+            <div class="gs-group-search-line">
+                <input type="search" placeholder="Найти группу" class="non-click" id="gs-group-search">
+            </div>
+        {{/searchgroups}}
+        {{^searchgroups}}
+            <div class="gs-nodata">Нет доступных групп</div>
+        {{/searchgroups}}
         {{#groups}}
         <div class="gs-cs-group-line">
             <div class="gs-cs-data-section">

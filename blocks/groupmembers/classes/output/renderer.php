@@ -15,4 +15,8 @@ class renderer extends plugin_renderer_base {
     public function renderGroupMembersFormGroup(groupmembers_form_group $groupmembersformcourse){
         return $this->render_from_template('block_groupmembers/groupmembers_group_form_template', $groupmembersformcourse->export_for_template($this));
     }
+
+    public function renderGroupMembersBlank(groupmembers_blank $groupmembersformcourse){
+        return $this->render_from_template('block_groupmembers/groupmembers_blank_template', $groupmembersformcourse->export_for_template($this));
+    }
 }
