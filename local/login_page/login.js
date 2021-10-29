@@ -39,7 +39,7 @@ loginButton.addEventListener('click', async (event) => {
     if(responseText.includes('Личный кабинет')){
         removeAuthenticationErrorFromSessionStorage();
         
-        if(window.location.search){
+        if(window.location.search.includes('redirect')){
             redirectUrl = window.location.search.split('redirect=')[1];
         }
         window.location.href = redirectUrl;
