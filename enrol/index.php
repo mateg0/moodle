@@ -37,7 +37,7 @@ if (!isloggedin()) {
     }
     // do not use require_login here because we are usually coming from it,
     // it would also mess up the SESSION->wantsurl
-    redirect(get_login_url());
+    redirect(get_login_url($SESSION->wantsurl));
 }
 
 $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
@@ -109,7 +109,7 @@ foreach ($forms as $form) {
 
 if (!$forms) {
     if (isguestuser()) {
-        notice(get_string('noguestaccess', 'enrol'), get_login_url());
+        notice(get_string('noguestaccess', 'enrol'), get_login_url($SESSION->wantsurl));
     } else if ($returnurl) {
         notice(get_string('notenrollable', 'enrol'), $returnurl);
     } else {
