@@ -25,6 +25,14 @@ loginButton.addEventListener('click', async (event) => {
         loginLogo.classList.add('logo-pulse');
     };
 
+    const makePrettyHTTPSLink = (HTTPSink) => {
+        return HTTPSink
+            .replaceAll('%3A', ':')
+            .replaceAll('%2F', '/')
+            .replaceAll('%3F', '?')
+            .replaceAll('%3D', '=');
+    };
+
     setWaitingThemeLoginPage();
 
     const loginFormData = new FormData(document.getElementsByClassName('loginform')[0]);
@@ -40,7 +48,7 @@ loginButton.addEventListener('click', async (event) => {
         removeAuthenticationErrorFromSessionStorage();
         
         if(window.location.search.includes('redirect')){
-            redirectUrl = window.location.search.split('redirect=')[1];
+            redirectUrl = makePrettyHTTPSLink(window.location.search.split('redirect=')[1]);
         }
         window.location.href = redirectUrl;
     } else {
