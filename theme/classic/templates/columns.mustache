@@ -57,12 +57,15 @@
     {{>theme_classic/navbar}}
 
     <div id="page" class="container-fluid d-print-block">
-        {{{ output.full_header }}}
+        {{! output.full_header }}
+        <div class="card-only-buttons">
+            {{{ output.full_header }}}
+        </div>
 
         <div id="page-content" class="row {{#haspreblocks}} blocks-pre {{/haspreblocks}} {{#haspostblocks}} blocks-post {{/haspostblocks}} d-print-block">
             <div id="region-main-box" class="region-main">
-                <div class="mr-auto">
-                        {{{ output.full_header.contextheader }}}
+                <div class="card-only-course-name">
+                    {{{ output.full_header }}}
                 </div>
 
                 {{#hasregionmainsettingsmenu}}
