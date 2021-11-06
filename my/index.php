@@ -208,6 +208,13 @@ if ($veriflastcourse !== 0) {
         // Fix course format if it is no longer installed
         $course->format = course_get_format($course)->get_format();
 
+        //Course title wrapper
+        echo html_writer::start_tag('div', array('class'=>'course-title'));
+        echo html_writer::start_tag('h1');
+        echo $course->fullname;
+        echo html_writer::end_tag('h1');
+        echo html_writer::end_tag('div');
+
         // Course wrapper start.
         echo html_writer::start_tag('div', array('class'=>'course-content'));
 
