@@ -38,23 +38,24 @@
     }} data-context-id="{{defaulteventcontext}}"{{!
     }} data-month="{{date.mon}}"{{!
     }} data-year="{{date.year}}"{{!
+    }} data-day="{{date.day}}"{{!
     }} data-view="month"{{!
     }}>
     {{> core_calendar/month_navigation }}
     {{> core/overlay_loading}}
     <table id="month-detailed-{{uniqid}}" class="calendarmonth calendartable mb-0">
         <thead>
-            <tr>
-                {{# daynames }}
+        <tr>
+            {{# daynames }}
                 <th class="header text-xs-center">
                     <span class="sr-only">{{fullname}}</span>
                     <span aria-hidden="true">{{shortname}}</span>
                 </th>
-                {{/ daynames }}
-            </tr>
+            {{/ daynames }}
+        </tr>
         </thead>
         <tbody>
-    {{#weeks}}
+        {{#weeks}}
             <tr data-region="month-view-week">
                 {{#prepadding}}
                     <td class="dayblank">&nbsp;</td>
@@ -74,10 +75,11 @@
                         <div class="d-none d-md-block hidden-phone text-xs-center">
                             <span class="sr-only">{{daytitle}}</span>
                             {{#hasevents}}
-                                <a data-action="view-day-link" href="#" class="aalink day" aria-label="{{viewdaylinktitle}}"
-                                    data-year="{{date.year}}" data-month="{{date.mon}}" data-day="{{mday}}"
-                                    data-courseid="{{courseid}}" data-categoryid="{{categoryid}}"
-                                    data-timestamp="{{timestamp}}">{{mday}}</a>
+                                <a data-action="view-day-link" href="#" class="aalink day"
+                                   aria-label="{{viewdaylinktitle}}"
+                                   data-year="{{date.year}}" data-month="{{date.mon}}" data-day="{{mday}}"
+                                   data-courseid="{{courseid}}" data-categoryid="{{categoryid}}"
+                                   data-timestamp="{{timestamp}}">{{mday}}</a>
                             {{/hasevents}}
                             {{^hasevents}}
                                 <span aria-hidden="true">{{mday}}</span>
@@ -86,40 +88,37 @@
                                 <div data-region="day-content">
                                     <ul>
                                         {{#events}}
-                                        {{#underway}}
-                                            <li class="events-underway">[{{{name}}}]</li>
-                                        {{/underway}}
-                                        {{^underway}}
-                                            <li data-region="event-item"
-                                                dava-event-component="{{component}}"
-                                                data-event-eventtype="{{eventtype}}"
-                                                data-eventtype-{{normalisedeventtype}}="1"
-                                                {{#draggable}}
+                                            {{#underway}}
+                                                <li class="events-underway">[{{{name}}}]</li>
+                                            {{/underway}}
+                                            {{^underway}}
+                                                <li data-region="event-item"
+                                                    dava-event-component="{{component}}"
+                                                    data-event-eventtype="{{eventtype}}"
+                                                    data-eventtype-{{normalisedeventtype}}="1"
+                                                    {{#draggable}}
                                                     draggable="true"
                                                     data-drag-type="move"
-                                                    {{#mindaytimestamp}}
-                                                        data-min-day-timestamp="{{.}}"
-                                                    {{/mindaytimestamp}}
-                                                    {{#mindayerror}}
-                                                        data-min-day-error="{{.}}"
-                                                    {{/mindayerror}}
-                                                    {{#maxdaytimestamp}}
-                                                        data-max-day-timestamp="{{.}}"
-                                                    {{/maxdaytimestamp}}
-                                                    {{#maxdayerror}}
-                                                        data-max-day-error="{{.}}"
-                                                    {{/maxdayerror}}
-                                                {{/draggable}}>
+                                                        {{#mindaytimestamp}}
+                                                    data-min-day-timestamp="{{.}}"
+                                                        {{/mindaytimestamp}}
+                                                        {{#mindayerror}}
+                                                    data-min-day-error="{{.}}"
+                                                        {{/mindayerror}}
+                                                        {{#maxdaytimestamp}}
+                                                    data-max-day-timestamp="{{.}}"
+                                                        {{/maxdaytimestamp}}
+                                                        {{#maxdayerror}}
+                                                    data-max-day-error="{{.}}"
+                                                        {{/maxdayerror}}
+                                                    {{/draggable}}>
 
-                                                <a data-action="view-event" data-event-id="{{id}}" href="{{url}}" title="{{name}}">
-                                                    <span class="calendar-circle calendar_event_{{normalisedeventtype}}">
-                                                        &nbsp;
-                                                    </span>
-                                                    {{> core_calendar/event_icon}}
-                                                    <span class="eventname">{{{name}}}</span>
-                                                </a>
-                                            </li>
-                                        {{/underway}}
+                                                    <a data-action="view-event" data-event-id="{{id}}" href="{{url}}"
+                                                       title="{{name}}">
+                                                        <span class="eventname" style="{{highliht}}">{{{name}}}</span>
+                                                    </a>
+                                                </li>
+                                            {{/underway}}
                                         {{/events}}
                                     </ul>
                                 </div>
@@ -128,10 +127,11 @@
                         <div class="d-md-none hidden-desktop hidden-tablet">
                             <span class="sr-only">{{daytitle}}</span>
                             {{#hasevents}}
-                                <a data-action="view-day-link" href="#" class="day aalink" aria-label="{{viewdaylinktitle}}"
-                                    data-year="{{date.year}}" data-month="{{date.mon}}" data-day="{{mday}}"
-                                    data-courseid="{{courseid}}" data-categoryid="{{categoryid}}"
-                                    data-timestamp="{{timestamp}}">{{mday}}</a>
+                                <a data-action="view-day-link" href="#" class="day aalink"
+                                   aria-label="{{viewdaylinktitle}}"
+                                   data-year="{{date.year}}" data-month="{{date.mon}}" data-day="{{mday}}"
+                                   data-courseid="{{courseid}}" data-categoryid="{{categoryid}}"
+                                   data-timestamp="{{timestamp}}">{{mday}}</a>
                             {{/hasevents}}
                             {{^hasevents}}
                                 <span aria-hidden="true">{{mday}}</span>
@@ -143,49 +143,91 @@
                     <td class="dayblank">&nbsp;</td>
                 {{/postpadding}}
             </tr>
-    {{/weeks}}
+        {{/weeks}}
         </tbody>
     </table>
+    <div class="table-legend">
+        {{#weeks}}
+            {{#days}}
+                {{#hasevents}}
+                    {{#events}}
+                        {{^underway}}
+                            <div class="legend-group" style="display:none;">
+                                <div class="legend-group-color" style="background-color: {{groupbackground}}"></div>
+                                <div class="legend-group-name">{{currentgroupname}}</div>
+                            </div>
+                        {{/underway}}
+                    {{/events}}
+                {{/hasevents}}
+            {{/days}}
+        {{/weeks}}
+        <script>
+            const legendBlocks = document.getElementsByClassName('legend-group');
+            let wsBlocks = [];
+
+            function removeDups() {
+                for (let i = 0; i < legendBlocks.length; i++) {
+                    let txt = legendBlocks[i].getElementsByClassName('legend-group-name')[0].innerHTML.trim();
+
+                    if (!checkDups(txt)) {
+                        wsBlocks.push(txt);
+                        legendBlocks[i].style.display = "flex";
+                    }
+                }
+            }
+
+            function checkDups(data) {
+                for (let i = 0; i < wsBlocks.length; i++) {
+                    if (wsBlocks[i] === data) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            removeDups();
+        </script>
+    </div>
 </div>
 {{#js}}
-require([
+    require([
     'jquery',
     'core_calendar/month_view_drag_drop',
     'core_calendar/selectors',
     'core_calendar/events',
-], function(
+    ], function(
     $,
     DragDrop,
     CalendarSelectors,
     CalendarEvents
-) {
+    ) {
     var root = $('#month-detailed-{{uniqid}}');
     DragDrop.init(root);
 
     $('body').on(CalendarEvents.filterChanged, function(e, data) {
-        M.util.js_pending("month-detailed-{{uniqid}}-filterChanged");
-        // A filter value has been changed.
-        // Find all matching cells in the popover data, and hide them.
-        var target = $("#month-detailed-{{uniqid}}").find(CalendarSelectors.eventType[data.type]);
+    M.util.js_pending("month-detailed-{{uniqid}}-filterChanged");
+    // A filter value has been changed.
+    // Find all matching cells in the popover data, and hide them.
+    var target = $("#month-detailed-{{uniqid}}").find(CalendarSelectors.eventType[data.type]);
 
-        var transitionPromise = $.Deferred();
-        if (data.hidden) {
-            transitionPromise.then(function() {
-                return target.slideUp('fast').promise();
-            });
-        } else {
-            transitionPromise.then(function() {
-                return target.slideDown('fast').promise();
-            });
-        }
-
-        transitionPromise.then(function() {
-            M.util.js_complete("month-detailed-{{uniqid}}-filterChanged");
-
-            return;
-        });
-
-        transitionPromise.resolve();
+    var transitionPromise = $.Deferred();
+    if (data.hidden) {
+    transitionPromise.then(function() {
+    return target.slideUp('fast').promise();
     });
-});
+    } else {
+    transitionPromise.then(function() {
+    return target.slideDown('fast').promise();
+    });
+    }
+
+    transitionPromise.then(function() {
+    M.util.js_complete("month-detailed-{{uniqid}}-filterChanged");
+
+    return;
+    });
+
+    transitionPromise.resolve();
+    });
+    });
 {{/js}}
