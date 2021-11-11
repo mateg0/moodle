@@ -3405,7 +3405,8 @@ EOD;
             $potentialidps = array();
             foreach ($authsequence as $authname) {
                 $authplugin = get_auth_plugin($authname);
-                $potentialidps = array_merge($potentialidps, $authplugin->loginpage_idp_list($this->page->url->out(false)));
+                //$potentialidps = array_merge($potentialidps, $authplugin->loginpage_idp_list($this->page->url->out(false)));
+                $potentialidps = array_merge($potentialidps, $authplugin->loginpage_idp_list($SESSION->wantsurl));
             }
 
             if (!empty($potentialidps)) {
