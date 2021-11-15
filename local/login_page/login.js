@@ -1,5 +1,5 @@
-const urlPostRequest = 'https://edu.bonch-ikt.ru/login/index.php';
-const urlAfterSuccessfulAuthorization = 'https://edu.bonch-ikt.ru/';
+const urlAfterSuccessfulAuthorization = `${window.location.protocol}//${window.location.host}`;
+const urlPostRequest = `${urlAfterSuccessfulAuthorization}/login/index.php`;
 const nameOfAuthError = 'auth-error';
 
 const loginButton = document.getElementsByClassName('btn-login')[0];
