@@ -3409,10 +3409,11 @@ EOD;
                 $potentialidps = array_merge($potentialidps, $authplugin->loginpage_idp_list($SESSION->wantsurl));
             }
 
+            $login_form .= '<div class="potentialidps">';
+            $login_form .= '<img class="logo" src="' . $this->get_compact_logo_url(). '">';
+
             if (!empty($potentialidps)) {
-                $login_form .= '<div class="potentialidps">';
 //                $login_form .= '<h6>' . get_string('potentialidps', 'auth') . '</h6>';
-                $login_form .= '<img class="logo" src="' . $this->get_compact_logo_url(). '">';
                 $login_form .= '<div class="potentialidplist">';
                 foreach ($potentialidps as $idp) {
                     $login_form .= '<div class="potentialidp">';
@@ -3424,8 +3425,9 @@ EOD;
                     $login_form .= '</a></div>';
                 }
                 $login_form .= '</div>';
-                $login_form .= '</div>';
             }
+
+            $login_form .= '</div>';
 
             $login_form .= "\n" . '<form class="loginform" method="post" action="' . get_login_url() . '">';
 
