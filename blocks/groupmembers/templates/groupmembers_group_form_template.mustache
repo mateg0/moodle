@@ -3,9 +3,26 @@
         <div style="color: #353535 !important;">
             Группа
         </div>
+    </div>
+<div class="cs-group-selector-holder" style="display: flex; flex-wrap: nowrap; width: 100%">
+        <div class="cs-group-line current-line" id="cs-gms-select" style="flex: auto">
+            <div class="cs-data-section" id="cs-group-data-section">
+                <div class="cs-logo">
+
+                </div>
+                <div class="cs-group-name">
+                    Выберите группу
+                </div>
+            </div>
+            <div class="cs-group-selector">
+                <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L10.5 11L19 2" stroke-width="3"/>
+                </svg>
+            </div>
+        </div>
         <a href="{{addgroup}}">
-            <div class="cs-add-group">
-                <div class="cs-add-group-ico">
+            <div class="cs-add-group" style="justify-content: center; margin-left: 20px; border: 2px solid lightgray; padding: 0 15px 0 15px; border-radius: 5px">
+                <div class="cs-add-group-ico" style="margin: 0 auto !important;">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                          x="0px"
                          y="0px"
@@ -20,27 +37,10 @@
 	                </g>
                     </svg>
                 </div>
-                <div class="cs-add-group-text">
-                    Добавить группу
-                </div>
             </div>
         </a>
     </div>
-    <div class="cs-group-line current-line" id="cs-gms-select">
-        <div class="cs-data-section" id="cs-group-data-section">
-            <div class="cs-logo">
 
-            </div>
-            <div class="cs-group-name">
-                Выберите группу
-            </div>
-        </div>
-        <div class="cs-group-selector">
-            <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2L10.5 11L19 2" stroke-width="3"/>
-            </svg>
-        </div>
-    </div>
     <!-- list -->
     <div class="cs-group-list hide" id="cs-gms-list">
         {{#searchgroups}}
