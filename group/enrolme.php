@@ -28,7 +28,7 @@ require_once(__DIR__ . '/../config.php');
 require_once($CFG->dirroot.'/enrol/locallib.php'); // enrolment libs
 require_once($CFG->dirroot.'/group/lib.php'); // group libs
 
-// require_login();
+require_login(null, false);
 
 $groupid = required_param('id', PARAM_INT);
 $group = $DB->get_record('groups', array('id'=>$groupid), '*', MUST_EXIST);
@@ -53,19 +53,9 @@ if ($userid > 1) {
     $plugin->enrol_user($instance, $userid, $roleid, $timestart, 0, null, 0);
     // ADDING TO GROUP -->
     $result = groups_add_member($groupid, $userid);
-    // FINAL REDIRECT -->
-    $courseurl = new moodle_url('/course/view.php', array('id'=>$courseid));
-    redirect($courseurl);
-} else {
-    $url = new moodle_url('/group/enrolme.php', array('id'=>$groupid));
-    $site = get_site();
-    global $PAGE, $OUTPUT;
-    $PAGE->set_url('/group/enrolme.php?id='.$groupid);
-    $PAGE->set_pagelayout('base');
-    $PAGE->set_title("$site->fullname: Запись в группу");
-    $PAGE->set_heading($site->fullname);
-    echo $OUTPUT->header();
-    echo $OUTPUT->heading('Ошибка при записи в группу');
-    echo '<div>Вы не авторизованны. Пожалуйста, авторизуйтесь и перейдите по <a href='.$url.'>ссылке</a> еще раз.</div>';
-    echo $OUTPUT->footer();
 }
+
+// FINAL REDIRECT -->
+$courseurl = new moodle_url('/course/view.php', array('id'=>$courseid));
+redirect($courseurl);
+
