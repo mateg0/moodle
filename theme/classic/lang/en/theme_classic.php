@@ -37,6 +37,6 @@ $string['preset'] = 'Theme preset';
 $string['preset_desc'] = 'Pick a preset to broadly change the look of the theme.';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
-//$string['region-center-pre'] = 'Center top';
+$string['region-center-pre'] = 'Center top';
 $string['sitetitle'] = 'Site title';
 $string['privacy:metadata'] = 'The Classic theme does not store any personal data.';
