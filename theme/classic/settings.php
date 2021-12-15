@@ -103,4 +103,100 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     $settings->add($page);
+
+    // Section with site colour palette settings -->
+
+    $page = new admin_settingpage('theme_classic_colours', 'Colours');
+
+    $update_colours = function() {
+
+        $scss_path = __DIR__.'/test.scss';
+        $scss_mapper = array(
+            // 'scss_var_name' => 'colour_picker_name',
+            'Color1' => 'color1',
+            'Color2' => 'color2',
+            'Color3' => 'color3'
+        );
+
+        if (file_exists($scss_path)) {
+
+            global $DB;
+            $scss_var_definition_pattern = "/(\s*)(\\$)(\w+)(\s*)(:)(\s*)(\S.*\S)(\s*)(;)(\s*)/";
+
+            $scss_file_lines = file($scss_path);
+            $scss_file = fopen($scss_path, 'wt');
+            flock($scss_file, LOCK_EX);
+
+            try {
+
+                $scss_file_output = array();
+
+                foreach ($scss_file_lines as $line) {
+                    $matches = array();
+                    $match = preg_match($scss_var_definition_pattern, $line, $matches);
+                    if ($match) {
+                        $scss_var_name = $matches[3];
+                        if (array_key_exists($scss_var_name, $scss_mapper)) {
+                            $config_name = $scss_mapper[$scss_var_name];
+                            $record = $DB->get_record('config_plugins', array('plugin' => 'theme_classic', 'name' => $config_name));
+                            if ($record && !empty($record->value)) {
+                                $matches[7] = $record->value;
+                                $scss_file_output[] = implode("", array_slice($matches, 1));
+                                continue;
+                            }
+                        }
+                    }
+                    $scss_file_output[] = $line;
+                }
+
+                $scss_file_output = implode("", $scss_file_output);
+                fwrite($scss_file, $scss_file_output);
+
+            } catch (Throwable $e) {
+                $scss_file_output = implode("", $scss_file_lines);
+                fwrite($scss_file, $scss_file_output);
+            } finally {
+                flock($scss_file, LOCK_UN);
+                fclose($scss_file);
+            }
+
+            theme_reset_all_caches();
+
+        }
+
+    };
+
+    $colourpickers = array(
+        0 => array(
+            'name' => 'color1',
+            'title' => 'Color 1',
+            'description' => '',
+            'default' => ''
+        ),
+        1 => array(
+            'name' => 'color2',
+            'title' => 'Color 2',
+            'description' => '',
+            'default' => ''
+        ),
+        2 => array(
+            'name' => 'color3',
+            'title' => 'Color 3',
+            'description' => '',
+            'default' => ''
+        )
+    );
+
+    foreach ($colourpickers as $colourpicker) {
+        $name = 'theme_classic/'.$colourpicker['name'];
+        $title = $colourpicker['title'];
+        $description = $colourpicker['description'];
+        $default = $colourpicker['default'];
+        $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+        $setting->set_updatedcallback($update_colours);
+        $page->add($setting);
+    }
+
+    $settings->add($page);
+
 }
