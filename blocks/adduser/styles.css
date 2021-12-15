@@ -1,0 +1,53 @@
+.block-add-user{
+    margin: 0 auto;
+    padding-bottom: 15px;
+}
+
+.block-add-user a{
+    text-decoration: none;
+    color: #353535;
+}
+
+.bau-button-add{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 260px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.bau-plus-image{
+    width: 35px;
+    height: 35px;
+}
+
+.bau-plus-image svg{
+    width: 100%;
+    height: 100%;
+}
+
+
+.block-add-user .add-user-plus{
+    fill: #353535;
+}
+
+.block-add-user .bau-button-text{
+    width: 200px;
+    color: #353535;
+    font-size: 17px;
+    margin-left: 15px;
+}
+
+.bau-button-add:hover .add-user-plus{
+    fill: forestgreen;
+}
+
+.bau-button-add:hover .bau-button-text{
+    color: forestgreen;
+}
+
+.bau-button-add:hover {
+    border: 1px solid forestgreen;
+    border-radius: 5px;
+}
