@@ -179,6 +179,13 @@ if (has_capability('moodle/course:create', context_system::instance())) {
     echo $renderer->start_layout();
     echo html_writer::start_tag('div', array('class'=>'heightcontainer'));
     list($data, $template) = calendar_get_view($calendar, $view, true, false, null);
+
+    if($view == "day"){
+        $calendarday = new \core_calendar\output\calendarday($data);
+        $dayevents = $calendarday->getevents();
+        $data->events = $dayevents;
+    }
+
     echo $renderer->render_from_template($template, $data);
     echo html_writer::end_tag('div');
     echo $renderer->complete_layout();
@@ -210,9 +217,9 @@ if ($veriflastcourse !== 0) {
 
         //Course title wrapper
         echo html_writer::start_tag('div', array('class'=>'course-title'));
-        echo html_writer::start_tag('h1');
+        echo html_writer::start_tag('h4');
         echo $course->fullname;
-        echo html_writer::end_tag('h1');
+        echo html_writer::end_tag('h4');
         echo html_writer::end_tag('div');
 
         // Course wrapper start.

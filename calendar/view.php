@@ -144,6 +144,13 @@ echo html_writer::start_tag('div', array('class'=>'heightcontainer'));
 
 
 list($data, $template) = calendar_get_view($calendar, $view, true, false, $lookahead);
+
+if($view == "day"){
+    $calendarday = new \core_calendar\output\calendarday($data);
+    $dayevents = $calendarday->getevents();
+    $data->events = $dayevents;
+}
+
 echo $renderer->render_from_template($template, $data);
 
 echo html_writer::end_tag('div');
