@@ -110,18 +110,19 @@ if ($ADMIN->fulltree) {
 
     $update_colours = function() {
 
-        $scss_path = __DIR__.'/test.scss';
+        $scss_path = __DIR__.'/scss/custom.scss';
         $scss_mapper = array(
             // 'scss_var_name' => 'colour_picker_name',
-            'Color1' => 'color1',
-            'Color2' => 'color2',
-            'Color3' => 'color3'
+            'custom-main-bg-color' => 'main_color_background',
+            'custom-main-header-color' => 'main_color_navbar',
+            'custom-main-link-color' => 'main_color_links',
+            'custom-card-shadow-color' => 'main_color_card_shadow'
         );
 
         if (file_exists($scss_path)) {
 
             global $DB;
-            $scss_var_definition_pattern = "/(\s*)(\\$)(\w+)(\s*)(:)(\s*)(\S.*\S)(\s*)(;)(\s*)/";
+            $scss_var_definition_pattern = "/(\s*)(\\$)([\w-]+)(\s*)(:)(\s*)(\S.*\S)(\s*)(;)(\s*)/";
 
             $scss_file_lines = file($scss_path);
             $scss_file = fopen($scss_path, 'wt');
@@ -168,22 +169,28 @@ if ($ADMIN->fulltree) {
 
     $colourpickers = array(
         0 => array(
-            'name' => 'color1',
-            'title' => 'Color 1',
+            'name' => 'main_color_background',
+            'title' => 'Background color',
             'description' => '',
-            'default' => ''
+            'default' => '#F8FFF3'
         ),
         1 => array(
-            'name' => 'color2',
-            'title' => 'Color 2',
+            'name' => 'main_color_navbar',
+            'title' => 'Navigation bar color',
             'description' => '',
-            'default' => ''
+            'default' => '#C3E4AF'
         ),
         2 => array(
-            'name' => 'color3',
-            'title' => 'Color 3',
+            'name' => 'main_color_links',
+            'title' => 'Links color',
             'description' => '',
-            'default' => ''
+            'default' => '#222222'
+        ),
+        3 => array(
+            'name' => 'main_color_card_shadow',
+            'title' => 'Card shadow color',
+            'description' => '',
+            'default' => '#ECECEC'
         )
     );
 

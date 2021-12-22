@@ -47,7 +47,7 @@ function theme_classic_get_main_scss_content($theme) {
         $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/preset/default.scss');
     }
     $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/classic/post.scss');
-    $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/classic/custom.scss');
+    $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/custom.scss');
 
     return $scss;
 }

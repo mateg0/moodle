@@ -1,0 +1,207 @@
+/***************************************************/
+/* block groupmembers start*/
+
+.cource-group-members a {
+  text-decoration: none;
+  color: #353535;
+}
+.cource-group-members .cgm-student-selector svg {
+  fill: #C0C7BA;
+}
+
+.cgm-division-line {
+  margin-top: 20px;
+  margin-left: 30px;
+  height: 1px;
+  background: #bfbfbf;
+}
+.cgm-filter-selector-line-svg {
+  margin-left: 10px;
+  stroke: #C0C7BA;
+}
+
+
+.cgm-student-image .blank{
+  width: 40px;
+  height: 40px;
+  background: #a9a9a9;
+  border-radius: 50%;
+}
+
+.gm-bau-plus-image .blank{
+  width: 25px;
+  height: 25px;
+  background: #a9a9a9;
+  border-radius: 50%;
+}
+
+.gm-bau-button-text .blank,
+.cgm-student-name .blank{
+  width: 150px;
+  height: 15px;
+  background: #a9a9a9;
+  border-radius: 5px;
+}
+
+.selector-variant-holder a {
+  color: #353535;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+
+.cs-group-line.current-line.active,
+.cs-cource-line.current-line.active {
+  /*border: 1px solid forestgreen;*/
+  background: #f0fff6;
+  border-radius: 5px;
+}
+
+.cs-group-selector svg,
+.cs-cource-selector svg {
+  display: block;
+  stroke: #C0C7BA
+}
+
+.cs-division-line {
+  margin-top: 20px;
+  margin-left: 20px;
+  height: 1px;
+  background: #bfbfbf;
+}
+
+.cgm-student-list {
+  border-bottom: 1px solid #353535;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  max-height: 400px;
+  overflow: auto;
+}
+/*********************/
+
+
+.gm-block-add-user a{
+  text-decoration: none;
+  color: #353535;
+}
+
+
+.gm-block-add-user .gm-add-user-plus{
+  fill: #353535;
+}
+
+.gm-block-add-user .gm-bau-button-text{
+  width: 200px;
+  color: #353535;
+  font-size: 16px;
+  margin-left: 25px;
+}
+/* block groupmembers end*/
+/***************************************************/
+
+/***************************************************/
+/* block adduser start*/
+
+.block-add-user a{
+  text-decoration: none;
+  color: #353535;
+}
+
+.block-add-user .add-user-plus{
+  fill: #353535;
+}
+
+.block-add-user .bau-button-text{
+  width: 200px;
+  color: #353535;
+  font-size: 17px;
+  margin-left: 15px;
+}
+/* block adduser end*/
+/***************************************************/
+
+/***************************************************/
+/* block groupstats start*/
+.gs-cs-group-line.current-line.active,
+.gs-cs-cource-line.current-line.active {
+  /*border: 1px solid forestgreen;*/
+  background: #f0fff6;
+  border-radius: 5px;
+}
+.gs-cs-group-selector svg,
+.gs-cs-cource-selector svg {
+  display: block;
+  stroke: #C0C7BA
+}
+
+.gs-cs-division-line {
+  margin-top: 20px;
+  margin-left: 30px;
+  height: 1px;
+  background: #bfbfbf;
+}
+/******************************/
+.group-stats .gst-color-well{
+  background: #accca6;
+}
+.group-stats .gst-color-good{
+  background: #edeab0;
+}
+.group-stats .gst-color-okay{
+  background: #d7883f;
+}
+.group-stats .gst-color-bad{
+  background: #dca1a1;
+}
+
+.group-stats .active {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #353535;
+}
+
+.group-performance .gst-line.active,
+.group-attendance .gst-line.active{
+  font-size: 14px;
+  line-height: 14px;
+  border-radius: 5px;
+  outline: 1px solid #599A4E;
+  background: #599A4E;
+  color: white;
+}
+
+.group-stats {
+  max-width: 700px;
+  margin: 0 auto;
+  min-height: 270px;
+  color: #353535;
+  width: 100%;
+  transition: .3s;
+}
+.gst-tab:hover{
+  color: #599A4E;
+}
+
+.group-performance .gst-line:hover,
+.group-attendance .gst-line:hover {
+  border-radius: 5px;
+  border: 1px solid #599A4E;
+}
+
+.gst-students-list a{
+  color: #353535;
+  text-decoration: none;
+}
+
+.gst-students-list a:hover{
+  color: #599A4E !important;
+}
+
+.gst-students-list a:hover .student-image{
+  border: 2px solid #599A4E;
+}
+
+/* block groupstats end*/
+/***************************************************/
