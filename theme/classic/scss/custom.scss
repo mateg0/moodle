@@ -79,12 +79,6 @@ div.path-calendar{
   font-size: 14px;
 }
 
-.calendarmonth .eventname:hover{
-  transform: translateY(-12.5px);
-  box-shadow: 0px 0px 4px transparent;
-  position: absolute;
-}
-
 .block_calendar_month .dayblank{
   background: #fff !important;
 }
@@ -111,6 +105,51 @@ div.path-calendar{
   border-radius: 5px;
   width: 40px;
   margin-right: 9px;
+}
+
+div[data-region="day-content"] {
+  display: flex;
+  width: 60%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-left: auto;
+
+  .eventname {
+      margin: 2px;
+  }
+}
+
+td.day {
+    .cell-plus-add-event {
+         font-weight: 500;
+         border-radius: 50%;
+         -webkit-border-radius: 50%;
+         display: none;
+         width: 20px;
+         height: 20px;
+         -ms-align-items: center;
+         align-items: center;
+         justify-content: center;
+         background: #599A4E;
+         color: white;
+
+         margin-left: auto;
+         margin-top: 5%;
+    }
+
+    &:hover {
+         .cell-plus-add-event {
+              display: flex;
+
+              &:hover {
+                  background: white;
+                  color: #599A4E;
+                  border: 1px solid #599A4E;
+                  cursor: pointer;
+                  font-weight: bold;
+              }
+         }
+    }
 }
 
 /*calendar-end*/

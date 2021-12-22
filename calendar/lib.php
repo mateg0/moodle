@@ -3450,6 +3450,11 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
         return $param;
     }, [$calendar->users, $calendar->groups, $calendar->courses, $calendar->categories]);
 
+    $highlightcolors = ['#b1d4b5', '#d0b7ae', '#85a9b9', '#ACDDDA', '#D9ADAD', '#858AB9', '#BD9E81', '#85B997', '#D0AECF', '#b4b17c'];
+    $highlightColorsIterator = 0;
+
+    $legendGroups = [];
+
     if ($skipevents) {
         $events = [];
     } else {
@@ -3483,6 +3488,37 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
                 return true;
             }
         );
+
+        foreach ($events as $event) {
+            $groupOfEvent = $event->get_group();
+
+            if (!is_null($groupOfEvent)) {
+                $nameOfEventGroup = $groupOfEvent->get('name');
+                $idOfEventGroup = $groupOfEvent->get('id');
+
+                $isExist = false;
+                $legendIterator = -1;
+
+                foreach ($legendGroups as $group) {
+                    $legendIterator++;
+
+                    if ($group->idOfGroup == $idOfEventGroup) {
+                        $isExist = true;
+                        break;
+                    }
+                }
+
+                if (!$isExist) {
+                    $legendGroup = new StdClass();
+                    $legendGroup->nameOfGroup = $nameOfEventGroup;
+                    $legendGroup->idOfGroup = $idOfEventGroup;
+                    $legendGroup->color = $highlightcolors[$highlightColorsIterator];
+                    array_push($legendGroups, $legendGroup);
+
+                    $highlightColorsIterator++;
+                }
+            }
+        }
     }
 
     $related = [
@@ -3515,6 +3551,65 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
             $template = 'core_calendar/calendar_upcoming_mini';
         }
     }
+
+    $data->legendGroups = $legendGroups;
+
+    if ($data->viewingmonth) {
+        foreach ($data->weeks as $week) {
+            foreach ($week->days as $day) {
+                if ($day->hasevents) {
+                    $groupedEvents = [];
+
+                    $noGroupEvents = new StdClass();
+                    $noGroupEvents->color = '#fee7ae';
+                    $noGroupEvents->count = 0;
+                    $noGroupEvents->groupId = null;
+
+                    array_push($groupedEvents, $noGroupEvents);
+
+                    foreach ($day->events as $event) {
+                        $idOfGroupOfEvent = $event->groupid;
+
+                        if (!is_null($idOfGroupOfEvent)) {
+                            $isExist = false;
+
+                            foreach ($groupedEvents as $groupedEvent) {
+                                if(!is_null($groupedEvent->groupId) && $groupedEvent->groupId == $idOfGroupOfEvent) {
+                                    $groupedEvent->count++;
+                                    $isExist = true;
+                                    break;
+                                }
+                            }
+
+                            if (!$isExist) {
+                                $newGroupedEvent = new StdClass();
+                                $newGroupedEvent->count = 1;
+                                $newGroupedEvent->groupId = $idOfGroupOfEvent;
+
+                                foreach ($legendGroups as $legendGroup) {
+                                    if ($legendGroup->idOfGroup == $newGroupedEvent->groupId) {
+                                        $newGroupedEvent->color = $legendGroup->color;
+                                    }
+                                }
+
+                                array_push($groupedEvents, $newGroupedEvent);
+                            }
+                        } else {
+                            $groupedEvents[0]->count++;
+                        }
+                    }
+
+                    if ($groupedEvents[0]->count == 0) {
+                        array_shift($groupedEvents);
+                    }
+
+                    $day->groupedEvents = $groupedEvents;
+                }
+            }
+        }
+    }
+
+//    echo '<pre>' . var_export($data->weeks, true) . '</pre>';
 
     return [$data, $template];
 }

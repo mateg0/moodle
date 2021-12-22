@@ -103,28 +103,6 @@ class event_exporter_base extends exporter {
             $data->instance = $cm->get('id');
         }
 
-        $groups = self::get_groups_by_cource_id($data->courseid);
-        $highlihtcolor = '#fee7ae';
-        $style = 'background-color: ';
-
-        $highlightcolors = ['#b1d4b5', '#d0b7ae', '#85a9b9', '#ACDDDA', '#D9ADAD', '#858AB9', '#BD9E81', '#85B997', '#D0AECF', '#b4b17c'];
-        $data->highliht = $style . $highlihtcolor . ' !important';
-        $data->groupbackground = $highlihtcolor;
-        $data->currentgroupname = 'Cобытия';
-
-        $i = 0;
-        foreach ($groups as $group){
-
-                $data->groupbackground = $highlightcolors[$i];
-                $data->currentgroupname = 'Группа ' . $group->name;
-
-            if($group->id == $data->groupid){
-                $data->highliht = $style . $highlightcolors[$i] . ' !important';
-                break;
-            }
-            $i = $i + 1;
-        }
-
         parent::__construct($data, $related);
     }
 
@@ -135,9 +113,6 @@ class event_exporter_base extends exporter {
      */
     protected static function define_properties() {
         return [
-            'groupbackground' => ['type' => PARAM_TEXT],
-            'currentgroupname' => ['type' => PARAM_TEXT],
-            'highliht' => ['type' => PARAM_TEXT],
             'id' => ['type' => PARAM_INT],
             'name' => ['type' => PARAM_TEXT],
             'description' => [

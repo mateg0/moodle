@@ -86,41 +86,11 @@
                             {{/hasevents}}
                             {{#hasevents}}
                                 <div data-region="day-content">
-                                    <ul>
-                                        {{#events}}
-                                            {{#underway}}
-                                                <li class="events-underway">[{{{name}}}]</li>
-                                            {{/underway}}
-                                            {{^underway}}
-                                                <li data-region="event-item"
-                                                    dava-event-component="{{component}}"
-                                                    data-event-eventtype="{{eventtype}}"
-                                                    data-eventtype-{{normalisedeventtype}}="1"
-                                                    {{#draggable}}
-                                                    draggable="true"
-                                                    data-drag-type="move"
-                                                        {{#mindaytimestamp}}
-                                                    data-min-day-timestamp="{{.}}"
-                                                        {{/mindaytimestamp}}
-                                                        {{#mindayerror}}
-                                                    data-min-day-error="{{.}}"
-                                                        {{/mindayerror}}
-                                                        {{#maxdaytimestamp}}
-                                                    data-max-day-timestamp="{{.}}"
-                                                        {{/maxdaytimestamp}}
-                                                        {{#maxdayerror}}
-                                                    data-max-day-error="{{.}}"
-                                                        {{/maxdayerror}}
-                                                    {{/draggable}}>
-
-                                                    <a data-action="view-event" data-event-id="{{id}}" href="{{url}}"
-                                                       title="{{name}}">
-                                                        <span class="eventname" style="{{highliht}}">{{{name}}}</span>
-                                                    </a>
-                                                </li>
-                                            {{/underway}}
-                                        {{/events}}
-                                    </ul>
+                                        {{#groupedEvents}}
+                                                <a>
+                                                    <span class="eventname" style="background-color: {{color}};">{{{count}}}</span>
+                                                </a>
+                                        {{/groupedEvents}}
                                 </div>
                             {{/hasevents}}
                         </div>
@@ -137,6 +107,7 @@
                                 <span aria-hidden="true">{{mday}}</span>
                             {{/hasevents}}
                         </div>
+                        <div class="cell-plus-add-event">+</div>
                     </td>
                 {{/days}}
                 {{#postpadding}}
@@ -147,46 +118,12 @@
         </tbody>
     </table>
     <div class="table-legend">
-        {{#weeks}}
-            {{#days}}
-                {{#hasevents}}
-                    {{#events}}
-                        {{^underway}}
-                            <div class="legend-group" style="display:none;">
-                                <div class="legend-group-color" style="background-color: {{groupbackground}}"></div>
-                                <div class="legend-group-name">{{currentgroupname}}</div>
-                            </div>
-                        {{/underway}}
-                    {{/events}}
-                {{/hasevents}}
-            {{/days}}
-        {{/weeks}}
-        <script>
-            const legendBlocks = document.getElementsByClassName('legend-group');
-            let wsBlocks = [];
-
-            function removeDups() {
-                for (let i = 0; i < legendBlocks.length; i++) {
-                    let txt = legendBlocks[i].getElementsByClassName('legend-group-name')[0].innerHTML.trim();
-
-                    if (!checkDups(txt)) {
-                        wsBlocks.push(txt);
-                        legendBlocks[i].style.display = "flex";
-                    }
-                }
-            }
-
-            function checkDups(data) {
-                for (let i = 0; i < wsBlocks.length; i++) {
-                    if (wsBlocks[i] === data) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            removeDups();
-        </script>
+        {{#legendGroups}}
+            <div class="legend-group">
+                <div class="legend-group-color" style="background-color: {{color}};"></div>
+                <div class="legend-group-name">{{nameOfGroup}}</div>
+            </div>
+        {{/legendGroups}}
     </div>
 </div>
 {{#js}}
