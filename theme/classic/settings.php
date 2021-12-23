@@ -116,6 +116,10 @@ if ($ADMIN->fulltree) {
             'custom-main-bg-color' => 'main_color_background',
             'custom-main-header-color' => 'main_color_navbar',
             'custom-main-link-color' => 'main_color_links',
+            'custom-course-content-bg-color' => 'main_color_course_content_background',
+            'custom-course-content-border-color' => 'main_color_course_content_border',
+            'custom-block-bg-color' => 'main_color_block_background',
+            'custom-card-bg-color' => 'main_color_card_background',
             'custom-card-shadow-color' => 'main_color_card_shadow'
         );
 
@@ -187,8 +191,32 @@ if ($ADMIN->fulltree) {
             'default' => '#222222'
         ),
         3 => array(
+            'name' => 'main_color_course_content_background',
+            'title' => 'Course content background color',
+            'description' => '',
+            'default' => '#FFFFFF'
+        ),
+        4 => array(
+            'name' => 'main_color_course_content_border',
+            'title' => 'Course content borders color',
+            'description' => '',
+            'default' => '#FFFFFF'
+        ),
+        5 => array(
+            'name' => 'main_color_block_background',
+            'title' => 'Blocks background color',
+            'description' => '',
+            'default' => '#F8F9FA'
+        ),
+        6 => array(
+            'name' => 'main_color_card_background',
+            'title' => 'Cards background color',
+            'description' => '',
+            'default' => '#FFFFFF'
+        ),
+        7 => array(
             'name' => 'main_color_card_shadow',
-            'title' => 'Card shadow color',
+            'title' => 'Cards shadow color',
             'description' => '',
             'default' => '#ECECEC'
         )

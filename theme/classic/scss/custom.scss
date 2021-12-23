@@ -2,6 +2,10 @@ $display-page-header: block;
 $custom-main-bg-color: #F8FFF3;
 $custom-main-header-color: #C3E4AF;
 $custom-main-link-color: #222222;
+$custom-course-content-bg-color: #FFFFFF;
+$custom-course-content-border-color: #FFFFFF;
+$custom-block-bg-color: #F8F9FA;
+$custom-card-bg-color: #FFFFFF;
 $custom-card-shadow-color: #ECECEC;
 $navbar-height: 120px;
 $custom-drop-shadow: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
@@ -11,7 +15,7 @@ $font-rubik: Rubik, sans-serif;
 
 /*pre.scss*/
 /*calendar*/
-.calendarmonth.calendartable th.header{
+.calendarmonth.calendartable th.header {
   padding: 15px;
   border: none;
 }
@@ -384,12 +388,14 @@ td.day {
   background-color: $custom-main-bg-color !important;
 }
 
+/*
 @media (min-width: 1200px) {
   .col-xl-4 {
-    //flex: 0 0 33.3333333333%;
-    //max-width: 33.3333333333%;
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
   }
 }
+*/
 
 .col-xl-8 .candidate_revew_select ul {
   display: flex;
@@ -650,7 +656,7 @@ nav.navbar {
 }
 
 #block-region-content > section {
-  background-color: #f8fff3;
+  background-color: $custom-main-bg-color;
 }
 
 .columnleft {
@@ -682,11 +688,13 @@ nav.navbar {
 
 }
 
+/*
 .columnleft {
   section {
-    //background-color: $custom-main-bg-color !important;
+    background-color: $custom-main-bg-color !important;
   }
 }
+*/
 
 .messangers {
   display: flex;
@@ -748,8 +756,14 @@ nav.navbar {
   }
 }
 
+.block {
+  background: $custom-block-bg-color;
+}
 
-
+// Transparent background for custom HTML blocks on index page (Landing page)
+#page-site-index .block {
+  background: transparent;
+}
 
 section.block.card {
   border: none !important;
@@ -771,7 +785,7 @@ section.block.card {
 .columnleft, .columnright {
   section.block.card {
     //overflow: hidden;
-    background-color: #fff;
+    background-color: $custom-card-bg-color;
     border-radius: 12px;
     -webkit-box-shadow: 0px 3px 10px $custom-card-shadow-color;
     -moz-box-shadow: 0px 3px 10px $custom-card-shadow-color;
@@ -816,9 +830,9 @@ img.activityicon {
     li.section {
       margin-top: 0.625rem;
       padding-bottom: 0;
-      border: 1px solid #fff;
+      border: 1px solid $custom-course-content-border-color;
       border-radius: 1rem;
-      background-color: #fff;
+      background-color: $custom-course-content-bg-color;
       //overflow: hidden;
 
       > div.side.left {
@@ -1108,7 +1122,7 @@ form[action="modedit.php"] > #id_modstandardgrade #fitem_id_gradecat
 #page-mod-assign-mod #id_modstandardgrade #fitem_id_markingallocation,
   /* Убираем лишние параметры раздела "Параметры ответа" формы редактирования задания (модуль assign)  */
 #page-mod-assign-mod #id_submissionsettings #fitem_id_submissiondrafts,
-#page-mod-assign-mod #id_submissionsettings #fitem_id_requiresubmissionstatement,
+#page-mod-assign-mod #id_submissionsettings #fitem_id_requiresubmissionstatement
 {
   display: none;
 }
@@ -1120,7 +1134,7 @@ form[action="modedit.php"] > #id_modstandardgrade #fitem_id_gradecat
   {
     border: 0;
     max-height: 100px;
-    background-color: #f8fff3;
+    background-color: $custom-main-bg-color;
 
     label[for="id_grade_modgrade_type"],
     label[for="id_grade_modgrade_type"] + div
@@ -1158,7 +1172,7 @@ form[action="modedit.php"] > #id_modstandardgrade #fitem_id_gradecat
 .tab-pane .optionscontainer .option[data-modname^="mod_presentationfolder_"],
 .tab-pane .optionscontainer .option[data-modname^="mod_tablefolder_"],
 .tab-pane .optionscontainer .option[data-modname^="mod_textfolder_"],
-.tab-pane .optionscontainer .option[data-modname^="mod_videofolder_"],
+.tab-pane .optionscontainer .option[data-modname^="mod_videofolder_"]
 {
   order: 2;
 }
