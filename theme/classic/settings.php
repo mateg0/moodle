@@ -171,65 +171,75 @@ if ($ADMIN->fulltree) {
 
     };
 
-    $colourpickers = array(
-        0 => array(
-            'name' => 'main_color_background',
-            'title' => 'Background color',
+    $subsections = array(
+        array(
+            'name' => 'maincolors',
+            'title' => 'Main Colours',
             'description' => '',
-            'default' => '#F8FFF3'
-        ),
-        1 => array(
-            'name' => 'main_color_navbar',
-            'title' => 'Navigation bar color',
-            'description' => '',
-            'default' => '#C3E4AF'
-        ),
-        2 => array(
-            'name' => 'main_color_links',
-            'title' => 'Links color',
-            'description' => '',
-            'default' => '#222222'
-        ),
-        3 => array(
-            'name' => 'main_color_course_content_background',
-            'title' => 'Course content background color',
-            'description' => '',
-            'default' => '#FFFFFF'
-        ),
-        4 => array(
-            'name' => 'main_color_course_content_border',
-            'title' => 'Course content borders color',
-            'description' => '',
-            'default' => '#FFFFFF'
-        ),
-        5 => array(
-            'name' => 'main_color_block_background',
-            'title' => 'Blocks background color',
-            'description' => '',
-            'default' => '#F8F9FA'
-        ),
-        6 => array(
-            'name' => 'main_color_card_background',
-            'title' => 'Cards background color',
-            'description' => '',
-            'default' => '#FFFFFF'
-        ),
-        7 => array(
-            'name' => 'main_color_card_shadow',
-            'title' => 'Cards shadow color',
-            'description' => '',
-            'default' => '#ECECEC'
+            'colourpickers' => array(
+                array(
+                    'name' => 'main_color_background',
+                    'title' => 'Background color',
+                    'description' => '',
+                    'default' => '#F8FFF3'
+                ),
+                array(
+                    'name' => 'main_color_navbar',
+                    'title' => 'Navigation bar color',
+                    'description' => '',
+                    'default' => '#C3E4AF'
+                ),
+                array(
+                    'name' => 'main_color_links',
+                    'title' => 'Links color',
+                    'description' => '',
+                    'default' => '#222222'
+                ),
+                array(
+                    'name' => 'main_color_course_content_background',
+                    'title' => 'Course content background color',
+                    'description' => '',
+                    'default' => '#FFFFFF'
+                ),
+                array(
+                    'name' => 'main_color_course_content_border',
+                    'title' => 'Course content borders color',
+                    'description' => '',
+                    'default' => '#FFFFFF'
+                ),
+                array(
+                    'name' => 'main_color_block_background',
+                    'title' => 'Blocks background color',
+                    'description' => '',
+                    'default' => '#F8F9FA'
+                ),
+                array(
+                    'name' => 'main_color_card_background',
+                    'title' => 'Cards background color',
+                    'description' => '',
+                    'default' => '#FFFFFF'
+                ),
+                array(
+                    'name' => 'main_color_card_shadow',
+                    'title' => 'Cards shadow color',
+                    'description' => '',
+                    'default' => '#ECECEC'
+                )
+            )
         )
     );
 
-    foreach ($colourpickers as $colourpicker) {
-        $name = 'theme_classic/'.$colourpicker['name'];
-        $title = $colourpicker['title'];
-        $description = $colourpicker['description'];
-        $default = $colourpicker['default'];
-        $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-        $setting->set_updatedcallback($update_colours);
-        $page->add($setting);
+    foreach ($subsections as $subsection) {
+        $page->add(new admin_setting_heading($subsection['name'], $subsection['title'], $subsection['description']));
+        foreach ($subsection['colourpickers'] as $colourpicker) {
+            $name = 'theme_classic/'.$colourpicker['name'];
+            $title = $colourpicker['title'];
+            $description = $colourpicker['description'];
+            $default = $colourpicker['default'];
+            $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+            $setting->set_updatedcallback($update_colours);
+            $page->add($setting);
+        }
     }
 
     $settings->add($page);
