@@ -107,7 +107,8 @@
                                    aria-label="{{viewdaylinktitle}}"
                                    data-year="{{date.year}}" data-month="{{date.mon}}" data-day="{{mday}}"
                                    data-courseid="{{courseid}}" data-categoryid="{{categoryid}}"
-                                   data-timestamp="{{timestamp}}">{{mday}}</a>
+                                   data-timestamp="{{timestamp}}"
+                                   data-day="{{mday}}">{{mday}}</a>
                             {{/hasevents}}
                             {{^hasevents}}
                                 <span aria-hidden="true">{{mday}}</span>
@@ -125,7 +126,7 @@
     </table>
     <div class="table-legend">
         {{#legendGroups}}
-            <div class="legend-group">
+            <div data-group-id="{{idOfGroup}}" class="legend-group">
                 <div class="legend-group-color" style="background-color: {{color}};"></div>
                 <div class="legend-group-name">{{nameOfGroup}}</div>
             </div>

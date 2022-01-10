@@ -1,0 +1,258 @@
+<div class="schedule">
+    <div class="schedule-title">
+        Расписание дня
+    </div>
+
+    <!--
+    {{#events}}
+    <div class="schedule-line" style="border-color: #85A9B9; background: #EFFAFF;">
+        <div class="event-time" style="background: #85A9B9;">
+            <div class="event-time-start">{{timestart}}</div>
+            <div class="event-time-end">11:30</div>
+        </div>
+        <div class="schedule-event-content">
+            <div class="schedule-event-name" data-event-id="{{id}}">
+                {{name}}
+            </div>
+            <div class="schedule-event-description">
+                {{description}}
+            </div>
+        </div>
+        <div class="schedule-event-group" style="background: #85A9B9;">
+            {{groupname}}
+        </div>
+    </div>
+    {{/events}}
+-->
+    <div class="schedule-content">
+        <div class="schedule-line" style="border-color: #85A9B9; background: #EFFAFF;">
+            <div class="event-time" style="background: #85A9B9;">
+                <div class="event-time-start">11:00</div>
+                <div class="event-time-end">11:30</div>
+            </div>
+            <div class="schedule-event-content">
+                <div class="schedule-event-name">
+                    Лекция - Введение в нейросети
+                </div>
+                <div class="schedule-event-description">
+                    Тема:
+                </div>
+            </div>
+            <div class="schedule-event-group" style="background: #85A9B9;">
+                Альфа
+            </div>
+        </div>
+        <div class="schedule-line" style="border-color: #85A9B9; background: #EFFAFF;">
+            <div class="event-time" style="background: #85A9B9;">
+                <div class="event-time-start">13:00</div>
+                <div class="event-time-end">14:00</div>
+            </div>
+            <div class="schedule-event-content">
+                <div class="schedule-event-name">
+                    Лекция - Введение в нейросети
+                </div>
+                <div class="schedule-event-description">
+                    Тема:
+                </div>
+            </div>
+            <div class="schedule-event-group" style="background: #85A9B9;">
+                Альфа
+            </div>
+        </div>
+        <div class="schedule-line" style="border-color: #D0B7AE; background: #FDF4F0;">
+            <div class="event-time" style="background: #D0B7AE;">
+                <div class="event-time-start">14:00</div>
+                <div class="event-time-end">15:30</div>
+            </div>
+            <div class="schedule-event-content">
+                <div class="schedule-event-name">
+                    Лекция - Введение в нейросети
+                </div>
+                <div class="schedule-event-description">
+                    Тема:
+                </div>
+            </div>
+            <div class="schedule-event-group" style="background: #D0B7AE;">
+                Альфа
+            </div>
+        </div>
+        <div class="schedule-line" style="border-color: #B4B17C; background: #FEFBD6;">
+            <div class="event-time" style="background: #B4B17C;">
+                <div class="event-time-start">15:30</div>
+                <div class="event-time-end">16:30</div>
+            </div>
+            <div class="schedule-event-content">
+                <div class="schedule-event-name">
+                    Лекция - Введение в нейросети
+                </div>
+                <div class="schedule-event-description">
+                    Тема:
+                </div>
+            </div>
+            <div class="schedule-event-group" style="background: #B4B17C;">
+                Альфа
+            </div>
+        </div>
+        <div class="schedule-line" style="border-color: #B9D7B2; background: #E2FEDC;">
+            <div class="event-time" style="background: #B9D7B2;">
+                <div class="event-time-start">17:00</div>
+                <div class="event-time-end">18:30</div>
+            </div>
+            <div class="schedule-event-content">
+                <div class="schedule-event-name">
+                    Лекция - Введение в нейросети
+                </div>
+                <div class="schedule-event-description">
+                    Тема:
+                </div>
+            </div>
+            <div class="schedule-event-group" style="background: #B9D7B2;">
+                Альфа
+            </div>
+        </div>
+    </div>
+    <div class="add-schedule-event">
+        +
+    </div>
+</div>
+<!--style-->
+<style>
+    .schedule {
+        display: none;
+        position: absolute;
+        z-index: 6;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 340px;
+        /*may be different*/
+        padding: 20px;
+        background: #F9FFF5;
+        border: 1px solid #4E9A5F;
+        box-shadow: 0px 3px 10px #ECECEC;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+    }
+
+    .schedule-title {
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 126.5%;
+        letter-spacing: 0.1em;
+        color: #353535;
+        margin-bottom: 15px;
+    }
+
+    .schedule-content {
+        width: 100%;
+    //max-height: 200px;
+        /*may be different*/
+    }
+
+    .schedule-line {
+        overflow: hidden;
+        box-shadow: 0px 3px 10px #ECECEC;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+
+        border-width: 1px;
+        border-style: solid;
+
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        -ms-align-items: center;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        /*may be different*/
+        margin-bottom: 15px;
+    }
+
+    .event-time {
+        color: #353535;
+        flex: 0 0 40px;
+        height: 100%;
+    }
+
+    .event-time-start,
+    .event-time-end {
+        font-family: 'Rubik', sans-serif;
+        width: 100%;
+        height: 18px;
+        text-align: center;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .schedule-event-content {
+        padding-top: 5px;
+        padding-left: 12px;
+        max-width: 300px;
+        color: #353535;
+        font-family: 'Rubik', sans-serif;
+        flex: auto;
+    }
+
+    .schedule-event-name,
+    .schedule-event-description {
+        width: 100%;
+    }
+
+    .schedule-event-name {
+        max-width: 230px;
+        font-weight: bold;
+        font-style: normal;
+        font-size: 14px;
+        line-height: 16px;
+        //overflow: hidden;
+        //white-space: nowrap;
+        //text-overflow: ellipsis;
+    }
+
+    .schedule-event-description {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 14px;
+        height: 20px;
+        /*may be different*/
+    }
+
+    .schedule-event-group {
+        font-family: 'Rubik', sans-serif;
+        color: #353535;
+        flex: 0 0 16px;
+        //padding: 3px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 11px;
+        line-height: 20px;
+        padding: 10px 0 10px 0;
+        writing-mode: vertical-rl;
+    }
+
+    .add-schedule-event{
+        margin: 0 auto;
+        width: 25px;
+        height: 25px;
+        border: 2px solid #353535;
+        line-height: 20px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .add-schedule-event:hover{
+        cursor: pointer;
+        border: 2px solid forestgreen;
+        color: forestgreen;
+    }
+</style>
