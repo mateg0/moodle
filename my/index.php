@@ -169,6 +169,8 @@ if (core_userfeedback::should_display_reminder()) {
 }
 
 if (has_capability('moodle/course:create', context_system::instance())) {
+    $PAGE->requires->js('/local/calendarajax/assets/calendar_ajax.js');
+
     $time = time();
     $courseid = SITEID;
     $categoryid = null;
@@ -177,7 +179,7 @@ if (has_capability('moodle/course:create', context_system::instance())) {
     $renderer = $PAGE->get_renderer('core_calendar');
     echo html_writer::start_tag('div', array('class'=>'path-calendar'));
     echo $renderer->start_layout();
-    echo html_writer::start_tag('div', array('class'=>'heightcontainer'));
+    echo html_writer::start_tag('div', array('class'=>'heightcontainer', 'id'=>'calendar_ajax'));
     list($data, $template) = calendar_get_view($calendar, $view, true, false, null);
 
     if($view == "day"){

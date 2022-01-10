@@ -31,6 +31,12 @@
     {
     }
 }}
+
+<select name="" id="calendar-view-switch">
+    <option value="day">ДЕНЬ</option>
+    <option value="month">МЕСЯЦ</option>
+</select>
+
 <div{{!
     }} class="calendarwrapper"{{!
     }} data-context-id="{{defaulteventcontext}}"{{!
@@ -271,6 +277,15 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="table-legend">
+        {{#legendGroups}}
+            <div class="legend-group">
+                <div class="legend-group-color" style="background-color: {{color}};"></div>
+                <div class="legend-group-name">{{nameOfGroup}}</div>
+            </div>
+        {{/legendGroups}}
+        </div>
     </div>
     <!--style-->
     <style>
