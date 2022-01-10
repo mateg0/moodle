@@ -3455,6 +3455,12 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
 
     $legendGroups = [];
 
+    $defaultLegendGroup = new StdClass();
+    $defaultLegendGroup->nameOfGroup = 'Без группы';
+    $defaultLegendGroup->idOfGroup = -1;
+    $defaultLegendGroup->color = '#fee7ae';
+    array_push($legendGroups, $defaultLegendGroup);
+
     if ($skipevents) {
         $events = [];
     } else {
@@ -3608,8 +3614,6 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
             }
         }
     }
-
-//    echo '<pre>' . var_export($data->weeks, true) . '</pre>';
 
     return [$data, $template];
 }
