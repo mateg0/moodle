@@ -204,72 +204,63 @@ define([
         registerCalendarEventListeners(root, eventFormPromise);
 
         if (contextId) {
+            const addEventButtonsOnCell = document.querySelectorAll('div.cell-plus-add-event');
+
+            const getDiv = (className) => {
+                const newDiv = document.createElement('div');
+
+                newDiv.className = className || '';
+
+                return newDiv;
+            }
+
+            const getDivWithStyles = (className, styles) => {
+                const newDiv = getDiv(className);
+
+                for (let style in styles) {
+                    newDiv.style.setProperty(style, styles[style]);
+                }
+
+                return newDiv;
+            };
+
             const getScheduleLine = (groupColor) => {
-                const newScheduleLine = document.createElement('div');
-
-                newScheduleLine.className = 'schedule-line';
-                newScheduleLine.style.borderColor = groupColor;
-                newScheduleLine.style.background = '#EFFAFF';
-
-                return newScheduleLine;
+                return getDivWithStyles('schedule-line', {
+                    borderColor: groupColor,
+                    background: '#EFFAFF'
+                });
             };
 
             const getScheduleEventContent = () => {
-                const newScheduleEventContent = document.createElement('div');
-
-                newScheduleEventContent.className = 'schedule-event-content';
-
-                return newScheduleEventContent;
+                return getDiv('schedule-event-content');
             };
 
             const getScheduleEventName = () => {
-                const newScheduleEventName = document.createElement('div');
-
-                newScheduleEventName.className = 'schedule-event-name';
-
-                return newScheduleEventName;
+                return getDiv('schedule-event-name');
             };
 
             const getScheduleEventDescription = () => {
-                const newScheduleEventDescription = document.createElement('div');
-
-                newScheduleEventDescription.className = 'schedule-event-description';
-
-                return newScheduleEventDescription;
+                return getDiv('schedule-event-description');
             };
 
             const getScheduleEventGroup = (groupColor) => {
-                const newScheduleEventGroup = document.createElement('div');
-
-                newScheduleEventGroup.className = 'schedule-event-group';
-                newScheduleEventGroup.style.background = groupColor;
-
-                return newScheduleEventGroup;
+                return getDivWithStyles('schedule-event-group', {
+                    background: groupColor
+                });
             };
 
             const getEventTime = (groupColor) => {
-                const newEventTime = document.createElement('div');
-
-                newEventTime.className = 'event-time';
-                newEventTime.style.background = groupColor;
-
-                return newEventTime;
+                return getDivWithStyles('event-time', {
+                    background: groupColor
+                });
             };
 
             const getEventTimeStart = () => {
-                const newEventTimeStart = document.createElement('div');
-
-                newEventTimeStart.className = 'event-time-start';
-
-                return newEventTimeStart;
+                return getDiv('event-time-start');
             };
 
             const getEventTimeEnd = () => {
-                const newEventTimeEnd = document.createElement('div');
-
-                newEventTimeEnd.className = 'event-time-end';
-
-                return newEventTimeEnd;
+                return getDiv('event-time-end');
             };
 
             const getHoursAndMinutesByTimestamp = (timestamp) => {
@@ -289,97 +280,140 @@ define([
                 const scheduleQuery = '.schedule';
 
                 if (!event.target.closest(scheduleQuery)) {
-                    document.querySelector('.schedule').style.display = 'none';
+                    document.querySelector(scheduleQuery).style.display = 'none';
                     document.removeEventListener('click', hideScheduleEvent);
                 }
             };
 
+            const showAddEventForm = () => {
+                const addEventFormQuery = 'div.add-event';
+
+                document.querySelector(addEventFormQuery).style.display = 'block';
+
+                setTimeout(() => {
+                    document.addEventListener('click', hideAddEventForm);
+                }, 0);
+            }
+
+            const showAddEventFormFromDaySchedule = () => {
+                const scheduleQuery = '.schedule';
+
+                document.querySelector(scheduleQuery).style.display = 'none';
+
+                showAddEventForm();
+            };
+
+            const hideAddEventForm = (event) => {
+                const addEventFormQuery = 'div.add-event';
+
+                if (!event.target.closest(addEventFormQuery)) {
+                    document.querySelector(addEventFormQuery).style.display = 'none';
+                    document.removeEventListener('click', hideAddEventForm);
+                }
+            }
+
+            for (let addEventButtonOnCell of addEventButtonsOnCell) {
+                addEventButtonOnCell.addEventListener('click', showAddEventForm);
+            }
+
             // Bind click events to calendar days.
             root.on('click', SELECTORS.DAY, function (e) {
+                // const target = $(e.target);
+
+                const addEventFormQuery = 'div.add-event';
+
+                if (e.target.closest(addEventFormQuery)) {
+                    return;
+                }
+
                 const dayCell = e.target.closest('td');
-                const calendarWrapper = document.querySelector('div.calendarwrapper');
+                const calendarWrapper = document.querySelector(SELECTORS.CALENDAR_MONTH_WRAPPER);
 
                 const dayCellData = dayCell.dataset;
                 const calendarData = calendarWrapper.dataset;
 
-                CalendarRepository.getCalendarDayData(
-                    calendarData.year,
-                    calendarData.month,
-                    dayCellData.day,
-                    calendarData.courseid,
-                    0
-                )
-                .then(dayData => {
-                    const eventsOfDay = dayData.events;
+                if (calendarData.view && calendarData.view !== "day") {
+                    CalendarRepository.getCalendarDayData(
+                        calendarData.year,
+                        calendarData.month,
+                        dayCellData.day,
+                        calendarData.courseid,
+                        0
+                    )
+                        .then(dayData => {
+                            const eventsOfDay = dayData.events;
 
-                    if (eventsOfDay.length) {
-                        const schedule = document.querySelector('.schedule');
-                        const scheduleContent = schedule.querySelector('div.schedule-content');
+                            if (eventsOfDay.length) {
+                                const schedule = document.querySelector('.schedule');
+                                const scheduleContent = schedule.querySelector('div.schedule-content');
+                                const scheduleAddEventButton = schedule.querySelector('div.add-schedule-event');
 
-                        scheduleContent.innerHTML = '';
+                                scheduleContent.innerHTML = '';
 
-                        for (let event of eventsOfDay) {
-                            let groupColor = '#fee7ae';
+                                for (let event of eventsOfDay) {
+                                    let groupColor = '#fee7ae';
 
-                            if (event.groupid) {
-                                const groupId = event.groupid;
-                                const queryLegendGroups = '.legend-group';
+                                    if (event.groupid) {
+                                        const groupId = event.groupid;
+                                        const queryLegendGroups = '.legend-group';
 
-                                document.querySelectorAll(queryLegendGroups).forEach(group => {
-                                   if (groupId === +group.dataset.groupId) {
-                                       const legendGroupColorQuery = '.legend-group-color';
-                                       groupColor = group.querySelector(legendGroupColorQuery).style.backgroundColor;
-                                   }
-                                });
+                                        document.querySelectorAll(queryLegendGroups).forEach(group => {
+                                            if (groupId === +group.dataset.groupId) {
+                                                const legendGroupColorQuery = '.legend-group-color';
+                                                groupColor = group.querySelector(legendGroupColorQuery).style.backgroundColor;
+                                            }
+                                        });
+                                    }
+
+                                    const scheduleLine = getScheduleLine(groupColor);
+                                    const scheduleEventContent = getScheduleEventContent();
+                                    const scheduleEventName = getScheduleEventName();
+                                    const scheduleEventDescription = getScheduleEventDescription();
+                                    const scheduleEventGroup = getScheduleEventGroup(groupColor);
+
+                                    const eventTime = getEventTime(groupColor);
+                                    const eventTimeStart = getEventTimeStart();
+                                    const eventTimeEnd = getEventTimeEnd();
+
+                                    //To fix moodle's timestamp
+                                    const timestampStartEvent = event.timestart * 1000;
+                                    const timestampEndEvent = ( event.timestart + event.timeduration ) * 1000;
+
+                                    const timeStartEvent = getHoursAndMinutesByTimestamp(timestampStartEvent);
+                                    const timeEndEvent = getHoursAndMinutesByTimestamp(timestampEndEvent);
+
+                                    eventTimeStart.append(timeStartEvent);
+                                    eventTimeEnd.append(timeEndEvent);
+
+                                    eventTime.append(eventTimeStart, eventTimeEnd);
+
+                                    scheduleEventName.append(event.popupname);
+
+                                    scheduleEventContent.append(scheduleEventName);
+
+                                    scheduleLine.append(eventTime, scheduleEventContent);
+
+                                    if (event.groupname) {
+                                        scheduleEventGroup.append(event.groupname);
+
+                                        scheduleLine.append(scheduleEventGroup);
+                                    }
+
+                                    scheduleContent.append(scheduleLine);
+                                }
+
+                                schedule.style.display = 'block';
+
+                                document.addEventListener('click', hideScheduleEvent);
+                                scheduleAddEventButton.addEventListener('click', showAddEventFormFromDaySchedule);
                             }
+                        })
+                        .catch(error => {
+                            console.error('GET day data', error);
 
-                            const scheduleLine = getScheduleLine(groupColor);
-                            const scheduleEventContent = getScheduleEventContent();
-                            const scheduleEventName = getScheduleEventName();
-                            const scheduleEventDescription = getScheduleEventDescription();
-                            const scheduleEventGroup = getScheduleEventGroup(groupColor);
-
-                            const eventTime = getEventTime(groupColor);
-                            const eventTimeStart = getEventTimeStart();
-                            const eventTimeEnd = getEventTimeEnd();
-
-                            //To fix moodle's timestamp
-                            const timestampStartEvent = event.timestart * 1000;
-                            const timestampEndEvent = ( event.timestart + event.timeduration ) * 1000;
-
-                            const timeStartEvent = getHoursAndMinutesByTimestamp(timestampStartEvent);
-                            const timeEndEvent = getHoursAndMinutesByTimestamp(timestampEndEvent);
-
-                            eventTimeStart.append(timeStartEvent);
-                            eventTimeEnd.append(timeEndEvent);
-
-                            eventTime.append(eventTimeStart, eventTimeEnd);
-
-                            scheduleEventName.append(event.popupname);
-
-                            scheduleEventContent.append(scheduleEventName);
-
-                            scheduleLine.append(eventTime, scheduleEventContent);
-
-                            if (event.groupname) {
-                                scheduleEventGroup.append(event.groupname);
-
-                                scheduleLine.append(scheduleEventGroup);
-                            }
-
-                            scheduleContent.append(scheduleLine);
-                        }
-
-                        schedule.style.display = 'block';
-
-                        document.addEventListener('click', hideScheduleEvent);
-                    }
-                })
-                .catch(error => {
-                    console.error('GET day data', error);
-
-                    alert('GET day data ERROR. Please, report administrator')
-                });
+                            alert('GET day data ERROR. Please, report administrator')
+                        });
+                }
 
                 /*if (!target.is(SELECTORS.VIEW_DAY_LINK)) {
                     var startTime = $(this).attr('data-new-event-timestamp');

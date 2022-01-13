@@ -1,0 +1,410 @@
+<div class="add-event">
+        <div class="add-event-title">
+            <input type="text" placeholder="Введите название события">
+        </div>
+        <div class="event-types">
+            <div class="event-type">
+                <div class="event-type-image">
+                    <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.6667 8.33333C9.44167 8.33333 5 9.44167 5 11.6667V13.3333H18.3333V11.6667C18.3333 9.44167 13.8917 8.33333 11.6667 8.33333ZM4.16667 5V2.5H2.5V5H0V6.66667H2.5V9.16667H4.16667V6.66667H6.66667V5H4.16667ZM11.6667 6.66667C12.5507 6.66667 13.3986 6.31548 14.0237 5.69036C14.6488 5.06523 15 4.21739 15 3.33333C15 2.44928 14.6488 1.60143 14.0237 0.97631C13.3986 0.351189 12.5507 0 11.6667 0C10.7826 0 9.93476 0.351189 9.30964 0.97631C8.68452 1.60143 8.33333 2.44928 8.33333 3.33333C8.33333 4.21739 8.68452 5.06523 9.30964 5.69036C9.93476 6.31548 10.7826 6.66667 11.6667 6.66667Z" />
+                    </svg>
+                </div>
+                человек
+            </div>
+            <div class="event-type">
+                <div class="event-type-image">
+                    <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16667 0L0 5L9.16667 10L16.6667 5.90833V11.6667H18.3333V5L9.16667 0ZM3.33333 8.48333V11.8167L9.16667 15L15 11.8167V8.48333L9.16667 11.6667L3.33333 8.48333Z" />
+                    </svg>
+                </div>
+                курс
+            </div>
+            <div class="event-type">
+                <div class="event-type-image">
+                    <svg width="20" height="13" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 0C10.7735 0 11.5154 0.307291 12.0624 0.854272C12.6094 1.40125 12.9167 2.14312 12.9167 2.91667C12.9167 3.69021 12.6094 4.43208 12.0624 4.97906C11.5154 5.52604 10.7735 5.83333 10 5.83333C9.22645 5.83333 8.48459 5.52604 7.93761 4.97906C7.39062 4.43208 7.08333 3.69021 7.08333 2.91667C7.08333 2.14312 7.39062 1.40125 7.93761 0.854272C8.48459 0.307291 9.22645 0 10 0ZM4.16667 2.08333C4.63333 2.08333 5.06667 2.20833 5.44167 2.43333C5.31667 3.625 5.66667 4.80833 6.38333 5.73333C5.96667 6.53333 5.13333 7.08333 4.16667 7.08333C3.50363 7.08333 2.86774 6.81994 2.3989 6.3511C1.93006 5.88226 1.66667 5.24637 1.66667 4.58333C1.66667 3.92029 1.93006 3.28441 2.3989 2.81557C2.86774 2.34672 3.50363 2.08333 4.16667 2.08333ZM15.8333 2.08333C16.4964 2.08333 17.1323 2.34672 17.6011 2.81557C18.0699 3.28441 18.3333 3.92029 18.3333 4.58333C18.3333 5.24637 18.0699 5.88226 17.6011 6.3511C17.1323 6.81994 16.4964 7.08333 15.8333 7.08333C14.8667 7.08333 14.0333 6.53333 13.6167 5.73333C14.3333 4.80833 14.6833 3.625 14.5583 2.43333C14.9333 2.20833 15.3667 2.08333 15.8333 2.08333ZM4.58333 10.625C4.58333 8.9 7.00833 7.5 10 7.5C12.9917 7.5 15.4167 8.9 15.4167 10.625V12.0833H4.58333V10.625ZM0 12.0833V10.8333C0 9.675 1.575 8.7 3.70833 8.41667C3.21667 8.98333 2.91667 9.76667 2.91667 10.625V12.0833H0ZM20 12.0833H17.0833V10.625C17.0833 9.76667 16.7833 8.98333 16.2917 8.41667C18.425 8.7 20 9.675 20 10.8333V12.0833Z" />
+                    </svg>
+                </div>
+                группа
+            </div>
+            <div class="event-type">
+                <div class="event-type-image">
+                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12.7498 8.99984C12.7498 8.43317 12.6998 7.88317 12.6332 7.33317H15.4498C15.5832 7.8665 15.6665 8.42484 15.6665 8.99984C15.6665 9.30817 15.6415 9.60817 15.5998 9.89984C16.1748 9.98317 16.7082 10.1665 17.1998 10.4332C17.2832 9.9665 17.3332 9.4915 17.3332 8.99984C17.3332 4.4165 13.5832 0.666504 8.99984 0.666504C4.3915 0.666504 0.666504 4.4165 0.666504 8.99984C0.666504 13.5832 4.4165 17.3332 8.99984 17.3332C9.4915 17.3332 9.9665 17.2832 10.4332 17.1998C10.0498 16.4998 9.83317 15.6915 9.83317 14.8332C9.83317 14.5915 9.85817 14.3582 9.8915 14.1248C9.62484 14.6498 9.33317 15.1582 8.99984 15.6332C8.30817 14.6332 7.74984 13.5248 7.40817 12.3332H10.5082C11.0082 11.4665 11.7582 10.7665 12.6665 10.3332C12.7165 9.8915 12.7498 9.44984 12.7498 8.99984ZM8.99984 2.35817C9.6915 3.35817 10.2498 4.47484 10.5915 5.6665H7.40817C7.74984 4.47484 8.30817 3.35817 8.99984 2.35817ZM2.54984 10.6665C2.4165 10.1332 2.33317 9.57484 2.33317 8.99984C2.33317 8.42484 2.4165 7.8665 2.54984 7.33317H5.3665C5.29984 7.88317 5.24984 8.43317 5.24984 8.99984C5.24984 9.5665 5.29984 10.1165 5.3665 10.6665H2.54984ZM3.23317 12.3332H5.6665C5.95817 13.3748 6.33317 14.3748 6.83317 15.2998C5.30817 14.7748 4.02484 13.7082 3.23317 12.3332ZM5.6665 5.6665H3.23317C4.02484 4.28317 5.30817 3.2165 6.83317 2.69984C6.33317 3.62484 5.95817 4.62484 5.6665 5.6665ZM10.9498 10.6665H7.04984C6.9665 10.1165 6.9165 9.5665 6.9165 8.99984C6.9165 8.43317 6.9665 7.87484 7.04984 7.33317H10.9498C11.0248 7.87484 11.0832 8.43317 11.0832 8.99984C11.0832 9.5665 11.0248 10.1165 10.9498 10.6665ZM11.1582 2.69984C12.6915 3.22484 13.9665 4.28317 14.7665 5.6665H12.3082C12.0415 4.62484 11.6582 3.62484 11.1582 2.69984ZM18.1665 13.9998V15.6665H15.6665V18.1665H13.9998V15.6665H11.4998V13.9998H13.9998V11.4998H15.6665V13.9998H18.1665Z" />
+                    </svg>
+                </div>
+                сайт
+            </div>
+        </div>
+        <div class="event-prop-line time-date-dims">
+            <div class="event-icon time-date-dims-image">
+                <img src="./../img/calendar.png" alt="">
+            </div>
+            <div class="time-date-dims-holder">
+                <div class="time-date-dim-start">
+                    Вторник, 9 Ноя. 14:00-16:00
+                </div>
+                <div class="time-date-dim-separator" style="height: 14px; line-height: 14px;">
+                    <pre style="margin: 0; overflow: hidden;"> - </pre>
+                </div>
+                <div class="time-date-dim-end">
+                    Среда, 10 Ноя. 14:00-16:00
+                </div>
+                <div class="time-date-dim-reset">
+                    <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M4 1.92V0L1.5 2.4L4 4.8V2.88C4.79565 2.88 5.55871 3.18343 6.12132 3.72353C6.68393 4.26364 7 4.99618 7 5.76C7 6.52382 6.68393 7.25636 6.12132 7.79647C5.55871 8.33657 4.79565 8.64 4 8.64C3.20435 8.64 2.44129 8.33657 1.87868 7.79647C1.31607 7.25636 1 6.52382 1 5.76H0C0 6.77843 0.421427 7.75515 1.17157 8.47529C1.92172 9.19543 2.93913 9.6 4 9.6C5.06087 9.6 6.07828 9.19543 6.82843 8.47529C7.57857 7.75515 8 6.77843 8 5.76C8 4.74157 7.57857 3.76485 6.82843 3.04471C6.07828 2.32457 5.06087 1.92 4 1.92Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="event-prop-line event-description">
+            <div class="event-icon event-description-image">
+                <img src="./../img/desc.png" alt="">
+            </div>
+            <div class="event-description-holder">
+                <textarea name="name" rows="8" cols="80"></textarea>
+            </div>
+        </div>
+        <div class="event-prop-line event-participants">
+            <div class="event-icon event-participants-image">
+                <img src="./../img/parts.png" alt="">
+            </div>
+            <div class="event-participants-holder">
+                <div class="event-participant" style="background: #5787A4">
+                    Андрей Капитонов
+                </div>
+                <div class="event-participant" style="background: #D0B7AE">
+                    Иван Петров
+                </div>
+                <div class="event-participant" style="background: #B9D7B2">
+                    Антон Евсеев
+                </div>
+            </div>
+        </div>
+        <div class="event-prop-line aquired-time">
+            <div class="event-icon aquired-time-image">
+                <img src="./../img/clock.png" width="20" height="20" alt="">
+            </div>
+            <div class="aquired-time-holder">
+                <div class="aquired-time-unit">
+                    1 ак. час
+                </div>
+                <div class="aquired-time-unit">
+                    2 ак. час
+                </div>
+                <div class="aquired-time-unit active">
+                    3 ак. час
+                </div>
+                <div class="aquired-time-unit-add">
+                    +
+                </div>
+            </div>
+        </div>
+        <div class="event-prop-line event-place">
+            <div class="event-icon event-place-image">
+                <img src="./../img/location.png" alt="">
+            </div>
+            <div class="event-place-holder">
+                <div class="event-place-unit">
+                    305 ауд. Корп. 1
+                </div>
+                <div class="event-place-unit">
+                    305 ауд. Корп. 1
+                </div>
+            </div>
+        </div>
+        <div class="event-prop-line add-event-controls">
+            <div class="add-event-delete-button">
+                Удалить
+            </div>
+            <div class="add-event-add-button">
+                +
+            </div>
+        </div>
+<!--style-->
+    <style>
+        .add-event {
+            display: none;
+
+            position: absolute;
+            z-index: 6;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            max-height: 540px;
+            font-family: 'Rubik', sans-serif;
+            padding: 12px;
+            width: 470px;
+            background: #F9FFF5;
+            border: 1px solid #4E9A5F;
+            box-sizing: border-box;
+            border-radius: 12px;
+            -webkit-border-radius: 12px;
+        }
+
+        .add-event-title {
+            width: 80%;
+            margin-top: 12px;
+            margin-left: 60px;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 28px;
+            color: #C4C4C4;
+            border-bottom: 1px solid #BFBFBF;
+        }
+
+        .add-event-title input{
+            font-weight: 500;
+            font-size: 22px;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+        }
+
+        .add-event-title input:focus{
+            border: none;
+            outline: none;
+        }
+
+        .event-prop-line {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .event-icon {
+            text-align: center;
+            flex: 0 0 25px;
+            margin-right: 25px;
+        }
+
+        .event-types {
+            margin-left: 50px;
+            margin-top: 15px;
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .event-type {
+            width: 55px;
+            margin-right: 15px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .event-type path{
+            fill: #353535;
+        }
+
+        .event-type:hover {
+            cursor: pointer;
+        }
+
+        .event-type:hover path{
+            fill: white;
+        }
+
+        .event-type:hover .event-type-image {
+            background: #4E9A5F;
+        }
+
+        .event-type-image {
+            margin: 0 auto;
+            width: 40px;
+            height: 40px;
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            -ms-align-items: center;
+            align-items: center;
+            justify-content: center;
+            border: 0.5px solid #353535;
+            box-sizing: border-box;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+        }
+
+        .time-date-dims-holder {
+            -ms-align-items: center;
+            align-items: center;
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            -ms-align-items: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .time-date-dim-start,
+        .time-date-dim-end {
+            padding: 3px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 15px;
+            color: #F9FFF5;
+            background: #4E9A5F;
+            border-radius: 2px;
+            //padding: 0 3px;
+        }
+
+        .time-date-dim-reset {
+            padding: 5px;
+            text-align: center;
+            /*width: 18px;*/
+            /*height: 14px;*/
+            line-height: 14px;
+            border: 1px solid #353535;
+            box-sizing: border-box;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+            margin-left: 10px;
+        }
+
+        .time-date-dim-reset path {
+            fill: #353535;
+        }
+
+        .time-date-dim-reset:hover {
+            background: #353535;
+        }
+
+        .time-date-dim-reset:hover path {
+            fill: #F9FFF5;
+        }
+
+        .event-description-holder {
+            box-sizing: border-box;
+            width: calc(100% - 70px);
+        }
+
+        .event-description-holder textarea {
+            font-size: 16px;
+            background: #FFFFFF;
+            border: 1px solid #4E9A5F;
+            box-sizing: border-box;
+            box-shadow: 0px 1px 2px #DCDCDC;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            max-width: 100%;
+        }
+
+        .event-description-holder textarea:focus {
+            outline: 2px solid #4E9A5F;
+        }
+
+        .event-participants-holder,
+        .aquired-time-holder,
+        .event-place-holder {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            flex-wrap: wrap;
+            -ms-align-items: center;
+            align-items: center;
+        }
+
+        .event-participant {
+            font-size: 12px;
+        }
+
+        .event-participant,
+        .aquired-time-unit,
+        .event-place-unit {
+            margin-right: 8px;
+            line-height: 16px;
+            color: #353535;
+            padding: 3px;
+            width: fit-content;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+        }
+
+        .aquired-time-unit,
+        .event-place-unit {
+            font-size: 14px;
+            border: 1px solid #353535;
+            box-sizing: border-box;
+            filter: drop-shadow(0px 1px 2px #DCDCDC);
+        }
+
+        .aquired-time-unit-add {
+            padding: 3px 6px;
+            /*height: 16px;*/
+            /*width: 16px;*/
+            text-align: center;
+            font-size: 14px;
+            line-height: 14px;
+            border: 1px solid #353535;
+            box-sizing: border-box;
+            filter: drop-shadow(0px 1px 2px #DCDCDC);
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+        }
+
+        .aquired-time-unit:hover {
+            border: 1px solid #4E9A5F;
+            cursor: pointer;
+        }
+
+        .aquired-time-unit.active,
+        .aquired-time-unit-add:hover {
+            cursor: pointer;
+            border: 1px solid #4E9A5F;
+            background: #4E9A5F;
+            color: white;
+        }
+
+        .add-event-controls {
+            -ms-align-items: center;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .add-event-delete-button {
+            margin-right: 15px;
+            border: 1px solid #353535;
+            flex-shrink: 0;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+        }
+
+        .add-event-delete-button:hover,
+        .add-event-add-button:hover {
+            cursor: pointer;
+            background: #353535;
+            color: white;
+        }
+
+        .add-event-add-button {
+            text-align: center;
+            flex-shrink: 0;
+            color: white;
+            background: #4E9A5F;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+            width: 30px;
+            height: 30px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+    </style>
+
+    </div>
+    
