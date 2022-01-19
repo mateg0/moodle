@@ -31,17 +31,16 @@
     {
     }
 }}
-<div id="month-navigation-{{uniqid}}" class="controls">
+<div id="month-navigation-{{uniqid}}" class="controls detailed-controls">
     <div class="calendar-controls">
-        <a{{!
-            }} href="{{previousperiodlink}}"{{!
-            }} class="arrow_link previous"{{!
+        <div id="calendarlink-previousperiod" class="calendar-control-arrow"{{!
+            }} data-href="{{previousperiodlink}}"{{!
             }} title="{{#str}}monthprev, calendar{{/str}}"{{!
             }} data-year="{{previousperiod.year}}"{{!
             }} data-month="{{previousperiod.mon}}"{{!
             }} data-drop-zone="nav-link" {{!
         }}>
-            <span class="arrow">
+            <div class="arrow">
                 <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.7688 13.7067L11.906 10L15.7688 6.29326C16.0771 5.99741 16.0771 5.51774 15.7688
                          5.22189C15.4605 4.92604 14.9606 4.92604 14.6523 5.22189L10.2312 9.46431C9.92292 9.76017
@@ -53,23 +52,22 @@
                         10.2398 4.23123 10.5357L8.65228 14.7781C8.96059 15.074 9.46046 15.074 9.76877 14.7781C10.0771
                          14.4823 10.0771 14.0026 9.76877 13.7067Z"></path>
                 </svg>
-            </span>&nbsp;
-            <span class="arrow_text">{{previousperiodname}}</span>
-        </a>
+            </div>&nbsp;
+            <div class="arrow_text">{{previousperiodname}}</div>
+        </div>
         <span class="hide"> | </span>
         <h2 class="current">{{periodname}}</h2>
         <span class="hide"> | </span>
-        <a{{!
-            }} href="{{nextperiodlink}}"{{!
-            }} class="arrow_link next"{{!
+        <div id="calendarlink-nextperiod" class="calendar-control-arrow" {{!
+            }} data-href="{{nextperiodlink}}"{{!
             }} title="{{#str}}monthnext, calendar{{/str}}"{{!
             }} data-year="{{nextperiod.year}}"{{!
             }} data-month="{{nextperiod.mon}}"{{!
             }} data-drop-zone="nav-link" {{!
         }}>
-            <span class="arrow_text">{{nextperiodname}}</span>
+            <div class="arrow_text">{{nextperiodname}}</div>
             &nbsp;
-            <span class="arrow">
+            <div class="arrow">
                 <svg style="transform: rotate(180deg)" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.7688 13.7067L11.906 10L15.7688 6.29326C16.0771 5.99741 16.0771 5.51774 15.7688
                          5.22189C15.4605 4.92604 14.9606 4.92604 14.6523 5.22189L10.2312 9.46431C9.92292 9.76017
@@ -81,9 +79,56 @@
                         10.2398 4.23123 10.5357L8.65228 14.7781C8.96059 15.074 9.46046 15.074 9.76877 14.7781C10.0771
                          14.4823 10.0771 14.0026 9.76877 13.7067Z"></path>
                 </svg>
-            </span>
-        </a>
+            </div>
+        </div>
     </div>
+    <div class="calendar-view-switch-select">
+        <select name="" id="calendar-view-switch">
+            <option value="month" selected>МЕСЯЦ</option>
+            <option value="day">ДЕНЬ</option>
+        </select>
+    </div>
+    <style>
+        .detailed-controls .calendar-controls{
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .calendar-control-arrow {
+            display: flex;
+            color: #C0C7BA;
+        }
+
+        .calendar-control-arrow svg{
+            fill: #C0C7BA;
+        }
+
+        .calendar-control-arrow:hover{
+            color: forestgreen;
+            cursor: pointer;
+        }
+
+        .calendar-control-arrow:hover svg{
+            fill: forestgreen;
+        }
+
+        .calendar-control-arrow .arrow{
+            width: 20px;
+            height: 20px;
+        }
+
+        .arrow_text{
+            line-height: 20px;
+        }
+
+        .calendar-view-switch-select select{
+            width: 115px;
+            height: 30px;
+            font-size: 20px;
+            color: #353535;
+        }
+    </style>
 </div>
 {{#js}}
     require(['jquery', 'core_calendar/month_navigation_drag_drop'], function($, DragDrop) {

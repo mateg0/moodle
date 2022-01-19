@@ -31,34 +31,101 @@
     {
     }
 }}
-<div id="day-navigation-{{uniqid}}" class="controls clearfix">
+<div id="day-navigation-{{uniqid}}" class="controls clearfix detailed-controls">
     <div class="calendar-controls">
-        <a{{!
-            }} href="{{previousperiodlink}}"{{!
-            }} class="arrow_link previous"{{!
+        <div id="calendarlink-previousperiod" class="calendar-control-arrow"{{!
+            }} data-href="{{previousperiodlink}}"{{!
             }} title="{{#str}}dayprev, calendar{{/str}}"{{!
             }} data-year="{{previousperiod.year}}"{{!
             }} data-month="{{previousperiod.mon}}"{{!
             }} data-day="{{previousperiod.mday}}"{{!
         }}>
-            <span class="arrow">{{{larrow}}}</span>
-            &nbsp;
-            <span class="arrow_text">{{previousperiodname}}</span>
-        </a>
+            <div class="arrow">
+                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.7688 13.7067L11.906 10L15.7688 6.29326C16.0771 5.99741 16.0771 5.51774 15.7688
+                         5.22189C15.4605 4.92604 14.9606 4.92604 14.6523 5.22189L10.2312 9.46431C9.92292 9.76017
+                          9.92292 10.2398 10.2312 10.5357L14.6523 14.7781C14.9606 15.074 15.4605 15.074 15.7688
+                             14.7781C16.0771 14.4823 16.0771 14.0026 15.7688 13.7067Z">
+                    </path>
+                    <path d="M9.76877 13.7067L5.90596 10L9.76877 6.29326C10.0771 5.99741 10.0771 5.51774 9.76877
+                        5.22189C9.46046 4.92604 8.96059 4.92604 8.65228 5.22189L4.23123 9.46431C3.92292 9.76017 3.92292
+                        10.2398 4.23123 10.5357L8.65228 14.7781C8.96059 15.074 9.46046 15.074 9.76877 14.7781C10.0771
+                         14.4823 10.0771 14.0026 9.76877 13.7067Z"></path>
+                </svg>
+            </div>&nbsp;
+            <div class="arrow_text">{{previousperiodname}}</div>
+        </div>
         <span class="hide"> | </span>
         <h2 class="current">{{periodname}}</h2>
         <span class="hide"> | </span>
-        <a{{!
-            }} href="{{nextperiodlink}}"{{!
-            }} class="arrow_link next"{{!
+        <div id="calendarlink-nextperiod" class="calendar-control-arrow"{{!
+            }} data-href="{{nextperiodlink}}"{{!
             }} title="{{#str}}daynext, calendar{{/str}}"{{!
             }} data-year="{{nextperiod.year}}"{{!
             }} data-month="{{nextperiod.mon}}"{{!
             }} data-day="{{nextperiod.mday}}"{{!
         }}>
-            <span class="arrow_text">{{nextperiodname}}</span>
-            &nbsp;
-            <span class="arrow">{{{rarrow}}}</span>
-        </a>
+            <div class="arrow_text">{{nextperiodname}}</div>
+            <div class="arrow">
+                <svg style="transform: rotate(180deg)" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.7688 13.7067L11.906 10L15.7688 6.29326C16.0771 5.99741 16.0771 5.51774 15.7688
+                         5.22189C15.4605 4.92604 14.9606 4.92604 14.6523 5.22189L10.2312 9.46431C9.92292 9.76017
+                          9.92292 10.2398 10.2312 10.5357L14.6523 14.7781C14.9606 15.074 15.4605 15.074 15.7688
+                             14.7781C16.0771 14.4823 16.0771 14.0026 15.7688 13.7067Z">
+                    </path>
+                    <path d="M9.76877 13.7067L5.90596 10L9.76877 6.29326C10.0771 5.99741 10.0771 5.51774 9.76877
+                        5.22189C9.46046 4.92604 8.96059 4.92604 8.65228 5.22189L4.23123 9.46431C3.92292 9.76017 3.92292
+                        10.2398 4.23123 10.5357L8.65228 14.7781C8.96059 15.074 9.46046 15.074 9.76877 14.7781C10.0771
+                         14.4823 10.0771 14.0026 9.76877 13.7067Z"></path>
+                </svg>
+            </div>
+        </div>
     </div>
+    <div class="calendar-view-switch-select">
+        <select name="" id="calendar-view-switch">
+            <option value="day" selected>ДЕНЬ</option>
+            <option value="month">МЕСЯЦ</option>
+        </select>
+    </div>
+    <style>
+        .detailed-controls .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .calendar-control-arrow{
+            display: flex;
+            color: #C0C7BA;
+        }
+
+        .calendar-control-arrow svg{
+            fill: #C0C7BA
+        }
+
+        .calendar-control-arrow:hover {
+            color: forestgreen;
+            cursor: pointer;
+        }
+
+        .calendar-control-arrow:hover svg {
+            fill: forestgreen;
+        }
+
+        .calendar-control-arrow .arrow {
+            width: 20px;
+            height: 20px;
+        }
+
+        .arrow_text {
+            line-height: 20px;
+        }
+
+        .calendar-view-switch-select select {
+            width: 115px;
+            height: 30px;
+            font-size: 20px;
+            color: #353535;
+        }
+    </style>
 </div>

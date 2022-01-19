@@ -191,7 +191,7 @@ class calendar_event_exporter extends event_exporter_base {
         $related = parent::define_related();
         $related['daylink'] = \moodle_url::class;
         $related['type'] = '\core_calendar\type_base';
-        $related['today'] = 'int';
+        // $related['today'] = 'int';
         $related['moduleinstance'] = 'stdClass?';
 
         return $related;
