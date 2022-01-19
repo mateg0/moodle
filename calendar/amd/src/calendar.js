@@ -71,6 +71,9 @@ define([
         TODAY: '.today',
     };
 
+    const sessionStorageTimestampNewEventFieldName = 'newEventTimestamp';
+    const sessionStorageTypeNewEventFieldName = 'newEventType';
+
     /**
      * Handler for the drag and drop move event. Provides a loading indicator
      * while the request is sent to the server to update the event start date.
@@ -204,116 +207,28 @@ define([
         registerCalendarEventListeners(root, eventFormPromise);
 
         if (contextId) {
-            const addEventButtonsOnCell = document.querySelectorAll('div.cell-plus-add-event');
+            const addEventButtonsOnMonthCell = document.querySelectorAll('div.cell-plus-add-event');
+            const addEventButtonsOnDayCell = document.querySelectorAll('div.c-d-add-event');
+            const addEventButtonOnAddEventForm = document.querySelector('div.add-event-add-button');
+            const eventTypesOfAddEventForm = document.querySelector('div.event-types');
 
-            const getDiv = (className) => {
-                const newDiv = document.createElement('div');
-
-                newDiv.className = className || '';
-
-                return newDiv;
+            if (addEventButtonsOnMonthCell.length) {
+                addEventListenerToAddEventButtonOnCells(addEventButtonsOnMonthCell);
             }
 
-            const getDivWithStyles = (className, styles) => {
-                const newDiv = getDiv(className);
-
-                for (let style in styles) {
-                    newDiv.style.setProperty(style, styles[style]);
-                }
-
-                return newDiv;
-            };
-
-            const getScheduleLine = (groupColor) => {
-                return getDivWithStyles('schedule-line', {
-                    borderColor: groupColor,
-                    background: '#EFFAFF'
-                });
-            };
-
-            const getScheduleEventContent = () => {
-                return getDiv('schedule-event-content');
-            };
-
-            const getScheduleEventName = () => {
-                return getDiv('schedule-event-name');
-            };
-
-            const getScheduleEventDescription = () => {
-                return getDiv('schedule-event-description');
-            };
-
-            const getScheduleEventGroup = (groupColor) => {
-                return getDivWithStyles('schedule-event-group', {
-                    background: groupColor
-                });
-            };
-
-            const getEventTime = (groupColor) => {
-                return getDivWithStyles('event-time', {
-                    background: groupColor
-                });
-            };
-
-            const getEventTimeStart = () => {
-                return getDiv('event-time-start');
-            };
-
-            const getEventTimeEnd = () => {
-                return getDiv('event-time-end');
-            };
-
-            const getHoursAndMinutesByTimestamp = (timestamp) => {
-                const fixDateIfUnderTen = (time) => {
-                    return time < 10 ? '0' + time : time;
-                }
-
-                const dateByTimestamp = new Date(timestamp);
-
-                let dateHours = fixDateIfUnderTen(dateByTimestamp.getHours());
-                let dateMinutes = fixDateIfUnderTen(dateByTimestamp.getMinutes());
-
-                return `${dateHours}:${dateMinutes}`;
-            };
-
-            const hideScheduleEvent = (event) => {
-                const scheduleQuery = '.schedule';
-
-                if (!event.target.closest(scheduleQuery)) {
-                    document.querySelector(scheduleQuery).style.display = 'none';
-                    document.removeEventListener('click', hideScheduleEvent);
-                }
-            };
-
-            const showAddEventForm = () => {
-                const addEventFormQuery = 'div.add-event';
-
-                document.querySelector(addEventFormQuery).style.display = 'block';
-
-                setTimeout(() => {
-                    document.addEventListener('click', hideAddEventForm);
-                }, 0);
+            if (addEventButtonsOnDayCell.length) {
+                addEventListenerToAddEventButtonOnCells(addEventButtonsOnDayCell);
             }
 
-            const showAddEventFormFromDaySchedule = () => {
-                const scheduleQuery = '.schedule';
-
-                document.querySelector(scheduleQuery).style.display = 'none';
-
-                showAddEventForm();
-            };
-
-            const hideAddEventForm = (event) => {
-                const addEventFormQuery = 'div.add-event';
-
-                if (!event.target.closest(addEventFormQuery)) {
-                    document.querySelector(addEventFormQuery).style.display = 'none';
-                    document.removeEventListener('click', hideAddEventForm);
-                }
+            if (eventTypesOfAddEventForm) {
+                eventTypesOfAddEventForm.addEventListener(
+                    'click',
+                    getSelectorOfEventType(eventTypesOfAddEventForm)
+                );
             }
 
-            for (let addEventButtonOnCell of addEventButtonsOnCell) {
-                addEventButtonOnCell.addEventListener('click', showAddEventForm);
+            if (addEventButtonOnAddEventForm) {
+                addEventButtonOnAddEventForm.addEventListener('click', createNewEvent);
             }
 
             // Bind click events to calendar days.
@@ -326,13 +241,15 @@ define([
                     return;
                 }
 
-                const dayCell = e.target.closest('td');
                 const calendarWrapper = document.querySelector(SELECTORS.CALENDAR_MONTH_WRAPPER);
-
-                const dayCellData = dayCell.dataset;
                 const calendarData = calendarWrapper.dataset;
 
                 if (calendarData.view && calendarData.view !== "day") {
+                    const dayCell = e.target.closest('td');
+                    const dayCellData = dayCell.dataset;
+
+                    sessionStorage.setItem(sessionStorageTimestampNewEventFieldName, dayCellData.newEventTimestamp);
+
                     CalendarRepository.getCalendarDayData(
                         calendarData.year,
                         calendarData.month,
@@ -391,6 +308,11 @@ define([
 
                                     scheduleEventContent.append(scheduleEventName);
 
+                                    if (event.description) {
+                                        scheduleEventDescription.append(event.description);
+                                        scheduleEventContent.append(scheduleEventDescription);
+                                    }
+
                                     scheduleLine.append(eventTime, scheduleEventContent);
 
                                     if (event.groupname) {
@@ -439,11 +361,208 @@ define([
         }
     };
 
+    const getDiv = (className) => {
+        const newDiv = document.createElement('div');
+
+        newDiv.className = className || '';
+
+        return newDiv;
+    }
+
+    const getDivWithStyles = (className, styles) => {
+        const newDiv = getDiv(className);
+
+        for (let style in styles) {
+            newDiv.style.setProperty(style, styles[style]);
+        }
+
+        return newDiv;
+    };
+
+    const getScheduleLine = (groupColor) => {
+        return getDivWithStyles('schedule-line', {
+            borderColor: groupColor,
+            background: '#EFFAFF'
+        });
+    };
+
+    const getScheduleEventContent = () => {
+        return getDiv('schedule-event-content');
+    };
+
+    const getScheduleEventName = () => {
+        return getDiv('schedule-event-name');
+    };
+
+    const getScheduleEventDescription = () => {
+        return getDiv('schedule-event-description');
+    };
+
+    const getScheduleEventGroup = (groupColor) => {
+        return getDivWithStyles('schedule-event-group', {
+            background: groupColor
+        });
+    };
+
+    const getEventTime = (groupColor) => {
+        return getDivWithStyles('event-time', {
+            background: groupColor
+        });
+    };
+
+    const getEventTimeStart = () => {
+        return getDiv('event-time-start');
+    };
+
+    const getEventTimeEnd = () => {
+        return getDiv('event-time-end');
+    };
+
+    const getHoursAndMinutesByTimestamp = (timestamp) => {
+        const fixDateIfUnderTen = (time) => {
+            return time < 10 ? '0' + time : time;
+        }
+
+        const dateByTimestamp = new Date(timestamp);
+
+        let dateHours = fixDateIfUnderTen(dateByTimestamp.getHours());
+        let dateMinutes = fixDateIfUnderTen(dateByTimestamp.getMinutes());
+
+        return `${dateHours}:${dateMinutes}`;
+    };
+
+    const hideScheduleEvent = (event) => {
+        const scheduleQuery = '.schedule';
+
+        if (!event.target.closest(scheduleQuery)) {
+            document.querySelector(scheduleQuery).style.display = 'none';
+            document.removeEventListener('click', hideScheduleEvent);
+        }
+    };
+
+    const showAddEventForm = (event) => {
+        const addEventFormQuery = 'div.add-event';
+        const addEventForm = document.querySelector(addEventFormQuery);
+        const targetCell = event.target.closest('td');
+
+        if (targetCell) {
+            sessionStorage.setItem(sessionStorageTimestampNewEventFieldName, targetCell.dataset.newEventTimestamp);
+        }
+
+        addEventForm.style.display = 'block';
+
+        addEventForm.querySelectorAll('input[type=datetime-local]').forEach(inputDate => {
+            const addEventDateTimestamp = +sessionStorage.getItem(sessionStorageTimestampNewEventFieldName) * 1000 ;
+            const addEventDateJSON = new Date(addEventDateTimestamp).toJSON();
+            const splitedAddEventDateJSON = addEventDateJSON.split(':');
+
+            inputDate.value = `${splitedAddEventDateJSON[0]}:${splitedAddEventDateJSON[1]}`;
+        });
+
+        setTimeout(() => {
+            document.addEventListener('click', hideAddEventForm);
+        }, 0);
+    }
+
+    const showAddEventFormFromDaySchedule = (event) => {
+        const scheduleQuery = '.schedule';
+
+        document.querySelector(scheduleQuery).style.display = 'none';
+
+        showAddEventForm(event);
+    };
+
+    const hideAddEventForm = (event) => {
+        const addEventFormQuery = 'div.add-event';
+
+        if (!event.target.closest(addEventFormQuery)) {
+            document.querySelector(addEventFormQuery).style.display = 'none';
+            document.removeEventListener('click', hideAddEventForm);
+        }
+    }
+
+    const addEventListenerToAddEventButtonOnCells = (addEventButtonsOnCells) => {
+        for (let addEventButtonOnCell of addEventButtonsOnCells) {
+            addEventButtonOnCell.addEventListener('click', showAddEventForm);
+        }
+    }
+
+    const getSelectorOfEventType = (eventTypesDiv) => {
+        return (clickEvent) => {
+            const eventType = clickEvent.target.closest('div.event-type');
+
+            if (eventType) {
+                eventTypesDiv.querySelectorAll('div.event-type').forEach(eventTypeDiv => {
+                    eventTypeDiv.classList.remove('active');
+                });
+
+                eventType.classList.add('active');
+                sessionStorage.setItem(sessionStorageTypeNewEventFieldName, eventType.dataset.eventType);
+            }
+        };
+    };
+
+    const createNewEvent = () => {
+        const addEventFormQuery = 'form.add-event-form';
+        const addEventForm = document.querySelector(addEventFormQuery);
+
+        if (addEventForm) {
+            const addEventFormData = new FormData(addEventForm);
+            const timeStartDate = new Date(addEventFormData.get('time-start'));
+            const timeEndDate = new Date(addEventFormData.get('time-end'));
+            const nameOfEvent = addEventFormData.get('name');
+            const descriptionOfEvent = addEventFormData.get('description');
+            const locationOfEvent = addEventFormData.get('location');
+
+            const eventType = sessionStorage.getItem(sessionStorageTypeNewEventFieldName);
+
+            const formData = {
+                id: 0,
+                userid: 0,
+                modulename: '',
+                instance: 0,
+                visible: 1,
+                _qf__core_calendar_local_event_forms_create: 1,
+                mform_showmore_id_general: 1,
+                name: nameOfEvent,
+                'timestart[year]': timeStartDate.getFullYear(),
+                'timestart[month]': timeStartDate.getMonth() + 1,
+                'timestart[day]': timeStartDate.getDay() + 16,
+                'timestart[hour]': timeStartDate.getHours(),
+                'timestart[minute]': timeStartDate.getMinutes(),
+                eventtype: eventType,
+                'description[text]': descriptionOfEvent || '',
+                'description[format]': 1,
+                location: locationOfEvent,
+                duration: timeEndDate - timeStartDate ? 1 : 0,
+                'timedurationuntil[year]': timeEndDate.getFullYear(),
+                'timedurationuntil[month]': timeEndDate.getMonth() + 1,
+                'timedurationuntil[day]': timeEndDate.getDay() + 16,
+                'timedurationuntil[hour]': timeEndDate.getHours(),
+                'timedurationuntil[minute]': timeEndDate.getMinutes(),
+            }
+
+            let formUrlencodedData = '';
+
+            for (const keyOfField in formData) {
+                formUrlencodedData += `${keyOfField}=${formData[keyOfField]}&`;
+            }
+
+            formUrlencodedData = encodeURI(formUrlencodedData);
+
+            CalendarRepository.submitCreateUpdateForm(formUrlencodedData)
+                .then(newCreatedEvent => {
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
+    };
+
     return {
         init: function(root) {
             root = $(root);
-
-            console.log(root);
 
             CalendarViewManager.init(root);
             registerEventListeners(root);
