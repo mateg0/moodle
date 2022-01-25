@@ -13,14 +13,6 @@
                 </div>
                 человек
             </div>
-            <div class="event-type" data-event-type="course">
-                <div class="event-type-image">
-                    <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.16667 0L0 5L9.16667 10L16.6667 5.90833V11.6667H18.3333V5L9.16667 0ZM3.33333 8.48333V11.8167L9.16667 15L15 11.8167V8.48333L9.16667 11.6667L3.33333 8.48333Z"/>
-                    </svg>
-                </div>
-                курс
-            </div>
             <div class="event-type" data-event-type="group">
                 <div class="event-type-image">
                     <svg width="20" height="13" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,6 +21,14 @@
                     </svg>
                 </div>
                 группа
+            </div>
+            <div class="event-type" data-event-type="course">
+                <div class="event-type-image">
+                    <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16667 0L0 5L9.16667 10L16.6667 5.90833V11.6667H18.3333V5L9.16667 0ZM3.33333 8.48333V11.8167L9.16667 15L15 11.8167V8.48333L9.16667 11.6667L3.33333 8.48333Z"/>
+                    </svg>
+                </div>
+                курс
             </div>
             <div class="event-type" data-event-type="site">
                 <div class="event-type-image">
@@ -39,6 +39,44 @@
                 </div>
                 сайт
             </div>
+        </div>
+        <div class="event-select-course" style="display: none">
+            <div class="event-back-image">
+                <svg width="16" height="14" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 0V14H13V0H16ZM11 0V14L0 7" fill="#353535"/>
+                </svg>
+            </div>
+
+            <div class="event-select-type-image">
+                <svg width="19" height="15" viewBox="0 0 19 15" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.16667 0L0 5L9.16667 10L16.6667 5.90833V11.6667H18.3333V5L9.16667 0ZM3.33333 8.48333V11.8167L9.16667 15L15 11.8167V8.48333L9.16667 11.6667L3.33333 8.48333Z"/>
+                </svg>
+            </div>
+
+            <label class="label-select-course">
+                <select name="courseId" class="select-course">
+                    <option value="-1">Нет доступных курсов</option>
+                </select>
+            </label>
+        </div>
+        <div class="event-select-group" style="display: none">
+            <div class="event-back-image">
+                <svg width="16" height="14" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 0V14H13V0H16ZM11 0V14L0 7" fill="#353535"/>
+                </svg>
+            </div>
+
+            <div class="event-select-type-image">
+                <svg width="20" height="13" viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 0C10.7735 0 11.5154 0.307291 12.0624 0.854272C12.6094 1.40125 12.9167 2.14312 12.9167 2.91667C12.9167 3.69021 12.6094 4.43208 12.0624 4.97906C11.5154 5.52604 10.7735 5.83333 10 5.83333C9.22645 5.83333 8.48459 5.52604 7.93761 4.97906C7.39062 4.43208 7.08333 3.69021 7.08333 2.91667C7.08333 2.14312 7.39062 1.40125 7.93761 0.854272C8.48459 0.307291 9.22645 0 10 0ZM4.16667 2.08333C4.63333 2.08333 5.06667 2.20833 5.44167 2.43333C5.31667 3.625 5.66667 4.80833 6.38333 5.73333C5.96667 6.53333 5.13333 7.08333 4.16667 7.08333C3.50363 7.08333 2.86774 6.81994 2.3989 6.3511C1.93006 5.88226 1.66667 5.24637 1.66667 4.58333C1.66667 3.92029 1.93006 3.28441 2.3989 2.81557C2.86774 2.34672 3.50363 2.08333 4.16667 2.08333ZM15.8333 2.08333C16.4964 2.08333 17.1323 2.34672 17.6011 2.81557C18.0699 3.28441 18.3333 3.92029 18.3333 4.58333C18.3333 5.24637 18.0699 5.88226 17.6011 6.3511C17.1323 6.81994 16.4964 7.08333 15.8333 7.08333C14.8667 7.08333 14.0333 6.53333 13.6167 5.73333C14.3333 4.80833 14.6833 3.625 14.5583 2.43333C14.9333 2.20833 15.3667 2.08333 15.8333 2.08333ZM4.58333 10.625C4.58333 8.9 7.00833 7.5 10 7.5C12.9917 7.5 15.4167 8.9 15.4167 10.625V12.0833H4.58333V10.625ZM0 12.0833V10.8333C0 9.675 1.575 8.7 3.70833 8.41667C3.21667 8.98333 2.91667 9.76667 2.91667 10.625V12.0833H0ZM20 12.0833H17.0833V10.625C17.0833 9.76667 16.7833 8.98333 16.2917 8.41667C18.425 8.7 20 9.675 20 10.8333V12.0833Z" fill="#353535"/>
+                </svg>
+            </div>
+
+            <label class="label-select-group">
+                <select name="groupId" class="select-group">
+                    <option value="-1">Нет доступных групп</option>
+                </select>
+            </label>
         </div>
         <div class="event-prop-line time-date-dims">
             <div class="event-icon time-date-dims-image">
@@ -54,7 +92,7 @@
                 <div class="time-date-dim-end">
                     <input name="time-end" type="datetime-local" required />
                 </div>
-                <div class="time-date-dim-reset">
+                <div class="time-date-dim-reset" style="display: none;">
                     <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                                 d="M4 1.92V0L1.5 2.4L4 4.8V2.88C4.79565 2.88 5.55871 3.18343 6.12132 3.72353C6.68393 4.26364 7 4.99618 7 5.76C7 6.52382 6.68393 7.25636 6.12132 7.79647C5.55871 8.33657 4.79565 8.64 4 8.64C3.20435 8.64 2.44129 8.33657 1.87868 7.79647C1.31607 7.25636 1 6.52382 1 5.76H0C0 6.77843 0.421427 7.75515 1.17157 8.47529C1.92172 9.19543 2.93913 9.6 4 9.6C5.06087 9.6 6.07828 9.19543 6.82843 8.47529C7.57857 7.75515 8 6.77843 8 5.76C8 4.74157 7.57857 3.76485 6.82843 3.04471C6.07828 2.32457 5.06087 1.92 4 1.92Z"/>
@@ -70,7 +108,7 @@
                 <textarea name="description" rows="8" cols="80" required></textarea>
             </div>
         </div>
-        <div class="event-prop-line event-participants">
+        <div class="event-prop-line event-participants" hidden>
             <div class="event-icon event-participants-image">
                 <img src="/calendar/assets/img/parts.png" alt="">
             </div>
@@ -86,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <div class="event-prop-line aquired-time">
+        <div class="event-prop-line aquired-time" hidden>
             <div class="event-icon aquired-time-image">
                 <img src="/calendar/assets/img/clock.png" width="20" height="20" alt="">
             </div>
@@ -210,20 +248,22 @@
             cursor: pointer;
         }
 
-        .event-type:hover path {
+        .event-type:hover path, .active path {
             fill: white;
         }
 
-        .event-type:hover .event-type-image {
+        .event-type:hover .event-type-image, .active .event-type-image {
             background: #4E9A5F;
         }
 
-        .active path {
-            fill: white;
-        }
+        .event-select-course, .event-select-group {
+            margin-top: 15px;
 
-        .active .event-type-image {
-            background: #4E9A5F;
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
         }
 
         .event-type-image {
@@ -238,8 +278,74 @@
             justify-content: center;
             border: 0.5px solid #353535;
             box-sizing: border-box;
-            border-radius: 2px;
-            -webkit-border-radius: 2px;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+        }
+
+        .event-back-image, .event-select-type-image {
+            width: 40px;
+            height: 40px;
+
+            margin-right: 5%;
+
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+
+            -ms-align-items: center;
+            align-items: center;
+            justify-content: center;
+
+            border: 0.5px solid #353535;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+
+            box-sizing: border-box;
+        }
+
+        .event-back-image:hover {
+            background: #4E9A5F;
+
+            cursor: pointer;
+        }
+
+        .event-back-image:hover path {
+            fill: white;
+        }
+
+        .label-select-course, .label-select-group {
+            width: 65%;
+        }
+
+        .select-course, .select-group {
+            height: 40px;
+            width: 100%;
+
+            padding-left: 5%;
+
+            border: 1px solid #C0C7BA;
+            border-radius: 5px;
+
+            box-shadow: 0 1px 4px 0 #00000040;
+            box-sizing: border-box;
+
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance:none;
+
+            background: url(/calendar/assets/img/arrow.png) 96% / 10% no-repeat white;
+            color: black;
+        }
+
+        .select-course option, .select-group option {
+            border: 1px solid #C0C7BA;
+            border-radius: 5px;
+
+            box-shadow: 0 1px 4px 0 #00000040;
+            box-sizing: border-box;
+
+            background: white;
+            color: black;
         }
 
         .time-date-dims-holder {

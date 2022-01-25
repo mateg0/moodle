@@ -69,6 +69,23 @@ define([
         VIEW_DAY_LINK: "[data-action='view-day-link']",
         CALENDAR_MONTH_WRAPPER: ".calendarwrapper",
         TODAY: '.today',
+        CELL_ADD_EVENT_BUTTON_MONTH: 'div.cell-plus-add-event',
+        CELL_ADD_EVENT_BUTTON_DAY: 'div.c-d-add-event',
+        ADD_EVENT_FORM: '.add-event',
+        ADD_EVENT_FORM_DATA: 'form.add-event-form',
+        ADD_EVENT_FORM_ADD_BUTTON: 'div.add-event-add-button',
+        EVENT_TYPES: 'div.event-types',
+        EVENT_TYPE: 'div.event-type',
+        SCHEDULE: '.schedule',
+        SCHEDULE_CONTENT: 'div.schedule-content',
+        SCHEDULE_ADD_EVENT_BUTTON: 'div.add-schedule-event',
+        LEGEND_GROUP: '.legend-group',
+        LEGEND_GROUP_COLOR: '.legend-group-color',
+        SELECT_COURSE: 'select.select-course',
+        SELECT_GROUP: 'select.select-group',
+        SELECT_COURSE_WRAPPER: 'div.event-select-course',
+        SELECT_GROUP_WRAPPER: 'div.event-select-group',
+        BACK_BUTTON_FROM_SELECT: 'div.event-back-image',
     };
 
     const sessionStorageTimestampNewEventFieldName = 'newEventTimestamp';
@@ -207,10 +224,18 @@ define([
         registerCalendarEventListeners(root, eventFormPromise);
 
         if (contextId) {
-            const addEventButtonsOnMonthCell = document.querySelectorAll('div.cell-plus-add-event');
-            const addEventButtonsOnDayCell = document.querySelectorAll('div.c-d-add-event');
-            const addEventButtonOnAddEventForm = document.querySelector('div.add-event-add-button');
-            const eventTypesOfAddEventForm = document.querySelector('div.event-types');
+            const addEventButtonsOnMonthCell = document.querySelectorAll(SELECTORS.CELL_ADD_EVENT_BUTTON_MONTH);
+            const addEventButtonsOnDayCell = document.querySelectorAll(SELECTORS.CELL_ADD_EVENT_BUTTON_DAY);
+            const addEventButtonOnAddEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM_ADD_BUTTON);
+            const eventTypesOfAddEventForm = document.querySelector(SELECTORS.EVENT_TYPES);
+
+            const addEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM);
+            const addEventFormBackToSelectType = addEventForm
+                .querySelector(SELECTORS.SELECT_COURSE_WRAPPER)
+                .querySelector(SELECTORS.BACK_BUTTON_FROM_SELECT);
+            const addEventFormBackToSelectCourse = addEventForm
+                .querySelector(SELECTORS.SELECT_GROUP_WRAPPER)
+                .querySelector(SELECTORS.BACK_BUTTON_FROM_SELECT);
 
             if (addEventButtonsOnMonthCell.length) {
                 addEventListenerToAddEventButtonOnCells(addEventButtonsOnMonthCell);
@@ -231,13 +256,19 @@ define([
                 addEventButtonOnAddEventForm.addEventListener('click', createNewEvent);
             }
 
+            if (addEventFormBackToSelectType) {
+                addEventFormBackToSelectType.addEventListener('click', backToSelectType);
+            }
+
+            if (addEventFormBackToSelectCourse) {
+                addEventFormBackToSelectCourse.addEventListener('click', backToSelectCourse);
+            }
+
             // Bind click events to calendar days.
             root.on('click', SELECTORS.DAY, function (e) {
                 // const target = $(e.target);
 
-                const addEventFormQuery = 'div.add-event';
-
-                if (e.target.closest(addEventFormQuery)) {
+                if (e.target.closest(SELECTORS.CELL_ADD_EVENT_BUTTON_MONTH)) {
                     return;
                 }
 
@@ -261,9 +292,11 @@ define([
                             const eventsOfDay = dayData.events;
 
                             if (eventsOfDay.length) {
-                                const schedule = document.querySelector('.schedule');
-                                const scheduleContent = schedule.querySelector('div.schedule-content');
-                                const scheduleAddEventButton = schedule.querySelector('div.add-schedule-event');
+                                const schedule = document.querySelector(SELECTORS.SCHEDULE);
+                                const scheduleContent = schedule.querySelector(SELECTORS.SCHEDULE_CONTENT);
+                                const scheduleAddEventButton = schedule.querySelector(
+                                    SELECTORS.SCHEDULE_ADD_EVENT_BUTTON
+                                );
 
                                 scheduleContent.innerHTML = '';
 
@@ -272,12 +305,10 @@ define([
 
                                     if (event.groupid) {
                                         const groupId = event.groupid;
-                                        const queryLegendGroups = '.legend-group';
 
-                                        document.querySelectorAll(queryLegendGroups).forEach(group => {
+                                        document.querySelectorAll(SELECTORS.LEGEND_GROUP).forEach(group => {
                                             if (groupId === +group.dataset.groupId) {
-                                                const legendGroupColorQuery = '.legend-group-color';
-                                                groupColor = group.querySelector(legendGroupColorQuery).style.backgroundColor;
+                                                groupColor = group.querySelector(SELECTORS.LEGEND_GROUP_COLOR).style.backgroundColor;
                                             }
                                         });
                                     }
@@ -432,17 +463,14 @@ define([
     };
 
     const hideScheduleEvent = (event) => {
-        const scheduleQuery = '.schedule';
-
-        if (!event.target.closest(scheduleQuery)) {
-            document.querySelector(scheduleQuery).style.display = 'none';
+        if (!event.target.closest(SELECTORS.SCHEDULE)) {
+            document.querySelector(SELECTORS.SCHEDULE).style.display = 'none';
             document.removeEventListener('click', hideScheduleEvent);
         }
     };
 
     const showAddEventForm = (event) => {
-        const addEventFormQuery = 'div.add-event';
-        const addEventForm = document.querySelector(addEventFormQuery);
+        const addEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM);
         const targetCell = event.target.closest('td');
 
         if (targetCell) {
@@ -465,18 +493,14 @@ define([
     }
 
     const showAddEventFormFromDaySchedule = (event) => {
-        const scheduleQuery = '.schedule';
-
-        document.querySelector(scheduleQuery).style.display = 'none';
+        document.querySelector(SELECTORS.SCHEDULE).style.display = 'none';
 
         showAddEventForm(event);
     };
 
     const hideAddEventForm = (event) => {
-        const addEventFormQuery = 'div.add-event';
-
-        if (!event.target.closest(addEventFormQuery)) {
-            document.querySelector(addEventFormQuery).style.display = 'none';
+        if (!event.target.closest(SELECTORS.ADD_EVENT_FORM)) {
+            document.querySelector(SELECTORS.ADD_EVENT_FORM).style.display = 'none';
             document.removeEventListener('click', hideAddEventForm);
         }
     }
@@ -489,22 +513,36 @@ define([
 
     const getSelectorOfEventType = (eventTypesDiv) => {
         return (clickEvent) => {
-            const eventType = clickEvent.target.closest('div.event-type');
+            const eventType = clickEvent.target.closest(SELECTORS.EVENT_TYPE);
 
             if (eventType) {
-                eventTypesDiv.querySelectorAll('div.event-type').forEach(eventTypeDiv => {
+                const eventTypeValue = eventType.dataset.eventType;
+
+                eventTypesDiv.querySelectorAll(SELECTORS.EVENT_TYPE).forEach(eventTypeDiv => {
                     eventTypeDiv.classList.remove('active');
                 });
 
                 eventType.classList.add('active');
-                sessionStorage.setItem(sessionStorageTypeNewEventFieldName, eventType.dataset.eventType);
+                sessionStorage.setItem(sessionStorageTypeNewEventFieldName, eventTypeValue);
+
+                switch (eventTypeValue) {
+                    case 'group': {
+                        document
+                            .querySelector(SELECTORS.ADD_EVENT_FORM)
+                            .querySelector(SELECTORS.SELECT_COURSE_WRAPPER)
+                            .querySelector(SELECTORS.SELECT_COURSE)
+                            .addEventListener('change', showSelectGroup);
+                    }
+                    case 'course': {
+                        showSelectCourse();
+                    }
+                }
             }
         };
     };
 
     const createNewEvent = () => {
-        const addEventFormQuery = 'form.add-event-form';
-        const addEventForm = document.querySelector(addEventFormQuery);
+        const addEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM_DATA);
 
         if (addEventForm) {
             const addEventFormData = new FormData(addEventForm);
@@ -515,6 +553,16 @@ define([
             const locationOfEvent = addEventFormData.get('location');
 
             const eventType = sessionStorage.getItem(sessionStorageTypeNewEventFieldName);
+
+            if (!eventType) {
+                alert('Please, select event type');
+                return;
+            }
+
+            if (!nameOfEvent) {
+                alert('Please, type event name');
+                return;
+            }
 
             const formData = {
                 id: 0,
@@ -527,19 +575,59 @@ define([
                 name: nameOfEvent,
                 'timestart[year]': timeStartDate.getFullYear(),
                 'timestart[month]': timeStartDate.getMonth() + 1,
-                'timestart[day]': timeStartDate.getDay() + 16,
+                'timestart[day]': timeStartDate.getDate(),
                 'timestart[hour]': timeStartDate.getHours(),
                 'timestart[minute]': timeStartDate.getMinutes(),
                 eventtype: eventType,
                 'description[text]': descriptionOfEvent || '',
                 'description[format]': 1,
                 location: locationOfEvent,
-                duration: timeEndDate - timeStartDate ? 1 : 0,
-                'timedurationuntil[year]': timeEndDate.getFullYear(),
-                'timedurationuntil[month]': timeEndDate.getMonth() + 1,
-                'timedurationuntil[day]': timeEndDate.getDay() + 16,
-                'timedurationuntil[hour]': timeEndDate.getHours(),
-                'timedurationuntil[minute]': timeEndDate.getMinutes(),
+            }
+
+            if (timeEndDate - timeStartDate) {
+                formData['duration'] = 1;
+                formData['timedurationuntil[year]'] = timeEndDate.getFullYear();
+                formData['timedurationuntil[month]'] = timeEndDate.getMonth() + 1;
+                formData['timedurationuntil[day]'] = timeEndDate.getDate();
+                formData['timedurationuntil[hour]'] = timeEndDate.getHours();
+                formData['timedurationuntil[minute]'] = timeEndDate.getMinutes();
+            } else {
+                formData['duration'] = 0;
+            }
+
+            switch (eventType) {
+                case 'group': {
+                    const courseId = addEventFormData.get('courseId');
+                    const groupId = addEventFormData.get('groupId');
+
+                    if (!courseId || courseId === '-1') {
+                        alert('Please, select group');
+                        return;
+                    }
+
+                    if (!groupId || groupId === '-1') {
+                        alert('Please, select course');
+                        return;
+                    }
+
+                    formData['groupcourseid'] = courseId;
+                    formData['groupid'] = groupId;
+
+                    break;
+                }
+
+                case 'course': {
+                    const courseId = addEventFormData.get('courseId');
+
+                    if (!courseId || courseId === '-1') {
+                        alert('Please, select group');
+                        return;
+                    }
+
+                    formData['courseid'] = courseId;
+
+                    break;
+                }
             }
 
             let formUrlencodedData = '';
@@ -550,6 +638,8 @@ define([
 
             formUrlencodedData = encodeURI(formUrlencodedData);
 
+            sessionStorage.clear();
+
             CalendarRepository.submitCreateUpdateForm(formUrlencodedData)
                 .then(newCreatedEvent => {
                     window.location.reload();
@@ -557,6 +647,92 @@ define([
                 .catch(error => {
                     console.error(error);
                 })
+        }
+    };
+
+    const backToSelectType = (event) => {
+        const courseWrapper = event.target.closest(SELECTORS.SELECT_COURSE_WRAPPER);
+
+        courseWrapper
+            .querySelector(SELECTORS.SELECT_COURSE)
+            .removeEventListener('change', showSelectGroup);
+
+        courseWrapper.style.display = 'none';
+        document.querySelector(SELECTORS.EVENT_TYPES).style.display = 'flex';
+    };
+
+    const backToSelectCourse = (event) => {
+        const courseWrapper = document.querySelector(SELECTORS.SELECT_COURSE_WRAPPER);
+
+        courseWrapper
+            .querySelector(SELECTORS.SELECT_COURSE)
+            .addEventListener('change', showSelectGroup);
+
+        event.target.closest(SELECTORS.SELECT_GROUP_WRAPPER).style.display = 'none';
+        courseWrapper.style.display = 'flex';
+    };
+
+    const showSelectCourse = () => {
+        CalendarRepository.getUserCourses()
+            .then(courses => {
+                const formAddEvent = document.querySelector(SELECTORS.ADD_EVENT_FORM);
+                const selectCourseWrapper = formAddEvent.querySelector(SELECTORS.SELECT_COURSE_WRAPPER);
+                const selectCourse = selectCourseWrapper.querySelector(SELECTORS.SELECT_COURSE);
+                const eventTypesDiv = formAddEvent.querySelector(SELECTORS.EVENT_TYPES);
+
+                setDefaultSelect(selectCourse);
+
+                if (courses.length) {
+                    appendOptionsToSelect(selectCourse, courses);
+                }
+
+                eventTypesDiv.style.display = 'none';
+                selectCourseWrapper.style.display = 'flex';
+            })
+            .catch(console.error);
+    }
+
+    const showSelectGroup = (event) => {
+        const courseId = event.target.value;
+
+        CalendarRepository.getCourseGroupsData(courseId)
+            .then(groups => {
+                const formAddEvent = document.querySelector(SELECTORS.ADD_EVENT_FORM);
+                const selectCourseWrapper = formAddEvent.querySelector(SELECTORS.SELECT_COURSE_WRAPPER);
+                const selectGroupWrapper = formAddEvent.querySelector(SELECTORS.SELECT_GROUP_WRAPPER);
+                const selectCourse = selectCourseWrapper.querySelector(SELECTORS.SELECT_COURSE);
+                const selectGroup = selectGroupWrapper.querySelector(SELECTORS.SELECT_GROUP);
+
+                setDefaultSelect(selectGroup);
+
+                selectCourse.removeEventListener('change', showSelectGroup);
+
+                if (groups.length) {
+                    appendOptionsToSelect(selectGroup, groups);
+                }
+
+                selectCourseWrapper.style.display = 'none';
+                selectGroupWrapper.style.display = 'flex';
+            })
+            .catch(console.error);
+    };
+
+    const setDefaultSelect = (select) => {
+        const emptyOption = document.createElement('option');
+        emptyOption.value = '-1';
+        emptyOption.text = '...';
+
+        select.innerHTML = '';
+        select.append(emptyOption);
+    };
+
+    const appendOptionsToSelect = (select, options) => {
+        for (const option of options) {
+            const selectOption = document.createElement('option');
+            selectOption.value = option.id;
+            selectOption.text = option.name || option.fullname;
+
+            select.append(selectOption);
         }
     };
 

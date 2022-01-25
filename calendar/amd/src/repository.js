@@ -196,3 +196,12 @@ export const getCourseGroupsData = (courseId) => {
 
     return Ajax.call([request])[0];
 };
+
+export const getUserCourses = () => {
+    const request = {
+        methodname: 'calendar_ajax_get_courses_by_user_id',
+        args: {}
+    };
+
+    return Ajax.call([request])[0];
+}
