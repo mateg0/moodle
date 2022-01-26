@@ -74,11 +74,13 @@ define([
         ADD_EVENT_FORM: '.add-event',
         ADD_EVENT_FORM_DATA: 'form.add-event-form',
         ADD_EVENT_FORM_ADD_BUTTON: 'div.add-event-add-button',
+        ADD_EVENT_FORM_DELETE_BUTTON: 'div.add-event-delete-button',
         EVENT_TYPES: 'div.event-types',
         EVENT_TYPE: 'div.event-type',
         SCHEDULE: '.schedule',
         SCHEDULE_CONTENT: 'div.schedule-content',
         SCHEDULE_ADD_EVENT_BUTTON: 'div.add-schedule-event',
+        SCHEDULE_LINE: 'div.schedule-line',
         LEGEND_GROUP: '.legend-group',
         LEGEND_GROUP_COLOR: '.legend-group-color',
         SELECT_COURSE: 'select.select-course',
@@ -89,7 +91,8 @@ define([
     };
 
     const sessionStorageTimestampNewEventFieldName = 'newEventTimestamp';
-    const sessionStorageTypeNewEventFieldName = 'newEventType';
+    const sessionStorageEventTypeFieldName = 'eventType';
+    const sessionStorageEventIdFieldName = 'eventId';
 
     /**
      * Handler for the drag and drop move event. Provides a loading indicator
@@ -253,7 +256,7 @@ define([
             }
 
             if (addEventButtonOnAddEventForm) {
-                addEventButtonOnAddEventForm.addEventListener('click', createNewEvent);
+                addEventButtonOnAddEventForm.addEventListener('click', submitEvent);
             }
 
             if (addEventFormBackToSelectType) {
@@ -303,6 +306,8 @@ define([
                                 for (let event of eventsOfDay) {
                                     let groupColor = '#fee7ae';
 
+                                    console.log('EVENT', event);
+
                                     if (event.groupid) {
                                         const groupId = event.groupid;
 
@@ -350,6 +355,12 @@ define([
                                         scheduleEventGroup.append(event.groupname);
 
                                         scheduleLine.append(scheduleEventGroup);
+                                    }
+
+                                    if (event.canedit) {
+                                        scheduleLine.classList.add('can-edit');
+
+                                        scheduleLine.addEventListener('click', showChangeEventForm(event));
                                     }
 
                                     scheduleContent.append(scheduleLine);
@@ -477,6 +488,8 @@ define([
             sessionStorage.setItem(sessionStorageTimestampNewEventFieldName, targetCell.dataset.newEventTimestamp);
         }
 
+        clearEventForm(addEventForm);
+
         addEventForm.style.display = 'block';
 
         addEventForm.querySelectorAll('input[type=datetime-local]').forEach(inputDate => {
@@ -490,7 +503,7 @@ define([
         setTimeout(() => {
             document.addEventListener('click', hideAddEventForm);
         }, 0);
-    }
+    };
 
     const showAddEventFormFromDaySchedule = (event) => {
         document.querySelector(SELECTORS.SCHEDULE).style.display = 'none';
@@ -498,12 +511,134 @@ define([
         showAddEventForm(event);
     };
 
+    const showChangeEventForm = (calendarEvent) => {
+        return (event) => {
+            const changeEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM);
+            const eventNameField = changeEventForm.querySelector('input[name=name]');
+            const eventTypes = changeEventForm.querySelector(SELECTORS.EVENT_TYPES);
+            const selectCourseWrapper = changeEventForm.querySelector(SELECTORS.SELECT_COURSE_WRAPPER);
+            const selectCourse = selectCourseWrapper.querySelector(SELECTORS.SELECT_COURSE);
+            const selectGroupWrapper = changeEventForm.querySelector(SELECTORS.SELECT_GROUP_WRAPPER);
+            const selectGroup = selectGroupWrapper.querySelector(SELECTORS.SELECT_GROUP);
+            const timeStartField = changeEventForm.querySelector('input[name=time-start]');
+            const timeEndField = changeEventForm.querySelector('input[name=time-end]');
+            const descriptionField = changeEventForm.querySelector('textarea[name=description]');
+            const locationField = changeEventForm.querySelector('input[name=location]');
+
+            const deleteEventButton = changeEventForm.querySelector(SELECTORS.ADD_EVENT_FORM_DELETE_BUTTON);
+
+            const splitedTimeStartJSON = new Date(calendarEvent.timestart * 1000).toJSON().split(':');
+            const splitedTimeEndJSON = new Date((+calendarEvent.timestart + +calendarEvent.timeduration) * 1000)
+                .toJSON()
+                .split(':');
+
+            const currentCourseOption = document.createElement('option');
+            const currentGroupOption = document.createElement('option');
+
+            clearEventForm(changeEventForm);
+
+            sessionStorage.setItem(sessionStorageEventIdFieldName, calendarEvent.id);
+            sessionStorage.setItem(sessionStorageEventTypeFieldName, calendarEvent.eventtype);
+
+            eventNameField.value = calendarEvent.name;
+            timeStartField.value = `${splitedTimeStartJSON[0]}:${splitedTimeStartJSON[1]}`;
+            timeEndField.value = `${splitedTimeEndJSON[0]}:${splitedTimeEndJSON[1]}`;
+
+            if (calendarEvent.description) {
+                descriptionField.value = calendarEvent.description;
+            }
+
+            if (calendarEvent.location) {
+                locationField.value = calendarEvent.location;
+            }
+
+            eventTypes.querySelectorAll(SELECTORS.EVENT_TYPE).forEach(eventType => {
+                if (eventType.dataset.eventType === calendarEvent.eventtype) {
+                    eventType.classList.add('active');
+                }
+            });
+
+            if (calendarEvent.course) {
+                const currentCourse = calendarEvent.course;
+
+                currentCourseOption.id = currentCourse.id;
+                currentCourseOption.text = currentCourse.fullname;
+                currentCourseOption.selected = true;
+
+                selectCourse.append(currentCourseOption);
+            }
+
+            if (calendarEvent.groupid) {
+                currentGroupOption.id = calendarEvent.groupid;
+                currentGroupOption.text = calendarEvent.groupname;
+                currentGroupOption.selected = true;
+
+                selectGroup.append(currentGroupOption);
+            }
+
+            if (calendarEvent.candelete) {
+                deleteEventButton.style.display = 'block';
+            }
+
+            changeEventForm.style.display = 'block';
+
+            setTimeout(() => {
+                deleteEventButton.addEventListener('click', deleteEvent);
+                document.addEventListener('click', hideChangeEventForm);
+            }, 0);
+        }
+    };
+
+    const clearEventForm = (eventForm) => {
+        const eventNameField = eventForm.querySelector('input[name=name]');
+        const eventTypes = eventForm.querySelector(SELECTORS.EVENT_TYPES);
+        const selectCourseWrapper = eventForm.querySelector(SELECTORS.SELECT_COURSE_WRAPPER);
+        const selectCourse = selectCourseWrapper.querySelector(SELECTORS.SELECT_COURSE);
+        const selectGroupWrapper = eventForm.querySelector(SELECTORS.SELECT_GROUP_WRAPPER);
+        const selectGroup = selectGroupWrapper.querySelector(SELECTORS.SELECT_GROUP);
+        const descriptionField = eventForm.querySelector('textarea[name=description]');
+        const locationField = eventForm.querySelector('input[name=location]');
+
+        eventNameField.value = '';
+        descriptionField.value = '';
+        locationField.value = '';
+        selectCourse.innerHTML = '';
+        selectGroup.innerHTML = '';
+
+        eventTypes.querySelectorAll(SELECTORS.EVENT_TYPE).forEach(eventType => {
+            eventType.classList.remove('active');
+        });
+
+        selectGroupWrapper.style.display = 'none';
+        selectCourseWrapper.style.display = 'none';
+        eventTypes.style.display = 'flex';
+    }
+
+    const hideChangeEventForm = (event) => {
+        if (!event.target.closest(SELECTORS.ADD_EVENT_FORM)) {
+            sessionStorage.clear();
+        }
+
+        hideAddEventForm(event);
+    }
+
     const hideAddEventForm = (event) => {
         if (!event.target.closest(SELECTORS.ADD_EVENT_FORM)) {
             document.querySelector(SELECTORS.ADD_EVENT_FORM).style.display = 'none';
             document.removeEventListener('click', hideAddEventForm);
+            document.removeEventListener('click', hideChangeEventForm);
         }
     }
+
+    const deleteEvent = () => {
+        const eventId = sessionStorage.getItem(sessionStorageEventIdFieldName);
+
+        CalendarRepository.deleteEvent(eventId)
+            .then(deletedEvent => {
+                window.location.reload();
+            })
+            .catch(console.error);
+    };
 
     const addEventListenerToAddEventButtonOnCells = (addEventButtonsOnCells) => {
         for (let addEventButtonOnCell of addEventButtonsOnCells) {
@@ -523,7 +658,7 @@ define([
                 });
 
                 eventType.classList.add('active');
-                sessionStorage.setItem(sessionStorageTypeNewEventFieldName, eventTypeValue);
+                sessionStorage.setItem(sessionStorageEventTypeFieldName, eventTypeValue);
 
                 switch (eventTypeValue) {
                     case 'group': {
@@ -541,7 +676,7 @@ define([
         };
     };
 
-    const createNewEvent = () => {
+    const submitEvent = () => {
         const addEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM_DATA);
 
         if (addEventForm) {
@@ -552,7 +687,10 @@ define([
             const descriptionOfEvent = addEventFormData.get('description');
             const locationOfEvent = addEventFormData.get('location');
 
-            const eventType = sessionStorage.getItem(sessionStorageTypeNewEventFieldName);
+            const eventType = sessionStorage.getItem(sessionStorageEventTypeFieldName);
+            const eventId = sessionStorage.getItem(sessionStorageEventIdFieldName);
+
+            console.log('EVENT TYPE: ', eventType);
 
             if (!eventType) {
                 alert('Please, select event type');
@@ -565,12 +703,11 @@ define([
             }
 
             const formData = {
-                id: 0,
+                id: eventId || 0,
                 userid: 0,
                 modulename: '',
                 instance: 0,
                 visible: 1,
-                _qf__core_calendar_local_event_forms_create: 1,
                 mform_showmore_id_general: 1,
                 name: nameOfEvent,
                 'timestart[year]': timeStartDate.getFullYear(),
@@ -582,6 +719,12 @@ define([
                 'description[text]': descriptionOfEvent || '',
                 'description[format]': 1,
                 location: locationOfEvent,
+            }
+
+            if (eventId) {
+                formData['_qf__core_calendar_local_event_forms_update'] = 1;
+            } else {
+                formData['_qf__core_calendar_local_event_forms_create'] = 1;
             }
 
             if (timeEndDate - timeStartDate) {
