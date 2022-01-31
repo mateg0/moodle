@@ -197,6 +197,15 @@ export const getCourseGroupsData = (courseId) => {
     return Ajax.call([request])[0];
 };
 
+export const getUserCoursesWhereUserIsTeacher = () => {
+    const request = {
+        methodname: 'calendar_ajax_get_courses_where_user_is_teacher_by_user_id',
+        args: {}
+    };
+
+    return Ajax.call([request])[0];
+};
+
 export const getUserCourses = () => {
     const request = {
         methodname: 'calendar_ajax_get_courses_by_user_id',
@@ -204,4 +213,4 @@ export const getUserCourses = () => {
     };
 
     return Ajax.call([request])[0];
-}
+};

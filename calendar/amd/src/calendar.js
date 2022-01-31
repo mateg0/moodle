@@ -306,8 +306,6 @@ define([
                                 for (let event of eventsOfDay) {
                                     let groupColor = '#fee7ae';
 
-                                    console.log('EVENT', event);
-
                                     if (event.groupid) {
                                         const groupId = event.groupid;
 
@@ -690,8 +688,6 @@ define([
             const eventType = sessionStorage.getItem(sessionStorageEventTypeFieldName);
             const eventId = sessionStorage.getItem(sessionStorageEventIdFieldName);
 
-            console.log('EVENT TYPE: ', eventType);
-
             if (!eventType) {
                 alert('Please, select event type');
                 return;
@@ -816,7 +812,7 @@ define([
     };
 
     const showSelectCourse = () => {
-        CalendarRepository.getUserCourses()
+        CalendarRepository.getUserCoursesWhereUserIsTeacher()
             .then(courses => {
                 const formAddEvent = document.querySelector(SELECTORS.ADD_EVENT_FORM);
                 const selectCourseWrapper = formAddEvent.querySelector(SELECTORS.SELECT_COURSE_WRAPPER);

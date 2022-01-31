@@ -31,6 +31,7 @@
     {
     }
 }}
+<h6 class="minicalendar-title">Расписание занятий</h6>
 <div{{!
     }} id="calendar-month-{{date.year}}-{{date.month}}-{{uniqid}}" {{!
     }} data-template="core_calendar/month_mini" {{!
@@ -44,3 +45,11 @@ require(['jquery', 'core_calendar/calendar_mini'], function($, CalendarMini) {
     CalendarMini.init($("#calendar-month-{{date.year}}-{{date.month}}-{{uniqid}}"), !{{initialeventsloaded}});
 });
 {{/js}}
+<style>
+    h6.minicalendar-title {
+        display: flex;
+        justify-content: center;
+
+        font-weight: 500;
+    }
+</style>

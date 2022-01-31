@@ -83,7 +83,7 @@
                                    data-timestamp="{{timestamp}}">{{mday}}</a>
                             {{/hasevents}}
                             {{^hasevents}}
-                                <span aria-hidden="true">{{mday}}</span>
+                                <span aria-hidden="true" class="month-daynumber">{{mday}}</span>
                             {{/hasevents}}
                             {{#hasevents}}
                                 <div data-region="day-content">
@@ -103,7 +103,7 @@
                                    data-year="{{date.year}}" data-month="{{date.mon}}" data-day="{{mday}}"
                                    data-courseid="{{courseid}}" data-categoryid="{{categoryid}}"
                                    data-timestamp="{{timestamp}}"
-                                   data-day="{{mday}}">{{mday}}</a>
+                                   data-day="{{mday}}"><span class="month-daynumber"> {{mday}} </span></a>
                             {{/hasevents}}
                             {{^hasevents}}
                                 <span aria-hidden="true">{{mday}}</span>

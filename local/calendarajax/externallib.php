@@ -75,54 +75,103 @@ class core_calendar_external_view extends external_api{
       }
  }
 
- class core_calendar_external_courses extends external_api {
-   public static function get_courses_where_user_teacher()
-   {
-       global $USER, $DB;
-
-       $courses = [];
-
-       if ($roles = get_roles_with_capability('moodle/course:update', CAP_ALLOW)) {
-           foreach ($roles as $role) {
-               if($DB->record_exists('role_assignments', array('roleid' => $role->id, 'userid' => $USER->id))){
-                   $userRoleAssignments = $DB->get_records(
-                       'role_assignments',
-                       array('roleid' => $role->id, 'userid' => $USER->id)
-                   );
-
-                   if (isset($userRoleAssignments)) {
-                       foreach ($userRoleAssignments as $userRoleAssignment) {
-                           $contextOfUserRoleAssignment = $DB->get_record(
-                               'context',
-                               array('id' => $userRoleAssignment->contextid)
-                           );
-
-                           if ($DB->record_exists('course', array('id' => $contextOfUserRoleAssignment -> instanceid))) {
-                               $course = get_course($contextOfUserRoleAssignment -> instanceid);
-
-                               array_push($courses, $course);
-                           }
-                       }
-                   }
-               }
-           }
-       }
-
-       return $courses;
-   }
-
-   public static function get_courses_where_user_teacher_returns()
-   {
-       return new external_multiple_structure(
-           new external_single_structure(array(
-               'id' => new external_value(PARAM_INT, 'Course id'),
-               'fullname' => new external_value(PARAM_TEXT, 'Course name')
-           ))
-       );
-   }
-
-   public static function get_courses_where_user_teacher_parameters()
-   {
-       return new external_function_parameters([]);
-   }
-}
+class core_calendar_external_courses extends external_api
+ {
+     public static function get_courses_where_user_teacher()
+     {
+         global $USER, $DB;
+ 
+         $courses = [];
+ 
+         if ($roles = get_roles_with_capability('moodle/course:update', CAP_ALLOW)) {
+             foreach ($roles as $role) {
+                 if ($DB->record_exists('role_assignments', array('roleid' => $role->id, 'userid' => $USER->id))) {
+                     $userRoleAssignments = $DB->get_records(
+                         'role_assignments',
+                         array('roleid' => $role->id, 'userid' => $USER->id)
+                     );
+ 
+                     if (isset($userRoleAssignments)) {
+                         foreach ($userRoleAssignments as $userRoleAssignment) {
+                             $contextOfUserRoleAssignment = $DB->get_record(
+                                 'context',
+                                 array('id' => $userRoleAssignment->contextid)
+                             );
+ 
+                             if ($DB->record_exists('course', array('id' => $contextOfUserRoleAssignment->instanceid))) {
+                                 $course = get_course($contextOfUserRoleAssignment->instanceid);
+ 
+                                 array_push($courses, $course);
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+ 
+         return $courses;
+     }
+ 
+     public static function get_courses_where_user_teacher_returns()
+     {
+         return new external_multiple_structure(
+             new external_single_structure(array(
+                 'id' => new external_value(PARAM_INT, 'Course id'),
+                 'fullname' => new external_value(PARAM_TEXT, 'Course name')
+             ))
+         );
+     }
+ 
+     public static function get_courses_where_user_teacher_parameters()
+     {
+         return new external_function_parameters([]);
+     }
+ 
+     public static function get_courses()
+     {
+         global $USER, $DB;
+ 
+         $courses = [];
+ 
+         if ($DB->record_exists('role_assignments', array('userid' => $USER->id))) {
+             $userRoleAssignments = $DB->get_records(
+                 'role_assignments',
+                 array('userid' => $USER->id)
+             );
+ 
+             if (isset($userRoleAssignments)) {
+                 foreach ($userRoleAssignments as $userRoleAssignment) {
+                     $contextOfUserRoleAssignment = $DB->get_record(
+                         'context',
+                         array('id' => $userRoleAssignment->contextid)
+                     );
+ 
+                     if ($DB->record_exists('course', array('id' => $contextOfUserRoleAssignment->instanceid))) {
+                         $course = get_course($contextOfUserRoleAssignment->instanceid);
+ 
+                         if (!in_array($course, $courses)) {
+                             array_push($courses, $course);
+                         }
+                     }
+                 }
+             }
+         }
+ 
+         return $courses;
+     }
+ 
+     public static function get_courses_returns()
+     {
+         return new external_multiple_structure(
+             new external_single_structure(array(
+                 'id' => new external_value(PARAM_INT, 'Course id'),
+                 'fullname' => new external_value(PARAM_TEXT, 'Course name')
+             ))
+         );
+     }
+ 
+     public static function get_courses_parameters()
+     {
+         return new external_function_parameters([]);
+     }
+ }

@@ -52,7 +52,9 @@
                     }} data-year="{{previousperiod.year}}"{{!
                     }} data-month="{{previousperiod.mon}}"{{!
                 }}>
-                    <span class="arrow">{{{larrow}}}</span>
+                    <svg width="8" height="13" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.612497 6.93626L6.77813 12.3943C7.04867 12.6332 7.48699 12.6332 7.75822 12.3943C8.02877 12.1553 8.02877 11.7672 7.75822 11.5282L2.08164 6.50324L7.75754 1.47829C8.02808 1.23932 8.02808 0.851174 7.75754 0.6116C7.487 0.372631 7.04799 0.372631 6.77744 0.6116L0.611814 6.06957C0.345427 6.30607 0.345427 6.70031 0.612497 6.93626Z" fill="#919191"></path>
+                    </svg>
                 </a>
                 <span class="hide"> | </span>
                 <span class="current">
@@ -66,7 +68,9 @@
                     }} data-year="{{nextperiod.year}}"{{!
                     }} data-month="{{nextperiod.mon}}"{{!
                 }}>
-                    <span class="arrow">{{{rarrow}}}</span>
+                    <svg width="8" height="13" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.38775 6.93626L1.22212 12.3943C0.951575 12.6332 0.51325 12.6332 0.242023 12.3943C-0.0285208 12.1553 -0.0285209 11.7672 0.242023 11.5282L5.9186 6.50324L0.242705 1.47829C-0.0278381 1.23932 -0.0278382 0.851174 0.242705 0.6116C0.513249 0.372631 0.952256 0.372631 1.2228 0.6116L7.38843 6.06957C7.65482 6.30607 7.65482 6.70031 7.38775 6.93626Z" fill="#919191"></path>
+                    </svg>
                 </a>
             {{/includenavigation}}
             {{^includenavigation}}
@@ -92,7 +96,7 @@
                     <td class="dayblank">&nbsp;</td>
                 {{/prepadding}}
                 {{#days}}
-                    <td class="day text-center{{!
+                    <td style="line-height: 1.5rem !important; background: none !important;" class="day text-center{{!
                             This is the list of additional classes to display.
 
                             This cell is for today.
@@ -158,6 +162,24 @@
 {{/weeks}}
         </tbody>
     </table>
+
+    <hr>
+
+    <section class="minicalendar-filter-by-course">
+        <div class="filter-icon">
+            <svg class="filter" width="14" height="14" viewBox="0 0 14 14" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.2153 0.170898H0.27417V1.52581H13.2153V0.170898Z" fill="white"></path>
+                <path d="M5.51712 7.1875C5.57584 7.24085 5.6147 7.30828 5.62867 7.38104V13.246L7.85991 11.5813V7.38104C7.87388 7.30828 7.91274 7.24085 7.97146 7.1875L12.7686 2.32909H0.719971L5.51712 7.1875Z" fill="white"></path>
+            </svg>
+        </div>
+
+        <div class="minicalendar-filter-context" style="display: none;">
+            <h6>Курс</h6>
+            <select class="select-course">
+                <option>Тестовый курс</option>
+            </select>
+        </div>
+    </section>
 </div>
 {{#js}}
 require([
@@ -181,3 +203,72 @@ require([
     });
 });
 {{/js}}
+
+<style>
+    .hasevent a {
+        background-color: #EA4E43;
+        border-radius: 50%;
+
+        color: white !important;
+    }
+
+    table.minicalendar {
+        border-collapse: unset;
+        border-spacing: 6px;
+    }
+
+    table.minicalendar > tr > td {
+        line-height: 1.5rem;
+    }
+
+    div.calendarwrapper > section.minicalendar-filter-by-course > div.filter-icon {
+        display: inline-block;
+
+        width: 35px;
+        height: 30px;
+
+        padding-top: 3px;
+
+        border-radius: 10px;
+        border: 2px solid #F6B128;
+
+        text-align: center;
+
+        background: #F6B128;
+    }
+
+    div.calendarwrapper > section.minicalendar-filter-by-course div.filter-icon:hover {
+        background: white;
+    }
+
+    div.calendarwrapper > section.minicalendar-filter-by-course div.filter-icon:hover path {
+        fill: #F6B128;
+    }
+
+    div.calendarwrapper > section.minicalendar-filter-by-course > div.minicalendar-filter-context {
+        margin-top: 2%;
+    }
+
+    div.calendarwrapper > section.minicalendar-filter-by-course > div.minicalendar-filter-context > h6 {
+        font-weight: 500;
+    }
+
+    div.calendarwrapper > section.minicalendar-filter-by-course > div.minicalendar-filter-context select {
+        height: 35px;
+        width: 100%;
+
+        padding-left: 5%;
+
+        border: 1px solid #C0C7BA;
+        border-radius: 10px;
+
+        box-sizing: border-box;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance:none;
+
+        background: url(/calendar/assets/img/filter-select.png) 97% / 8% no-repeat white;
+        color: black;
+    }
+</style>

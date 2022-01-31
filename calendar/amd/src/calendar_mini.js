@@ -30,12 +30,14 @@ define([
     'core_calendar/selectors',
     'core_calendar/events',
     'core_calendar/view_manager',
+    'core_calendar/repository',
 ],
 function(
     $,
     CalendarSelectors,
     CalendarEvents,
-    CalendarViewManager
+    CalendarViewManager,
+    CalendarRepository,
 ) {
 
     /**
@@ -65,7 +67,10 @@ function(
         var namespace = '.' + root.attr('id');
 
         if (root.is(':visible')) {
-            CalendarViewManager.reloadCurrentMonth(root);
+            CalendarViewManager
+                .reloadCurrentMonth(root)
+                .then(setEventListenerToFilterIcon)
+            ;
         } else {
             // The root has been removed.
             // Remove all events in the namespace.
@@ -95,7 +100,67 @@ function(
                 $('body').off('change' + namespace);
             }
         });
+    };
 
+    const setEventListenerToFilterIcon = () => {
+        document
+            .querySelector('.minicalendar-filter-by-course')
+            .querySelector('.filter-icon')
+            .addEventListener('click', toggleFilterContext);
+    };
+
+    const toggleFilterContext = (event) => {
+        const filterContext = document
+            .querySelector('section.minicalendar-filter-by-course')
+            .querySelector('div.minicalendar-filter-context');
+        const selectCourse = filterContext.querySelector('select.select-course');
+
+        if (filterContext.style.display === 'none') {
+            CalendarRepository
+                .getUserCourses()
+                .then((courses) => {
+                    resetSelect(selectCourse);
+
+                    courses.forEach(course => {
+                        const courseOption = document.createElement('option');
+                        courseOption.text = course.fullname;
+                        courseOption.value = course.id;
+
+                        selectCourse.append(courseOption);
+                    });
+
+                    selectCourse.addEventListener('change', reloadMonthByCourseId);
+
+                    filterContext.style.display = 'block';
+                });
+        } else {
+            selectCourse.removeEventListener('change', reloadMonthByCourseId);
+
+            filterContext.style.display = 'none';
+        }
+    };
+
+    const resetSelect = (select) => {
+        const allCoursesOption = document.createElement('option');
+        allCoursesOption.text = 'Все курсы';
+        allCoursesOption.value = '1';
+
+        select.innerHTML = '';
+
+        select.append(allCoursesOption);
+    };
+
+    const reloadMonthByCourseId = (event) => {
+        const courseId = event.target.value;
+        const miniCalendar = document
+            .querySelector('table.minicalendar')
+            .closest('div.calendarwrapper')
+            .parentElement;
+
+        CalendarViewManager
+            .reloadCurrentMonth($(miniCalendar), courseId)
+            .then(setEventListenerToFilterIcon)
+        ;
     };
 
     return {
@@ -109,7 +174,10 @@ function(
             if (loadOnInit) {
                 // The calendar hasn't yet loaded it's events so we
                 // should load them as soon as we've initialised.
-                CalendarViewManager.reloadCurrentMonth(root);
+                CalendarViewManager
+                    .reloadCurrentMonth(root)
+                    .then(setEventListenerToFilterIcon)
+                ;
             }
 
         }
