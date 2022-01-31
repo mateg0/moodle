@@ -102,6 +102,15 @@ class user_editadvanced_form extends moodleform {
         $mform->addHelpButton('username', 'username', 'auth');
         $mform->setType('username', PARAM_RAW);
 
+        if ($userid == -1) {
+            $emptyrole = array(0 => get_string('no'));
+            $assignableroles = get_assignable_roles(context_system::instance());
+            if (!empty($assignableroles)) {
+                $rolelist = $emptyrole + $assignableroles;
+                $mform->addElement('select', 'userrole', get_string('userrole'), $rolelist);
+            }
+        }
+
         if ($userid !== -1) {
             $mform->disabledIf('username', 'auth', 'in', $cannotchangeusername);
         }

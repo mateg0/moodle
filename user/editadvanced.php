@@ -211,6 +211,10 @@ if ($userform->is_cancelled()) {
         }
         $usernew->id = user_create_user($usernew, false, false);
 
+        if (isset($usernew->userrole) && $usernew->userrole !== '0') {
+            role_assign($usernew->userrole, $usernew->id, 1);
+        }
+
         if (!$authplugin->is_internal() and $authplugin->can_change_password() and !empty($usernew->newpassword)) {
             if (!$authplugin->user_update_password($usernew, $usernew->newpassword)) {
                 // Do not stop here, we need to finish user creation.
