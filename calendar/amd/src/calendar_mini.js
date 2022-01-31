@@ -40,6 +40,7 @@ function(
     CalendarRepository,
 ) {
 
+    const courseIdFieldName = 'filterCourseId';
     /**
      * Listen to and handle any calendar events fired by the calendar UI.
      *
@@ -116,6 +117,8 @@ function(
         const selectCourse = filterContext.querySelector('select.select-course');
 
         if (filterContext.style.display === 'none') {
+            const courseId = sessionStorage.getItem(courseIdFieldName);
+
             CalendarRepository
                 .getUserCourses()
                 .then((courses) => {
@@ -125,6 +128,10 @@ function(
                         const courseOption = document.createElement('option');
                         courseOption.text = course.fullname;
                         courseOption.value = course.id;
+
+                        if (course.id === +courseId) {
+                            courseOption.selected = true;
+                        }
 
                         selectCourse.append(courseOption);
                     });
@@ -156,6 +163,8 @@ function(
             .querySelector('table.minicalendar')
             .closest('div.calendarwrapper')
             .parentElement;
+
+        sessionStorage.setItem(courseIdFieldName, courseId);
 
         CalendarViewManager
             .reloadCurrentMonth($(miniCalendar), courseId)
