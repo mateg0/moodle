@@ -113,14 +113,10 @@ if ($ADMIN->fulltree) {
         $scss_path = __DIR__.'/scss/custom.scss';
         $scss_mapper = array(
             // 'scss_var_name' => 'colour_picker_name',
-            'custom-main-bg-color' => 'main_color_background',
-            'custom-main-header-color' => 'main_color_navbar',
-            'custom-main-link-color' => 'main_color_links',
-            'custom-course-content-bg-color' => 'main_color_course_content_background',
-            'custom-course-content-border-color' => 'main_color_course_content_border',
-            'custom-block-bg-color' => 'main_color_block_background',
-            'custom-card-bg-color' => 'main_color_card_background',
-            'custom-card-shadow-color' => 'main_color_card_shadow'
+            'custom-theme-color-1' => 'custom_theme_color_1',
+            'custom-theme-color-2' => 'custom_theme_color_2',
+            'custom-theme-color-3' => 'custom_theme_color_3',
+            'custom-theme-color-4' => 'custom_theme_color_4'
         );
 
         if (file_exists($scss_path)) {
@@ -178,52 +174,28 @@ if ($ADMIN->fulltree) {
             'description' => '',
             'colourpickers' => array(
                 array(
-                    'name' => 'main_color_background',
-                    'title' => 'Background color',
-                    'description' => '',
-                    'default' => '#F8FFF3'
-                ),
-                array(
-                    'name' => 'main_color_navbar',
-                    'title' => 'Navigation bar color',
-                    'description' => '',
+                    'name' => 'custom_theme_color_1',
+                    'title' => 'Custom theme color 1',
+                    'description' => 'Navigation bar color',
                     'default' => '#C3E4AF'
                 ),
                 array(
-                    'name' => 'main_color_links',
-                    'title' => 'Links color',
-                    'description' => '',
-                    'default' => '#222222'
+                    'name' => 'custom_theme_color_2',
+                    'title' => 'Custom theme color 2',
+                    'description' => 'Main background color',
+                    'default' => '#F8FFF3'
                 ),
                 array(
-                    'name' => 'main_color_course_content_background',
-                    'title' => 'Course content background color',
-                    'description' => '',
-                    'default' => '#FFFFFF'
+                    'name' => 'custom_theme_color_3',
+                    'title' => 'Custom theme color 3',
+                    'description' => 'Navigation bar icons color and some elements accent color',
+                    'default' => '#4E9A5F'
                 ),
                 array(
-                    'name' => 'main_color_course_content_border',
-                    'title' => 'Course content borders color',
-                    'description' => '',
-                    'default' => '#FFFFFF'
-                ),
-                array(
-                    'name' => 'main_color_block_background',
-                    'title' => 'Blocks background color',
-                    'description' => '',
-                    'default' => '#F8F9FA'
-                ),
-                array(
-                    'name' => 'main_color_card_background',
-                    'title' => 'Cards background color',
-                    'description' => '',
-                    'default' => '#FFFFFF'
-                ),
-                array(
-                    'name' => 'main_color_card_shadow',
-                    'title' => 'Cards shadow color',
-                    'description' => '',
-                    'default' => '#ECECEC'
+                    'name' => 'custom_theme_color_4',
+                    'title' => 'Custom theme color 4',
+                    'description' => 'Some elements color',
+                    'default' => '#C0C7BA'
                 )
             )
         )
