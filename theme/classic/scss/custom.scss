@@ -28,11 +28,12 @@ $maincalendar-second-text-color: #B8B8B8;
 $maincalendar-day-bg-color: #FFFFFF;
 $maincalendar-dayblank-bg-color: #E5EEE3;
 $maincalendar-borders-color: #E0E0E0;
-$maincalendar-elements-color: #C0C7BA;
-$maincalendar-accent-color: #4E9A5F;
+$maincalendar-elements-color: $custom-theme-color-4;
+$maincalendar-accent-color: $custom-theme-color-3;
 $maincalendar-accent-color-2: #228B22; // aka forestgreen
 $maincalendar-cell-plus-color-1: #599A4E;
 $maincalendar-cell-plus-color-2: #FFFFFF;
+$maincalendar-today-bordercolor: #F7542E;
 $maincalendar-popups-bg-color: #F9FFF5;
 $maincalendar-popups-shadow-color: #ECECEC;
 $maincalendar-popup-event-title-text: #C4C4C4;
@@ -170,13 +171,26 @@ div.path-calendar {
           background-color: $maincalendar-dayblank-bg-color !important;
         }
       }
+	
+      .month-daynumber {
+        display: block;
+        position: relative;
+        // top: 7px;
+        // left: 4px;
+      }
+
+      .today {
+        outline: 2px solid $maincalendar-today-bordercolor;
+      }
 
       .eventname {
         color: $custom-main-text-color;
+	      border-radius: 50%;
         font-size: 14px;
-        padding-left: 10px;
-        padding-right: 10px;
-        border-radius: 10px;
+        width: 18px;
+	      height: 18px;
+	      display: block;
+	      text-align: center;
       }
 
       div[data-region="day-content"] {
@@ -343,6 +357,12 @@ div.path-calendar {
 
 }
 
+.minicalendar {
+	.today {
+		outline: 2px solid $maincalendar-today-bordercolor	
+	}
+}
+
 /*calendar-end*/
 
 /*groupmembers*/
@@ -447,9 +467,16 @@ div.path-calendar {
 
   .cs-add-group {
     border-color: $wgt-groups-elements-color !important;
+    border-style: solid;
     .cs-add-group-ico svg {
       fill: $custom-main-text-color;
     }
+    &:hover {
+	    border-color: $wgt-groups-elements-accent-color;
+	  }
+    &:hover svg {
+	    fill: $wgt-groups-elements-accent-color;
+	  }
   }
 
   .cgm-student-list {
