@@ -70,7 +70,7 @@ function(
         if (root.is(':visible')) {
             CalendarViewManager
                 .reloadCurrentMonth(root)
-                .then(setEventListenerToFilterIcon)
+                .then(setEventListeners)
             ;
         } else {
             // The root has been removed.
@@ -103,12 +103,26 @@ function(
         });
     };
 
+    const setEventListeners = () => {
+        setEventListenerToNavLinks();
+        setEventListenerToFilterIcon();
+    }
+
     const setEventListenerToFilterIcon = () => {
         document
             .querySelector('.minicalendar-filter-by-course')
             .querySelector('.filter-icon')
             .addEventListener('click', toggleFilterContext);
     };
+
+    const setEventListenerToNavLinks = () => {
+        document
+            .querySelector('table.minicalendar')
+            .querySelectorAll('a.arrow-link')
+            .forEach(navLink => {
+                navLink.addEventListener('click', changeMonth);
+            });
+    }
 
     const toggleFilterContext = (event) => {
         const filterContext = document
@@ -168,9 +182,32 @@ function(
 
         CalendarViewManager
             .reloadCurrentMonth($(miniCalendar), courseId)
-            .then(setEventListenerToFilterIcon)
+            .then(setEventListeners)
         ;
     };
+
+    const changeMonth = (event) => {
+        const calendarWrapper = document
+            .querySelector('table.minicalendar')
+            .closest('div.calendarwrapper');
+        const calendar = $(calendarWrapper.parentElement);
+        const courseId = calendarWrapper.dataset.courseid;
+        const categoryId = calendarWrapper.dataset.categoryid;
+        const link = event.currentTarget;
+
+        CalendarViewManager
+            .changeMonth(
+                calendar,
+                link.href,
+                link.dataset.year,
+                link.dataset.month,
+                courseId,
+                categoryId,
+                link.dataset.day
+            )
+            .then(setEventListeners);
+        event.preventDefault();
+    }
 
     return {
         init: function(root, loadOnInit) {
@@ -185,7 +222,7 @@ function(
                 // should load them as soon as we've initialised.
                 CalendarViewManager
                     .reloadCurrentMonth(root)
-                    .then(setEventListenerToFilterIcon)
+                    .then(setEventListeners)
                 ;
             }
 

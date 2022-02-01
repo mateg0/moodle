@@ -77,7 +77,7 @@ const registerEventListeners = (root) => {
         }
     });
 
-    root.on('click', CalendarSelectors.links.navLink, (e) => {
+    /*root.on('click', CalendarSelectors.links.navLink, (e) => {
         const wrapper = root.find(CalendarSelectors.wrapper);
         const view = wrapper.data('view');
         const courseId = wrapper.data('courseid');
@@ -91,7 +91,7 @@ const registerEventListeners = (root) => {
             changeDay(root, link.href, link.dataset.year, link.dataset.month, link.dataset.day, courseId, categoryId);
             e.preventDefault();
         }
-    });
+    });*/
 
     const viewSelector = root.find(CalendarSelectors.viewSelector);
     CustomEvents.define(viewSelector, [CustomEvents.events.activate]);
