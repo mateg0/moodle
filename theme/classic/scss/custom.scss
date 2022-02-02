@@ -105,6 +105,9 @@ div.path-calendar {
 
       .aalink {
         text-decoration: none;
+        position: relative;
+        top: 7px;
+        left: 4px;
         color: $maincalendar-main-text-color;
         &:hover {
           color: $custom-main-text-color;
@@ -171,12 +174,12 @@ div.path-calendar {
           background-color: $maincalendar-dayblank-bg-color !important;
         }
       }
-	
+
       .month-daynumber {
         display: block;
         position: relative;
-        // top: 7px;
-        // left: 4px;
+        top: 7px;
+        left: 4px;
       }
 
       .today {
@@ -185,12 +188,12 @@ div.path-calendar {
 
       .eventname {
         color: $custom-main-text-color;
-	      border-radius: 50%;
+        border-radius: 50%;
         font-size: 14px;
         width: 18px;
-	      height: 18px;
-	      display: block;
-	      text-align: center;
+        height: 18px;
+        display: block;
+        text-align: center;
       }
 
       div[data-region="day-content"] {
@@ -358,9 +361,9 @@ div.path-calendar {
 }
 
 .minicalendar {
-	.today {
-		outline: 2px solid $maincalendar-today-bordercolor	
-	}
+  .today {
+    outline: 2px solid $maincalendar-today-bordercolor;
+  }
 }
 
 /*calendar-end*/
@@ -472,11 +475,11 @@ div.path-calendar {
       fill: $custom-main-text-color;
     }
     &:hover {
-	    border-color: $wgt-groups-elements-accent-color;
-	  }
+      border-color: $wgt-groups-elements-accent-color;
+    }
     &:hover svg {
-	    fill: $wgt-groups-elements-accent-color;
-	  }
+      fill: $wgt-groups-elements-accent-color;
+    }
   }
 
   .cgm-student-list {
