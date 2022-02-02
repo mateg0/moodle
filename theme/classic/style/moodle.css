@@ -9841,7 +9841,7 @@ a.text-dark:hover, a.text-dark:focus {
  */
 /* core.less */
 #region-main {
-  overflow-x: auto;
+  /* overflow-x: auto; */
   overflow-y: visible;
   background-color: #fff; }
 
@@ -13067,7 +13067,7 @@ input[disabled] {
     height: 100%;
     position: relative; }
   .path-calendar .maincalendar .calendarmonth {
-    width: 98%;
+    width: 100%;
     margin: 10px auto; }
     .path-calendar .maincalendar .calendarmonth ul {
       margin: 0;
@@ -13122,7 +13122,7 @@ input[disabled] {
   .path-calendar .maincalendar .calendar-controls .current {
     width: 39.95%; }
   .path-calendar .maincalendar .controls {
-    width: 98%;
+    width: 100%;
     margin: 10px auto; }
   .path-calendar .maincalendar .calendar_event_category:hover a,
   .path-calendar .maincalendar .calendar_event_course:hover a,
