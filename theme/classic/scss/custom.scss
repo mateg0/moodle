@@ -11,30 +11,29 @@ $custom-second-text-color: #BFBFBF;
 $custom-third-text-color: #6C757D;
 $custom-main-link-color: #0F6FC5;
 $custom-main-link-color-hover: #0A477E;
-$custom-dropdown-items-color-hover: #0F6FC5;
+$custom-dropdown-items-color-hover: $custom-theme-color-4; // was #0F6FC5
 // Navigation bar ->
 $navbar-bg-color: $custom-theme-color-1;
 $navbar-icons-bg-color: $custom-theme-color-3;
-$navbar-brand-text-color: #222222;
-$navbar-links-color: #222222;
+$navbar-brand-text-color: $custom-main-text-color; // was #222222
+$navbar-links-color: $custom-main-text-color; // was #222222
 // Course content ->
 $course-content-bg-color: #FFFFFF;
 $course-content-border-color: #FFFFFF;
 $course-content-division-line: #E3E3E3;
-$course-content-theme-text-color: #222222;
+$course-content-theme-text-color: $custom-main-text-color; // was #222222
 // Main Calendar ->
 $maincalendar-main-text-color: #666666;
 $maincalendar-second-text-color: #B8B8B8;
 $maincalendar-day-bg-color: #FFFFFF;
-$maincalendar-dayblank-bg-color: #E5EEE3;
+$maincalendar-dayblank-bg-color: adjust-color($custom-main-bg-color, $red: -16, $green: -16, $blue: -16); // was #E5EEE3
 $maincalendar-borders-color: #E0E0E0;
 $maincalendar-elements-color: $custom-theme-color-4;
 $maincalendar-accent-color: $custom-theme-color-3;
-$maincalendar-accent-color-2: #228B22; // aka forestgreen
-$maincalendar-cell-plus-color-1: #599A4E;
+$maincalendar-accent-color-2: $custom-theme-color-3; // was #228B22 (aka forestgreen)
+$maincalendar-cell-plus-color-1: $custom-theme-color-3; // was #599A4E
 $maincalendar-cell-plus-color-2: #FFFFFF;
 $maincalendar-today-bordercolor: #F7542E;
-$maincalendar-popups-bg-color: #F9FFF5;
 $maincalendar-popups-shadow-color: #ECECEC;
 $maincalendar-popup-event-title-text: #C4C4C4;
 $maincalendar-popup-event-title-underline: #BFBFBF;
@@ -43,9 +42,9 @@ $widgets-bg-color: #FFFFFF;
 $widgets-shadow-color: #ECECEC;
 // Widgets "Group members", "Group statistics", "Add user" ->
 $wgt-groups-elements-color: $custom-theme-color-4;
-$wgt-groups-elements-accent-color: #228B22; // aka forestgreen
-$wgt-groups-elements-accent-color-2: #599A4E;
-$wgt-groups-active-selector-bg-color: #F0FFF6;
+$wgt-groups-elements-accent-color: $custom-theme-color-3; // was #228B22 (aka forestgreen)
+$wgt-groups-elements-accent-color-2: $custom-theme-color-3; // was #599A4E
+$wgt-groups-active-selector-bg-color: rgba($custom-theme-color-3, 0.1); // was #F0FFF6
 // Widget "Online class" ->
 $wgt-onlineclass-btn-text-color: #FFFFFF;
 $wgt-onlineclass-btn-bg-color: #F7542E;
@@ -265,7 +264,7 @@ div.path-calendar {
 
   .schedule {
 
-    background-color: $maincalendar-popups-bg-color;
+    background-color: $custom-main-bg-color;
     border-color: $maincalendar-accent-color;
     box-shadow: 0px 3px 10px $maincalendar-popups-shadow-color;
 
@@ -297,7 +296,7 @@ div.path-calendar {
 
   .add-event {
 
-    background-color: $maincalendar-popups-bg-color;
+    background-color: $custom-main-bg-color;
     border-color: $maincalendar-accent-color;
 
     form.add-event-form {
@@ -641,11 +640,11 @@ div.path-calendar {
 
   .gst-line {
     &.active {
-      outline-color: $wgt-groups-elements-accent-color-2;
-      background: $wgt-groups-elements-accent-color-2;
+      outline-color: $wgt-groups-elements-accent-color-2 !important;
+      background: $wgt-groups-elements-accent-color-2 !important;
     }
     &:hover {
-      border-color: $wgt-groups-elements-accent-color-2;
+      border-color: $wgt-groups-elements-accent-color-2 !important;
     }
   }
 
