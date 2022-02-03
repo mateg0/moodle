@@ -340,6 +340,24 @@ div.path-calendar {
           }
         }
       }
+      .event-select-course, .event-select-group {
+        .event-back-image {
+          border-color: $custom-main-text-color;
+          svg path {fill: $custom-main-text-color;}
+          &:hover {
+            background-color: $maincalendar-accent-color;
+            svg path {fill: #FFFFFF;}
+          }
+        }
+        .event-select-type-image {
+          border-color: $custom-main-text-color;
+          svg path {fill: $custom-main-text-color;}
+        }
+      }
+      .select-course, .select-group {
+        color: $custom-main-text-color;
+        border-color: $maincalendar-elements-color;
+      }
       .time-date-dims .time-date-dims-holder {
         .time-date-dim-start, .time-date-dim-end {
           background-color: $maincalendar-accent-color;
@@ -383,9 +401,19 @@ div.path-calendar {
 
 }
 
-.minicalendar {
-  .today {
-    outline: 2px solid $maincalendar-today-bordercolor;
+section.block_calendar_month {
+  table.minicalendar {
+    .today {
+      outline: 2px solid $maincalendar-today-bordercolor;
+    }
+  }
+  section.minicalendar-filter-by-course {
+    .minicalendar-filter-context {
+      select.select-course {
+        color: $custom-main-text-color;
+        border-color: $maincalendar-elements-color;
+      }
+    }
   }
 }
 
