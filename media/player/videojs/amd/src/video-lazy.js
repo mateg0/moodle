@@ -5512,9 +5512,9 @@
     MediaError.prototype[MediaError.errorTypes[errNum]] = errNum;
   } // jsdocs for instance/static members added above
 
-  var tuple = SafeParseTuple;
+  // var tuple = SafeParseTuple;
 
-  function SafeParseTuple(obj, reviver) {
+  var tuple = function SafeParseTuple(obj, reviver) {
     var json;
     var error = null;
 
