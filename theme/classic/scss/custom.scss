@@ -77,6 +77,14 @@ $font-rubik: Rubik, sans-serif;
   }
 }
 
+section {
+  >div.card-body {
+    >div.card-text {
+      margin-top: 0 !important;
+    }
+  }
+}
+
 /*calendar*/
  
 .calendarmonth td.dayblank:hover {
