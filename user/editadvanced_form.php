@@ -108,6 +108,9 @@ class user_editadvanced_form extends moodleform {
             if (!empty($assignableroles)) {
                 $rolelist = $emptyrole + $assignableroles;
                 $mform->addElement('select', 'userrole', get_string('userrole'), $rolelist);
+                if (user_has_role_assignment($USER->id, 10)) {
+                    $mform->setDefault('userrole', 5);
+                }
             }
         }
 
