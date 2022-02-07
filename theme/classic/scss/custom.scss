@@ -1,7 +1,7 @@
 // Colors -->
-$custom-theme-color-1: #AFCBE4;
-$custom-theme-color-2: #F3F8FF;
-$custom-theme-color-3: #4E719A;
+$custom-theme-color-1: #B0AFE4;
+$custom-theme-color-2: #F3F3FF;
+$custom-theme-color-3: #4E5A9A;
 $custom-theme-color-4: #BAC2C7;
 
 // Colors by elements -->
@@ -1169,6 +1169,9 @@ nav.navbar {
   left: 0;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
+  
+  display: none;
+  visibility: hidden;
 
   &:target {
     visibility: visible;
