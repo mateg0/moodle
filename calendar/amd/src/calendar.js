@@ -481,6 +481,9 @@ define([
     const showAddEventForm = (event) => {
         const addEventForm = document.querySelector(SELECTORS.ADD_EVENT_FORM);
         const targetCell = event.target.closest('td');
+        const shadowDiv = document.createElement('div');
+
+        shadowDiv.className = "shadow";
 
         if (targetCell) {
             sessionStorage.setItem(sessionStorageTimestampNewEventFieldName, targetCell.dataset.newEventTimestamp);
@@ -497,6 +500,8 @@ define([
 
             inputDate.value = `${splitedAddEventDateJSON[0]}:${splitedAddEventDateJSON[1]}`;
         });
+
+        document.body.prepend(shadowDiv);
 
         setTimeout(() => {
             document.addEventListener('click', hideAddEventForm);
@@ -532,6 +537,10 @@ define([
 
             const currentCourseOption = document.createElement('option');
             const currentGroupOption = document.createElement('option');
+
+            const shadowDiv = document.createElement('div');
+
+            shadowDiv.className = "shadow";
 
             clearEventForm(changeEventForm);
 
@@ -579,6 +588,7 @@ define([
             }
 
             changeEventForm.style.display = 'block';
+            document.body.prepend(shadowDiv);
 
             setTimeout(() => {
                 deleteEventButton.addEventListener('click', deleteEvent);
@@ -623,6 +633,7 @@ define([
     const hideAddEventForm = (event) => {
         if (!event.target.closest(SELECTORS.ADD_EVENT_FORM)) {
             document.querySelector(SELECTORS.ADD_EVENT_FORM).style.display = 'none';
+            document.querySelector('div.shadow').remove();
             document.removeEventListener('click', hideAddEventForm);
             document.removeEventListener('click', hideChangeEventForm);
         }
