@@ -31,6 +31,11 @@ require_once('config.php');
 require_once($CFG->dirroot .'/course/lib.php');
 require_once($CFG->libdir .'/filelib.php');
 
+$customfrontpage = false;
+if (!empty($CFG->customfrontpage) && file_exists($CFG->customfrontpage)) {
+    $customfrontpage = true;
+}
+
 redirect_if_major_upgrade_required();
 
 $urlparams = array();
@@ -39,14 +44,18 @@ if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_MY) && o
 }
 $PAGE->set_url('/', $urlparams);
 $PAGE->set_pagelayout('frontpage');
-$PAGE->set_other_editing_capability('moodle/course:update');
-$PAGE->set_other_editing_capability('moodle/course:manageactivities');
-$PAGE->set_other_editing_capability('moodle/course:activityvisibility');
+if (!$customfrontpage) {
+    $PAGE->set_other_editing_capability('moodle/course:update');
+    $PAGE->set_other_editing_capability('moodle/course:manageactivities');
+    $PAGE->set_other_editing_capability('moodle/course:activityvisibility');
+}
 
-// Prevent caching of this page to stop confusion when changing page after making AJAX changes.
-$PAGE->set_cacheable(false);
+if (!$customfrontpage) {
+    // Prevent caching of this page to stop confusion when changing page after making AJAX changes.
+    $PAGE->set_cacheable(false);
 
-require_course_login($SITE);
+    require_course_login($SITE);
+}
 
 $hasmaintenanceaccess = has_capability('moodle/site:maintenanceaccess', context_system::instance());
 
@@ -86,6 +95,10 @@ if (get_home_page() != HOMEPAGE_SITE) {
                 navigation_node::TYPE_SETTING);
         }
     }
+}
+
+if ($customfrontpage) {
+    redirect($CFG->customfrontpage);
 }
 
 // Trigger event.
