@@ -107,9 +107,14 @@ class user_editadvanced_form extends moodleform {
             $assignableroles = get_assignable_roles(context_system::instance());
             if (!empty($assignableroles)) {
                 $rolelist = $emptyrole + $assignableroles;
-                $mform->addElement('select', 'userrole', get_string('userrole'), $rolelist);
+                $default_userrole = -1;
                 if (user_has_role_assignment($USER->id, 10)) {
-                    $mform->setDefault('userrole', 5);
+                    $rolelist = $assignableroles;
+                    $default_userrole = 5;
+                }
+                $mform->addElement('select', 'userrole', get_string('userrole'), $rolelist);
+                if ($default_userrole > -1) {
+                    $mform->setDefault('userrole', $default_userrole);
                 }
             }
         }
