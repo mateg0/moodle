@@ -326,9 +326,11 @@ if ($userform->is_cancelled()) {
         \core\session\manager::gc(); // Remove stale sessions.
         if (has_capability('moodle/site:config', $systemcontext)) {
             redirect("$CFG->wwwroot/$CFG->admin/user.php");
-        } else {
+        } else if ($returnto === 'profile') {
             // Added redirect on new user creation for non-admin user
             redirect(new moodle_url('/user/profile.php', array('id' => $usernew->id)));
+        } else {
+            redirect(new moodle_url('/my'));
         }
     }
     // Never reached..
