@@ -26,6 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $THEME->name = 'classic';
+global $CFG, $PAGE, $USER;
+$PAGE->requires->jquery();
+$THEME->javascripts_footer = array("leftcolumntoggle");
 
 //$THEME->sheets = [];
 $THEME->sheets = array('tmp');
@@ -51,7 +54,8 @@ $THEME->layouts = [
     ),
     'coursecategory' => array(
         'file' => 'columns.php',
-        'regions' => array('side-pre', 'side-post'),
+//        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // Part of course, typical for modules - default page layout if $cm specified in require_login().

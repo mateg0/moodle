@@ -124,12 +124,13 @@ class course_renderer extends \core_course_renderer
         // 202003031234 - check that the user is within a course category and not just on the /courses/index.php page, because below demands a category ID
         if ($coursecat->id && $coursecat->is_uservisible()) {
 
-            $output .= '<div class="row">
-    						<div class="col-xl-4">
+            /*<div class="col-xl-4">
     							<div class="instructor_search_result style2">
     								<p class="mt10 fz15"><span class="color-dark pr5">' . $coursecat->get_courses_count() . ' </span> ' . get_string('courses') . '</p>
     							</div>
-    						</div>
+    						</div>*/
+
+            $output .= '<div class="row">
     						<div class="col-xl-8">
     							<div class="candidate_revew_select style2 text-right mb25">
     								<ul>
@@ -142,12 +143,13 @@ class course_renderer extends \core_course_renderer
             ';
 
         } else {
-            $output .= '<div class="row">
-                <div class="col-xl-4">
+           /* <div class="col-xl-4">
                   <div class="instructor_search_result style2">
                     <p class="mt10 fz15"><span class="color-dark pr5">' . count($categorieslist) . ' </span> ' . get_string('categories') . '</p>
                   </div>
-                </div>
+                </div>*/
+
+            $output .= '<div class="row">
                 <div class="col-xl-8">
                   <div class="candidate_revew_select style2 text-right mb25">
                     <ul>
@@ -281,18 +283,24 @@ class course_renderer extends \core_course_renderer
             }
         }
         $content = '';
+        /*$content .= '
+             <div class="col-lg-6 top_courses has-footer">';*/
         $content .= '
-             <div class="col-lg-6 top_courses has-footer">';
+             <div class="course-promo">';
         if ($contentimages) {
-            $content .= '<div class="thumb">
+            /*$content .= '<div class="thumb">
                  ' . $contentimages . '
                  <div class="overlay">
                    <div class="tag">' . $items_count . '</div>
                    <a class="tc_preview_course" href="' . $category_link . '">' . get_string('viewallcourses') . '</a>
                  </div>
-               </div>';
+               </div>';*/
+
+            $content .= '<div class="course-image">'. $contentimages .'</div>';
+        } else {
+            $content .= '<div class="course-image-blank"></div>';
         }
-        $content .= '
+        /*$content .= '
                <div class="details">
                          <div class="tc_content">';
         if (isset($PAGE->theme->settings->coursecat_modified) && ($PAGE->theme->settings->coursecat_modified !== '1')) {
@@ -311,7 +319,21 @@ class course_renderer extends \core_course_renderer
                            </ul>
                          </div>
 
-             </div>';
+             </div>';*/
+
+        $content .= '
+            <div class="course-promo-body">
+                <div class="course-title">
+                  <a href="'. $category_link .'">'. $categoryname .'</a>
+                </div>
+                
+                <div class="course-description">
+                    ' . $cat_summary . '
+                </div>
+            </div>
+        </div>
+        ';
+
         return $content;
     }
 
@@ -331,7 +353,8 @@ class course_renderer extends \core_course_renderer
         }
 
         $content = '';
-        $content .= '<div class="courses row courses_container">';
+//        $content .= '<div class="courses row courses_container">';
+        $content .= '<div class="all-courses-container">';
 
         // prepare content of paging bar or more link if it is needed
         $paginationurl = $chelper->get_categories_display_option('paginationurl');
@@ -382,9 +405,11 @@ class course_renderer extends \core_course_renderer
             }
         }*/
 
+        $content .= '<div class="courses-container">';
         foreach ($subcategories as $subcategory) {
             $content .= $this->coursecat_category($chelper, $subcategory, $depth + 1);
         }
+        $content .= '</div>';
 
         if (!empty($pagingbar)) {
             $content .= $pagingbar;
@@ -511,19 +536,25 @@ class course_renderer extends \core_course_renderer
         if (!$contentimages) {
             $contentimages = '<img class="img-whp" src="/theme/classic/pix/course-default.png" alt="' . $coursename . '">';
         }
-        $contenttext .= '
-							<div class="col-lg-6 top_courses ' . $topCoursesClass . '">';
+//        $contenttext .= '<div class="col-lg-6 top_courses ' . $topCoursesClass . '">';
+        $contenttext .= '<div class="course-promo">';
+
         if ($contentimages) {
-            $contenttext .= '
+            /*$contenttext .= '
 								<div class="thumb">
 									' . $contentimages . '
 									<div class="overlay">
                     <div class="tag">' . $category . '</div>
 										<a class="tc_preview_course" href="' . $coursenamelink . '">' . $coursename . '</a>
 									</div>
-								</div>';
+								</div>';*/
+            $contenttext .= '<div class="course-image">'. $contentimages .'</div>';
+        } else {
+            $contenttext .= '<div class="course-image-blank"></div>';
         }
-        $contenttext .= '
+
+
+        /*$contenttext .= '
                 <div class="details">
                           <div class="tc_content">
                             <p>' . $course_meta . '</p>
@@ -531,8 +562,26 @@ class course_renderer extends \core_course_renderer
                             <p>' . $coursesummary . '</p>';
         $contenttext .= $info_box . '
                           </div>
-                          </div>';
-        if (
+                          </div>';*/
+
+        $contenttext .= '
+            <div class="course-promo-body">
+                <div class="course-title">
+                  <a href="'. $coursenamelink .'">'. $coursename .'</a>
+                </div>
+                
+                <div class="course-teacher">
+                    '. $course_meta .'
+                </div>
+                
+                <div class="course-description">
+                    ' . $coursesummary . '
+                </div>
+            </div>
+        </div>
+        ';
+
+        /*if (
             (isset($PAGE->theme->settings->coursecat_enrolments) && ($PAGE->theme->settings->coursecat_enrolments != 1)) || (isset($PAGE->theme->settings->coursecat_announcements) && ($PAGE->theme->settings->coursecat_announcements != 1))
         ) {
             $contenttext .= '
@@ -555,10 +604,7 @@ class course_renderer extends \core_course_renderer
             $contenttext .= '
                             </ul>
                           </div>';
-        }
-        $contenttext .= '
-
-							</div>';
+        }*/
 
         $content .= $contenttext . $contentfiles;
 
@@ -703,7 +749,8 @@ class course_renderer extends \core_course_renderer
 
         // display list of courses
         $attributes = $chelper->get_and_erase_attributes('courses');
-        $content = html_writer::start_tag('div', $attributes);
+//        $content = html_writer::start_tag('div', $attributes);
+        $content ='<div class="all-courses-container">';
 
         // if (!empty($pagingbar)) {
         //     $content .= '<div class="col-lg-12 mt30 mb30">'.$pagingbar.'</div>';
@@ -711,6 +758,8 @@ class course_renderer extends \core_course_renderer
 
         $coursecount = 0;
         $coursesNumber = count($courses);
+
+        $content .= '<div class="courses-container">';
         foreach ($courses as $course) {
             $coursecount++;
             $classes = ($coursecount % 2) ? 'odd' : 'even';
@@ -723,11 +772,13 @@ class course_renderer extends \core_course_renderer
 //            if ($coursecount % 2) {
 //                $content .= '<div class="course-pair">';
 //            }
+
             $content .= $this->coursecat_coursebox($chelper, $course, $classes);
 //            if (!($coursecount % 2) || $coursecount >= $coursesNumber) {
 //                $content .= '</div>';
 //            }
         }
+        $content .= '</div>';
 
         if (!empty($pagingbar)) {
             $content .= '<div class="col-lg-12 mt30 mb30">' . $pagingbar . '</div>';

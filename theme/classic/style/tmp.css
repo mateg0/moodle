@@ -337,3 +337,106 @@
 .top_courses.home2 .tc_footer .tc_price {
     color: #192675;
 }
+
+
+/*NEW CARD*/
+
+.all-courses-container {
+    width: 100%;
+    overflow: auto;
+    color: #353535;
+    /*height: 100vh;*/
+    /* adjust height */
+}
+.all-courses-container .course-category-title {
+    font-weight: 600;
+    font-size: 1.75rem;
+    line-height: 117%;
+    letter-spacing: 0.1em;
+    padding-left: 15px;
+}
+.all-courses-container .courses-container {
+    display: -ms-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 15px;
+    margin-bottom: 40px;
+}
+.course-promo {
+    width: 300px;
+    height: 325px;
+    border-radius: 14px;
+    background: white;
+    -webkit-box-shadow: 0 3px 10px #ECECEC;
+    box-shadow: 0 3px 10px #ECECEC;
+    overflow: hidden;
+    margin-right: 20px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+.course-promo .course-image {
+    width: 100%;
+    height: 170px;
+    margin-bottom: 8px;
+}
+.course-promo .course-image img {
+    width: 100%;
+    height: 100%;
+}
+.course-promo .course-image-blank {
+    width: 100%;
+    height: 170px;
+    display: -ms-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-weight: 400;
+    font-style: 1.125rem;
+    background: #FFA7A7;
+    margin-bottom: 8px;
+}
+.course-promo .course-promo-body {
+    padding: 0 15px 15px;
+}
+.course-promo .course-promo-body .course-title {
+    max-height: 20px;
+    font-weight: 800;
+    font-style: 1rem;
+    line-height: 118%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+.course-promo .course-promo-body .course-teacher {
+    margin-bottom: 5px;
+    max-height: 20px;
+    font-weight: 400;
+    font-style: 0.875rem;
+    line-height: 121%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.course-promo .course-promo-body .course-teacher .teacher-name {
+    font-weight: 700;
+}
+.course-promo .course-promo-body .course-description {
+    text-align: left;
+    font-weight: 400;
+    font-style: 0.875rem;
+    line-height: 121%;
+    overflow: hidden;
+    max-height: 80px;
+}
