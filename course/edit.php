@@ -188,6 +188,35 @@ if ($editform->is_cancelled()) {
                 }
             }
         }
+
+        // Set default course image.
+        $fs = get_file_storage();
+        $imagesdir = "../theme/$CFG->theme/pix/coursedefaults/";
+        if (empty($fs->get_area_files($context->id, 'course', 'overviewfiles', 0))) {
+            if (file_exists($imagesdir) && is_dir($imagesdir)) {
+                $imagesdirls = scandir($imagesdir);
+                $files = [];
+                foreach ($imagesdirls as $element) {
+                    if (is_file($imagesdir.$element)) {
+                        $files[] = $element;
+                    }
+                }
+                if (!empty($files)) {
+                    $randomimage = $files[array_rand($files)];
+                    $fileinfo = [
+                        'contextid' => $context->id,
+                        'component' => 'course',
+                        'filearea' => 'overviewfiles',
+                        'itemid' => 0,
+                        'userid' => $USER->id,
+                        'filepath' => '/',
+                        'filename' => $randomimage
+                    ];
+                    //$fs->delete_area_files($context->id, 'course', 'overviewfiles', 0);
+                    $fs->create_file_from_pathname($fileinfo, $imagesdir.$randomimage);
+                }
+            }
+        }
     } else {
         // Save any changes to the files used in the editor.
         update_course($data, $editoroptions);
