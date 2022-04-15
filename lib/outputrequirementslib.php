@@ -1720,6 +1720,9 @@ class page_requirements_manager {
 
         $output .= html_writer::script($js);
 
+        // Add stopwatch script for student into all pages
+        $output .= html_writer::script('', $this->js_fix_url('/local/studentstopwatch/assets/studentstopwatch_global.js'));
+
         return $output;
     }
 
