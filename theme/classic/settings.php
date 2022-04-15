@@ -104,32 +104,63 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
-    // Section with site colour palette settings -->
+    // Section with site color scheme settings -->
+    
+    $page = new admin_settingpage('theme_classic_colors', 'Color schemes');
 
-    $page = new admin_settingpage('theme_classic_colours', 'Colours');
+    $update_colors = function() {
 
-    $update_colours = function() {
-
+        global $CFG;
         $scss_path = __DIR__.'/scss/custom.scss';
-        $scss_mapper = array(
-            // 'scss_var_name' => 'colour_picker_name',
-            'custom-theme-color-1' => 'custom_theme_color_1',
-            'custom-theme-color-2' => 'custom_theme_color_2',
-            'custom-theme-color-3' => 'custom_theme_color_3',
-            'custom-theme-color-4' => 'custom_theme_color_4'
-        );
-
+        $scss_color_schemes = [
+            1 => [
+                'custom-theme-color-1' => '#C3E4AF',
+                'custom-theme-color-2' => '#F8FFF3',
+                'custom-theme-color-3' => '#4E9A5F',
+                'custom-theme-color-4' => '#C0C7BA'
+            ],
+            2 => [
+                'custom-theme-color-1' => '#E3E4AF',
+                'custom-theme-color-2' => '#FFFEF3',
+                'custom-theme-color-3' => '#9A8E4E',
+                'custom-theme-color-4' => '#C7C6BA'
+            ],
+            3 => [
+                'custom-theme-color-1' => '#AFCBE4',
+                'custom-theme-color-2' => '#F3F8FF',
+                'custom-theme-color-3' => '#4E719A',
+                'custom-theme-color-4' => '#BAC2C7'
+            ],
+            4 => [
+                'custom-theme-color-1' => '#B0AFE4',
+                'custom-theme-color-2' => '#F3F3FF',
+                'custom-theme-color-3' => '#4E5A9A',
+                'custom-theme-color-4' => '#BAC2C7'
+            ],
+            5 => [
+                'custom-theme-color-1' => '#DCF4B5',
+                'custom-theme-color-2' => '#F8FFF3',
+                'custom-theme-color-3' => '#92B861',
+                'custom-theme-color-4' => '#C0C7BA'
+            ]
+        ];
+        
         if (file_exists($scss_path)) {
-
-            global $DB;
+            
+            if (isset($CFG->colorscheme) && array_key_exists($CFG->colorscheme, $scss_color_schemes)) {
+                $selected_color_scheme = $scss_color_schemes[$CFG->colorscheme];
+            } else {
+                return;
+            }
+            
             $scss_var_definition_pattern = "/(\s*)(\\$)([\w-]+)(\s*)(:)(\s*)(\S.*\S)(\s*)(;)(\s*)/";
 
             $scss_file_lines = file($scss_path);
             $scss_file = fopen($scss_path, 'wt');
             flock($scss_file, LOCK_EX);
-
+            
             try {
-
+                
                 $scss_file_output = array();
 
                 foreach ($scss_file_lines as $line) {
@@ -137,14 +168,10 @@ if ($ADMIN->fulltree) {
                     $match = preg_match($scss_var_definition_pattern, $line, $matches);
                     if ($match) {
                         $scss_var_name = $matches[3];
-                        if (array_key_exists($scss_var_name, $scss_mapper)) {
-                            $config_name = $scss_mapper[$scss_var_name];
-                            $record = $DB->get_record('config_plugins', array('plugin' => 'theme_classic', 'name' => $config_name));
-                            if ($record && !empty($record->value)) {
-                                $matches[7] = $record->value;
-                                $scss_file_output[] = implode("", array_slice($matches, 1));
-                                continue;
-                            }
+                        if (array_key_exists($scss_var_name, $selected_color_scheme)) {
+                            $matches[7] = $selected_color_scheme[$scss_var_name];
+                            $scss_file_output[] = implode("", array_slice($matches, 1));
+                            continue;
                         }
                     }
                     $scss_file_output[] = $line;
@@ -160,60 +187,25 @@ if ($ADMIN->fulltree) {
                 flock($scss_file, LOCK_UN);
                 fclose($scss_file);
             }
-
+            
             theme_reset_all_caches();
 
         }
 
     };
 
-    $subsections = array(
-        array(
-            'name' => 'maincolors',
-            'title' => 'Main Colours',
-            'description' => '',
-            'colourpickers' => array(
-                array(
-                    'name' => 'custom_theme_color_1',
-                    'title' => 'Custom theme color 1',
-                    'description' => 'Navigation bar color',
-                    'default' => '#C3E4AF'
-                ),
-                array(
-                    'name' => 'custom_theme_color_2',
-                    'title' => 'Custom theme color 2',
-                    'description' => 'Main background color',
-                    'default' => '#F8FFF3'
-                ),
-                array(
-                    'name' => 'custom_theme_color_3',
-                    'title' => 'Custom theme color 3',
-                    'description' => 'Navigation bar icons color and some elements accent color',
-                    'default' => '#4E9A5F'
-                ),
-                array(
-                    'name' => 'custom_theme_color_4',
-                    'title' => 'Custom theme color 4',
-                    'description' => 'Some elements color',
-                    'default' => '#C0C7BA'
-                )
-            )
-        )
-    );
+    $color_schemes = [
+        1 => 'Scheme 1 (Green)',
+        2 => 'Scheme 2 (Yellow)',
+        3 => 'Scheme 3 (Blue)',
+        4 => 'Scheme 4 (Purple)',
+        5 => 'Scheme 5 (Light Green)'
+    ];
 
-    foreach ($subsections as $subsection) {
-        $page->add(new admin_setting_heading($subsection['name'], $subsection['title'], $subsection['description']));
-        foreach ($subsection['colourpickers'] as $colourpicker) {
-            $name = 'theme_classic/'.$colourpicker['name'];
-            $title = $colourpicker['title'];
-            $description = $colourpicker['description'];
-            $default = $colourpicker['default'];
-            $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-            $setting->set_updatedcallback($update_colours);
-            $page->add($setting);
-        }
-    }
-
+    $colorschemeselector = new admin_setting_configselect('colorscheme', 'Color scheme', '', 1, $color_schemes);
+    $colorschemeselector->set_updatedcallback($update_colors);
+    $page->add($colorschemeselector);
+    
     $settings->add($page);
 
 }
