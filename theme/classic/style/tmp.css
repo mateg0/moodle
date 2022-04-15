@@ -369,7 +369,7 @@
 }
 .course-promo {
     width: 300px;
-    height: 325px;
+    height: 365px;
     border-radius: 14px;
     background: white;
     -webkit-box-shadow: 0 3px 10px #ECECEC;
@@ -426,7 +426,6 @@
     font-style: 0.875rem;
     line-height: 121%;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
 }
 .course-promo .course-promo-body .course-teacher .teacher-name {
@@ -437,6 +436,219 @@
     font-weight: 400;
     font-style: 0.875rem;
     line-height: 121%;
-    overflow: hidden;
     max-height: 80px;
+
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.course-promo .course-promo-body .course-promo-participate button {
+    background: white;
+    padding: 6px 13px;
+    color: #C0C7BA;
+    border: 2px solid #C0C7BA;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .course-promo .course-promo-body .course-promo-participate button:hover {
+    border: 2px solid #353535;
+    color: #353535;
+    cursor: pointer;
+  }
+
+/* COURSE ABOUT CARD */
+.hide-ui {
+    width: 100%;
+    height: 100%;
+
+    position: fixed;
+
+    background: rgba(53, 53, 53, 0.5);
+
+    z-index: 1049;
+}
+.course-about-wrapper {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1050;
+}
+.course-about {
+    font-family: "Rubik", sans-serif;
+    width: 640px;
+    height: auto;
+    min-height: auto;
+    min-width: auto;
+    color: #353535;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0px 0px 10px #C0C7BA;
+            box-shadow: 0px 0px 10px #C0C7BA;
+}
+.course-about .course-about-image {
+    width: 100%;
+    height: 225px;
+    margin-bottom: 15px;
+}
+.course-about .course-about-image img {
+    width: 100%;
+    height: 100%;
+}
+.course-about .course-about-body {
+    max-height: 640px;
+    min-height: auto;
+    overflow: hidden;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+.course-about .course-about-body .bold-line {
+    width: 100%;
+    color: #353535;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course-about .course-about-body .course-about-coursename {
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 15px;
+}
+.course-about .course-about-body .course-about-teacher {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.course-about .course-about-body .course-about-teacher .teacher-name {
+    font-weight: 500;
+}
+.course-about .course-about-body .course-about-description-line {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.course-about .course-about-body .course-about-description {
+    font-weight: 400;
+    font-size: 0.875rem;
+    margin-bottom: 15px;
+}
+.course-about .course-about-body label {
+    width: 100%;
+    height: 20px;
+}
+.course-about .course-about-body label:hover {
+    cursor: pointer;
+}
+.course-about .course-about-body input {
+    display: none;
+}
+.course-about .course-about-body .course-about-course-content {
+    display: -ms-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    margin-bottom: 15px;
+}
+.course-about .course-about-body .course-about-course-content:hover path {
+    fill: forestgreen;
+}
+.course-about .course-about-body .course-about-course-content .label-name {
+    width: 90px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.course-about .course-about-body .course-about-course-content .course-about-course-marker {
+    width: 20px;
+    will-change: transform;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.course-about .course-about-body input:checked ~ .course-about-course-content-list {
+    max-height: 360px !important;
+    overflow: auto !important;
+    -webkit-transition: max-height 0.8s ease-in;
+    transition: max-height 0.8s ease-in;
+}
+.course-about .course-about-body input:checked ~ label > .course-about-course-content > .course-about-course-marker {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.course-about .course-about-body .course-about-course-content-list {
+    max-height: 0;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    -webkit-transition: max-height 0.4s ease-out;
+    transition: max-height 0.4s ease-out;
+    overflow: hidden;
+}
+.course-about .course-about-body .course-about-course-content-list .key-element .course-content-element-description {
+    min-height: 0 !important;
+    padding-bottom: 0;
+}
+.course-about .course-about-body .course-about-course-content-list .key-element .course-content-element-name {
+    font-weight: bold !important;
+    font-size: 0.875rem !important;
+}
+.course-about .course-about-body .course-about-course-content-list .course-content-element-line {
+    display: -ms-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+}
+.course-about .course-about-body .course-about-course-content-list .course-content-element-line .course-content-element-indicator {
+    -webkit-transform: translateX(-43%);
+            transform: translateX(-43%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #C0C7BA;
+    background: #ffffff;
+}
+.course-about .course-about-body .course-about-course-content-list .course-content-element-line .course-content-element-name {
+    font-size: 0.875rem;
+    line-height: 150%;
+    color: #616161;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course-about .course-about-body .course-about-course-content-list .course-content-element-description {
+    border-left: 3px solid #C0C7BA;
+    min-height: 20px;
+    padding-bottom: 10px;
+    padding-left: 35px;
+    font-size: 0.875rem;
+    line-height: 120%;
+    color: #616161;
+}
+.course-about .course-about-body .course-about-participate button {
+    background: white;
+    float: right;
+    padding: 6px 13px;
+    color: #C0C7BA;
+    border: 2px solid #C0C7BA;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.course-about .course-about-body .course-about-participate button:hover {
+    border: 2px solid #353535;
+    color: #353535;
+    cursor: pointer;
 }

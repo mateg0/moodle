@@ -493,12 +493,20 @@ class course_renderer extends \core_course_renderer
         $content = '';
         $courseid = $course->id;
         $contentimages = $contentfiles = '';
+
         $coursesummary = ($course->has_summary()) ? $chelper->get_course_formatted_summary($course) : '';
+        $indexOfEndFirstParagraph = strpos($coursesummary, '</p>') + 4;
+
+        if ($indexOfEndFirstParagraph) {
+            $coursesummary = substr($coursesummary, 0, $indexOfEndFirstParagraph);
+        }
+
+
         $coursename = $chelper->get_course_formatted_name($course);
         $coursenamelink = new moodle_url('/course/view.php', array('id' => $course->id));
         $course_context = context_course::instance($course->id);
         $numberofusers = count_enrolled_users($course_context);
-        $category = format_text($PAGE->category->name, FORMAT_HTML, array('filter' => true));
+        // $category = format_text($PAGE->category->name, FORMAT_HTML, array('filter' => true));
 
         // Display course contacts. See core_course_list_element::get_course_contacts().
         if ($course->has_course_contacts()) {
@@ -514,7 +522,7 @@ class course_renderer extends \core_course_renderer
                 $course_contacts .= '<span class="course_meta_item mr10">' . $name . '</span>';
             }
         }
-        $course_meta = !empty($course_contacts) ? $course_contacts : $category;
+        $course_meta = !empty($course_contacts) ? $course_contacts : '';
         $contenttext = '';
         if (
             (isset($PAGE->theme->settings->coursecat_enrolments) && ($PAGE->theme->settings->coursecat_enrolments != 1)) || (isset($PAGE->theme->settings->coursecat_announcements) && ($PAGE->theme->settings->coursecat_announcements != 1))
@@ -565,7 +573,7 @@ class course_renderer extends \core_course_renderer
                           </div>';*/
 
         $contenttext .= '
-            <div class="course-promo-body">
+            <div class="course-promo-body" data-course="'. $courseid .'">
                 <div class="course-title">
                   <a href="'. $coursenamelink .'">'. $coursename .'</a>
                 </div>
@@ -576,6 +584,10 @@ class course_renderer extends \core_course_renderer
                 
                 <div class="course-description">
                     ' . $coursesummary . '
+                </div>
+
+                <div class="course-promo-participate">
+                    <button>Подробнее</button>
                 </div>
             </div>
         </div>
@@ -702,7 +714,7 @@ class course_renderer extends \core_course_renderer
 
     protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null)
     {
-        global $CFG;
+        global $CFG, $PAGE;
         if ($totalcount === null) {
             $totalcount = count($courses);
         }
@@ -788,6 +800,9 @@ class course_renderer extends \core_course_renderer
         }
 
         $content .= html_writer::end_tag('div'); // .courses
+
+        $PAGE->requires->js('/local/course_show_more/assets/course_show_more.js');
+
         return $content;
     }
 
