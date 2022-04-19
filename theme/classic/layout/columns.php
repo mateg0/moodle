@@ -29,11 +29,13 @@ $blockspre = $OUTPUT->blocks('side-pre');
 $blockspost = $OUTPUT->blocks('side-post');
 $blockscenterpre = $OUTPUT->blocks('center-pre');
 $blockscenterpost = $OUTPUT->blocks('center-post');
+$blockshorizontal = $OUTPUT->blocks('horizontal');
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 $hascenterpre = $PAGE->blocks->region_has_content('center-pre', $OUTPUT);
 $hascenterpost = $PAGE->blocks->region_has_content('center-post', $OUTPUT);
+$hashorizontal = $PAGE->blocks->region_has_content('horizontal', $OUTPUT);
 
 $isAdmin = is_siteadmin();
 
@@ -44,10 +46,12 @@ $templatecontext = [
     'sidepostblocks' => $blockspost,
     'centerpreblocks' => $blockscenterpre,
     'centerpostblocks' => $blockscenterpost,
+    'horizontalblocks' => $blockshorizontal,
     'haspreblocks' => $hassidepre,
     'haspostblocks' => $hassidepost,
     'hascenterpre' => $hascenterpre,
     'hascenterpost' => $hascenterpost,
+    'hashorizontal' => $hashorizontal,
     'bodyattributes' => $bodyattributes,
     'isAdmin' => $isAdmin
 ];

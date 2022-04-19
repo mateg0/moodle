@@ -1,8 +1,8 @@
 // Colors -->
-$custom-theme-color-1: #B0AFE4;
-$custom-theme-color-2: #F3F3FF;
-$custom-theme-color-3: #4E5A9A;
-$custom-theme-color-4: #BAC2C7;
+$custom-theme-color-1: #C3E4AF;
+$custom-theme-color-2: #F8FFF3;
+$custom-theme-color-3: #4E9A5F;
+$custom-theme-color-4: #C0C7BA;
 
 // Colors by elements -->
 $custom-main-bg-color: $custom-theme-color-2;
@@ -84,12 +84,15 @@ section {
   >div.card-body {
     >div.card-text {
       margin-top: 0 !important;
+      >div.no-overflow{
+        border-radius: 12px;
+      }
     }
   }
 }
 
 /*calendar*/
- 
+
 .calendarmonth td.dayblank:hover {
   transform: scale(1);
 }
@@ -175,7 +178,6 @@ div.path-calendar {
             -ms-align-items: center;
             justify-content: center;
             margin-left: auto;
-            margin-top: 5%;
             display: none;
           }
           &:hover {
@@ -238,7 +240,7 @@ div.path-calendar {
     .calendar-day-holder {
 
       color: $maincalendar-main-text-color;
-      
+
       table.calendar-day {
         td {
           background-color: $maincalendar-day-bg-color;
@@ -425,7 +427,6 @@ section.block_calendar_month {
 /*groupmembers*/
 
 .block_groupmembers {
-
   .cs-cource-select {
     .cs-cource-line {
       &.current-line {
@@ -578,7 +579,6 @@ section.block_calendar_month {
 /*groupstats*/
 
 .block_groupstats {
-
   .group-stats {
     color: $custom-main-text-color !important;
   }
@@ -743,6 +743,144 @@ section.block_calendar_month {
 }
 
 /*adduser-end*/
+
+//student header styles
+.student-header-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .clr-primary-stroke-by-theme {
+    stroke: $custom-theme-color-1;
+  }
+
+  .clr-primary-color-by-theme {
+    fill: $custom-theme-color-1;
+  }
+
+  .clr-secondary-stroke-by-theme {
+    stroke: $custom-theme-color-3;
+  }
+
+  .clr-secondary-color-by-theme {
+    fill: $custom-theme-color-3;
+  }
+
+  .student-header-block {
+    margin: 0 10px;
+    width: 145px;
+    height: 155px;
+
+    .sh-block {
+      box-sizing: initial;
+      position: relative;
+      font-family: "Roboto", sans-serif;
+      letter-spacing: 0.05em;
+      width: 101px;
+      height: 133px;
+      padding: 11px 22px;
+      background: #FFFFFF;
+      box-shadow: 0px 3px 10px #ECECEC;
+      border-radius: 12px;
+
+      .title-message {
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.125rem;
+        line-height: 120%;
+        color: #353535;
+      }
+
+      .ctx-header-block {
+        box-sizing: initial;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 6px;
+      }
+    }
+
+    .classmates-online-nousers{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .classmates-online {
+      &:hover .classmates-online-container {
+        display: block !important;
+      }
+
+      .classmates-online-container {
+        display: none;
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        top: 90%;
+        width: 300px;
+        padding: 27px 22px;
+        background: #FFFFFF;
+        box-shadow: 0 0 5px #B0CCA0;
+        border-radius: 12px;
+      }
+
+      .classmates-online-list {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        max-height: 400px;
+      }
+
+      .online-classmate {
+        margin-bottom: 10px;
+        width: 100%;
+        height: 32px;
+      }
+
+      .online-classmate a {
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: #353535;
+      }
+
+      .online-classmate-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        -ms-align-items: center;
+        align-items: center;
+      }
+
+      .classmate-image {
+        flex-shrink: 0;
+        margin-right: 15px;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        border-radius: 50%;
+      }
+
+      .classmate-image img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .classmate-name {
+        flex: auto;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: 400;
+        font-size: .875rem;
+      }
+    }
+  }
+}
+//student header styles end
 
 .online-class {
   display: flex;
@@ -1172,7 +1310,7 @@ nav.navbar {
   left: 0;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
-  
+
   display: none;
   visibility: hidden;
 
@@ -1374,7 +1512,7 @@ nav.navbar {
     iframe {
       border-width: 0;
       display: block;
-      height: 60vh;
+      height: calc(100vh - 150px);
       width: 100%;
     }
   }
@@ -1433,6 +1571,11 @@ section.block.card {
     -webkit-box-shadow: 0px 3px 10px $widgets-shadow-color;
     -moz-box-shadow: 0px 3px 10px $widgets-shadow-color;
     box-shadow: 0px 3px 10px $widgets-shadow-color;
+    &.block_calendar {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
   }
 }
 
@@ -1440,6 +1583,18 @@ section.block.card {
   section.block.card {
     max-width: 400px;
     margin: 0 auto;
+  }
+}
+
+// Настройки области личного кабинета с горизонтальным размещением блоков
+#block-region-horizontal
+{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  section ~ section
+  {
+    margin-left: 20px;
   }
 }
 
@@ -1919,9 +2074,14 @@ form[action="modedit.php"] > #id_modstandardgrade #fitem_id_gradecat
 }
 
 //Стиль для текста заголовка курса на странице my
-div[role="main"]{
-  .course-title{
-    text-align: center;
+#page-my-index{
+  .course-title {
+    h4 {
+      //text-align: center;
+      font-weight: 600;
+      font-size: 1.75rem;
+      letter-spacing: 0.1rem;
+    }
   }
 }
 

@@ -56,6 +56,8 @@ $PAGE->set_pagetype('my-index');
 
 $PAGE->set_title($header);
 $PAGE->set_heading($header);
+$PAGE->blocks->add_region('horizontal');
+$PAGE->blocks->add_region('center-pre');
 $PAGE->blocks->add_region('content');
 
 // Get the My Moodle page info.  Should always return something unless the database is broken.
@@ -70,6 +72,7 @@ $button = $OUTPUT->single_button($url, get_string('reseteveryonesdashboard', 'my
 $PAGE->set_button($button . $PAGE->button);
 
 echo $OUTPUT->header();
+echo $OUTPUT->custom_block_region('horizontal');
 echo $OUTPUT->custom_block_region('center-pre');
 echo $OUTPUT->custom_block_region('content');
 
