@@ -169,32 +169,6 @@ if (core_userfeedback::should_display_reminder()) {
     core_userfeedback::print_reminder_block();
 }
 
-if (false && has_capability('moodle/course:create', context_system::instance())) {
-    $PAGE->requires->js('/local/calendarajax/assets/calendar_ajax.js');
-
-    $time = time();
-    $courseid = SITEID;
-    $categoryid = null;
-    $view = 'month';
-    $calendar = calendar_information::create($time, $courseid, $categoryid);
-    $renderer = $PAGE->get_renderer('core_calendar');
-    echo html_writer::start_tag('div', array('class'=>'path-calendar'));
-    echo $renderer->start_layout();
-    echo html_writer::start_tag('div', array('class'=>'heightcontainer', 'id'=>'calendar_ajax'));
-    list($data, $template) = calendar_get_view($calendar, $view, true, false, null);
-
-    if($view == "day"){
-        $calendarday = new \core_calendar\output\calendarday($data);
-        $dayevents = $calendarday->getevents();
-        $data->events = $dayevents;
-    }
-
-    echo $renderer->render_from_template($template, $data);
-    echo html_writer::end_tag('div');
-    echo $renderer->complete_layout();
-    echo html_writer::end_tag('div');
-}
-
 $veriflastcourse = $DB->count_records('logstore_standard_log', array('action' => "viewed",
     'target' => "course", 'userid' => $USER->id));
 
@@ -223,36 +197,6 @@ if ($veriflastcourse !== 0) {
         echo html_writer::end_tag('h4');
         echo html_writer::end_tag('div');
 
-
-        if (user_has_role_assignment($USER->id, 5)) {
-            $studentachievements = new \local_studentachievements\output\studentachievements();
-            $studentstopwatch = new \local_studentstopwatch\output\studentstopwatch();
-            $onlineclassmates = new \local_onlineclassmates\output\onlineclassmates();
-
-            $achievementsRenderer = $PAGE->get_renderer('local_studentachievements');
-            $stopwatchRenderer = $PAGE->get_renderer('local_studentstopwatch');
-            $onlineclassmatesRenderer = $PAGE->get_renderer('local_onlineclassmates');
-
-            echo '<div id="student-header-wrapper" class="student-header-wrapper">';
-
-            echo '<div id="studentachievements-block" class="student-header-block">';
-            echo $achievementsRenderer->renderStudentsAchievements($studentachievements);
-            echo '</div>';
-
-            echo '<div id="studentstopwatch-block" class="student-header-block">';
-            echo $stopwatchRenderer->renderStudentStopwatch($studentstopwatch);
-            echo '</div>';
-
-            echo '<div id="onlineclassmates-block" class="student-header-block">';
-            echo $onlineclassmatesRenderer->renderOnlineClassmates($onlineclassmates);
-            echo '</div>';
-
-            echo '</div>';
-
-            $PAGE->requires->js('/local/onlineclassmates/assets/onlineclassmates.js');
-            $PAGE->requires->js('/local/studentachievements/assets/studentachievements.js');
-            $PAGE->requires->js('/local/studentstopwatch/assets/studentstopwatch.js');
-        }
         echo $OUTPUT->custom_block_region('horizontal');
         echo $OUTPUT->custom_block_region('center-pre');
 
@@ -285,35 +229,6 @@ if ($veriflastcourse !== 0) {
     }
 }
 else {
-    if (user_has_role_assignment($USER->id, 5)) {
-        $studentachievements = new \local_studentachievements\output\studentachievements();
-        $studentstopwatch = new \local_studentstopwatch\output\studentstopwatch();
-        $onlineclassmates = new \local_onlineclassmates\output\onlineclassmates();
-
-        $achievementsRenderer = $PAGE->get_renderer('local_studentachievements');
-        $stopwatchRenderer = $PAGE->get_renderer('local_studentstopwatch');
-        $onlineclassmatesRenderer = $PAGE->get_renderer('local_onlineclassmates');
-
-        echo '<div id="student-header-wrapper" class="student-header-wrapper">';
-
-        echo '<div id="studentachievements-block" class="student-header-block">';
-        echo $achievementsRenderer->renderStudentsAchievements($studentachievements);
-        echo '</div>';
-
-        echo '<div id="studentstopwatch-block" class="student-header-block">';
-        echo $stopwatchRenderer->renderStudentStopwatch($studentstopwatch);
-        echo '</div>';
-
-        echo '<div id="onlineclassmates-block" class="student-header-block">';
-        echo $onlineclassmatesRenderer->renderOnlineClassmates($onlineclassmates);
-        echo '</div>';
-
-        echo '</div>';
-
-        $PAGE->requires->js('/local/onlineclassmates/assets/onlineclassmates.js');
-        $PAGE->requires->js('/local/studentachievements/assets/studentachievements.js');
-        $PAGE->requires->js('/local/studentstopwatch/assets/studentstopwatch.js');
-    }
     echo $OUTPUT->custom_block_region('horizontal');
     echo $OUTPUT->custom_block_region('center-pre');
 }
