@@ -219,7 +219,8 @@ class block_base {
      * @since Moodle 2.0.
      */
     public function get_content_for_output($output) {
-        global $CFG;
+        global $CFG, $PAGE;
+        $PAGE->requires->js('/blocks/utils.js');
 
         // We can exit early if the current user doesn't have the capability to view the block.
         if (!has_capability('moodle/block:view', $this->context)) {
@@ -240,9 +241,8 @@ class block_base {
             $bc->add_class('invisibleblock');
         }
 
-        if (!$this->hide_header()) {
-            $bc->title = $this->title;
-        }
+        $bc->title = $this->title;
+        $bc->hideheader = $this->hide_header();
 
         if (empty($bc->title)) {
             $bc->arialabel = new lang_string('pluginname', get_class($this));

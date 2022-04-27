@@ -1838,6 +1838,7 @@ class core_renderer extends renderer_base
         $context->content = $bc->content;
         $context->annotation = $bc->annotation;
         $context->footer = $bc->footer;
+        $context->hideheader = $bc->hideheader;
         $context->hascontrols = !empty($bc->controls);
         if ($context->hascontrols) {
             $context->controls = $this->block_controls($bc->controls, $id);
