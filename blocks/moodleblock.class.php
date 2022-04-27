@@ -242,8 +242,13 @@ class block_base {
         }
 
         $bc->title = $this->title;
-        // $bc->hideheader = $this->hide_header();
-        $bc->hideheader = true; // always hide headers
+        // Always hide headers.
+        if ($this->hide_header()) {
+            $bc->hideheader = $this->hide_header();
+        } else {
+            $bc->hideheader = true;
+            $bc->attributes['class'] .= ' no-header';
+        }
 
         if (empty($bc->title)) {
             $bc->arialabel = new lang_string('pluginname', get_class($this));
