@@ -169,8 +169,17 @@ if (core_userfeedback::should_display_reminder()) {
     core_userfeedback::print_reminder_block();
 }
 
-$veriflastcourse = $DB->count_records('logstore_standard_log', array('action' => "viewed",
-    'target' => "course", 'userid' => $USER->id));
+// Course content on /my page should only be viewed by users who meet the following conditions:
+$course_content_visibility_conditions =
+    $USER->id == 2 ||                               // admin
+    user_has_role_assignment($USER->id, 5, 1) ||    // user with student role
+    user_has_role_assignment($USER->id, 10, 1);     // user with teacher role
+
+if ($course_content_visibility_conditions) {
+    $veriflastcourse = $DB->count_records('logstore_standard_log', array('action' => "viewed", 'target' => "course", 'userid' => $USER->id));
+} else {
+    $veriflastcourse = 0;
+}
 
 if ($veriflastcourse !== 0) {
     $sql = 'SELECT * FROM {logstore_standard_log} WHERE ';
@@ -181,7 +190,7 @@ if ($veriflastcourse !== 0) {
         $record = reset($lastcourse);
         $id = intval($record->courseid);
 
-        //    $id          = optional_param('id', 16, PARAM_INT);
+        // $id          = optional_param('id', 16, PARAM_INT);
         $marker      = optional_param('marker',-1 , PARAM_INT);
 
         $params = array('id' => $id);
@@ -190,7 +199,7 @@ if ($veriflastcourse !== 0) {
         // Fix course format if it is no longer installed
         $course->format = course_get_format($course)->get_format();
 
-        //Course title wrapper
+        // Course title wrapper
         echo html_writer::start_tag('div', array('class'=>'course-title'));
         echo html_writer::start_tag('h4');
         echo $course->fullname;
@@ -202,6 +211,17 @@ if ($veriflastcourse !== 0) {
 
         // Course wrapper start.
         echo html_writer::start_tag('div', array('class'=>'course-content'));
+
+        // Hide topics button
+        echo html_writer::start_tag('div', array('class'=>'hide-topics-wrapper'));
+        
+        echo html_writer::start_tag('button', array('class' => 'hide-topics'));
+        echo "Свернуть всё";
+        echo html_writer::end_tag('button');
+
+        echo html_writer::end_tag('div');
+
+        $PAGE->requires->js('/local/hide_topics/hide_topics.js');
 
         // make sure that section 0 exists (this function will create one if it is missing)
         course_create_sections_if_missing($course, 0);
@@ -218,7 +238,7 @@ if ($veriflastcourse !== 0) {
         // CAUTION, hacky fundamental variable defintion to follow!
         // Note that because of the way course fromats are constructed though
         // inclusion we pass parameters around this way..
-        //$displaysection = $section;
+        // $displaysection = $section;
 
         // Include the actual course format.
         require($CFG->dirroot .'/course/format/'. $course->format .'/format.php');
