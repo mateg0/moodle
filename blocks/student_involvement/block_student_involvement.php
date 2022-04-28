@@ -17,6 +17,7 @@ class block_student_involvement extends block_base {
     }
 
     public function get_content() {
+        $this->transparent = true;
         if ($this->content !== null) {
             return $this->content;
         }

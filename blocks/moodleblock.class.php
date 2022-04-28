@@ -106,6 +106,18 @@ class block_base {
 
     var $cron          = NULL;
 
+    /**
+     * Block background transparency flag.
+     * @var bool
+     */
+    var $transparent = false;
+
+    /**
+     * Flag of minimization ability of the block (if false hides the minimization button).
+     * @var bool
+     */
+    var $minimizable = true;
+
 /// Class Functions
 
     /**
@@ -249,6 +261,12 @@ class block_base {
             $bc->hideheader = true;
             $bc->attributes['class'] .= ' no-header';
         }
+
+        if ($this->transparent) {
+            $bc->attributes['class'] .= ' transparent';
+        }
+
+        $bc->minimizable = $this->minimizable;
 
         if (empty($bc->title)) {
             $bc->arialabel = new lang_string('pluginname', get_class($this));

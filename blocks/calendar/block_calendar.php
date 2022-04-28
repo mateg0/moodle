@@ -19,6 +19,7 @@ class block_calendar extends block_base {
     }
 
     public function get_content() {
+        $this->transparent = true;
         if ($this->content !== null) {
             return $this->content;
         }
