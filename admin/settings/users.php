@@ -3,7 +3,7 @@
 // This file defines settingpages and externalpages under the "users" category.
 
 $ADMIN->add('users', new admin_category('accounts', new lang_string('accounts', 'admin')));
-$ADMIN->add('users', new admin_category('roles', new lang_string('permissions', 'role')));
+$ADMIN->add('users', new admin_category('roles', new lang_string('permissions', 'role'), !has_capability('moodle/role:manage', context_system::instance())));
 $ADMIN->add('users', new admin_category('privacy', new lang_string('privacyandpolicies', 'admin')));
 
 if ($hassiteconfig

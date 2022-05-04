@@ -148,6 +148,17 @@ $capabilities = array(
         )
     ),
 
+    'moodle/site:managefrontpage' => array(
+
+        'riskbitmask' => RISK_CONGIF,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        )
+    ),
+
     'moodle/backup:backupcourse' => array(
 
         'riskbitmask' => RISK_SPAM | RISK_PERSONAL | RISK_XSS,

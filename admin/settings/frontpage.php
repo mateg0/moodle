@@ -20,7 +20,7 @@ if (!during_initial_install()) { //do not use during installation
             'moodle/question:moveall'), $frontpagecontext)) {
 
         // "frontpage" settingpage
-        $temp = new admin_settingpage('frontpagesettings', new lang_string('frontpagesettings','admin'), 'moodle/course:update', false, $frontpagecontext);
+        $temp = new admin_settingpage('frontpagesettings', new lang_string('frontpagesettings','admin'), 'moodle/site:managefrontpage', false, $frontpagecontext);
         $temp->add(new admin_setting_sitesettext('fullname', new lang_string('fullsitename'), '', NULL)); // no default
         $temp->add(new admin_setting_sitesettext('shortname', new lang_string('shortsitename'), '', NULL)); // no default
         $temp->add(new admin_setting_special_frontpagedesc());
