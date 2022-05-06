@@ -712,11 +712,11 @@ export default class Tour {
 
             let zIndex = this.calculateZIndex(targetNode);
             if (zIndex) {
-                stepConfig.zIndex = zIndex + 1;
+                stepConfig.zIndex = zIndex + 1000;
             }
 
             if (stepConfig.zIndex) {
-                currentStepNode.css('zIndex', stepConfig.zIndex + 1);
+                currentStepNode.css('zIndex', stepConfig.zIndex + 1000);
             }
 
             // Add the backdrop.
