@@ -46,7 +46,7 @@ class user_bulk_action_form extends moodleform {
 
         $syscontext = context_system::instance();
         $actions = [];
-        if (has_capability('moodle/user:update', $syscontext)) {
+        if (has_capability('moodle/site:config', $syscontext) && has_capability('moodle/user:update', $syscontext)) {
             $actions['confirm'] = new action_link(
                 new moodle_url('/admin/user/user_bulk_confirm.php'),
                 get_string('confirm'));
