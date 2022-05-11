@@ -33,7 +33,7 @@ class block_student_involvement extends block_base {
         $stopwatchRenderer = $this->page->get_renderer('local_studentstopwatch');
         $onlineclassmatesRenderer = $this->page->get_renderer('local_onlineclassmates');
 
-        $this->content->text .= '<div id="student-header-wrapper" class="student-header-wrapper">';
+        $this->content->text .= '<div id="student-header-wrapper" class="student-header-wrapper hidden">';
 
         $this->content->text .= '<div id="studentachievements-block" class="student-header-block">';
         $this->content->text .= $achievementsRenderer->renderStudentsAchievements($studentachievements);
@@ -49,7 +49,7 @@ class block_student_involvement extends block_base {
 
         $this->content->text .= '</div>';
 
-        $this->content->text .= '<div id="student-header-wrapper-mini" class="student-header-wrapper mini">';
+        $this->content->text .= '<div id="student-header-wrapper-mini" class="student-header-wrapper mini hidden">';
 
         $this->content->text .= $achievementsRenderer->renderStudentsAchievementsMini($studentachievements);
 
