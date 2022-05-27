@@ -3450,7 +3450,16 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
         return $param;
     }, [$calendar->users, $calendar->groups, $calendar->courses, $calendar->categories]);
 
-    $highlightcolors = ['#b1d4b5', '#d0b7ae', '#85a9b9', '#ACDDDA', '#D9ADAD', '#858AB9', '#BD9E81', '#85B997', '#D0AECF', '#b4b17c'];
+    $highlightcolors = ["event-background-color-by-theme-1", 
+                        "event-background-color-by-theme-2", 
+                        "event-background-color-by-theme-3", 
+                        "event-background-color-by-theme-4", 
+                        "event-background-color-by-theme-5", 
+                        "event-background-color-by-theme-6", 
+                        "event-background-color-by-theme-7", 
+                        "event-background-color-by-theme-8", 
+                        "event-background-color-by-theme-9", 
+                        "event-background-color-by-theme-10"];
     $highlightColorsIterator = 0;
 
     $legendGroups = [];
@@ -3458,7 +3467,7 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
     $defaultLegendGroup = new StdClass();
     $defaultLegendGroup->nameOfGroup = 'Без группы';
     $defaultLegendGroup->idOfGroup = -1;
-    $defaultLegendGroup->color = '#fee7ae';
+    $defaultLegendGroup->color = "event-background-color-by-theme-nogroup";
     array_push($legendGroups, $defaultLegendGroup);
 
     if ($skipevents) {
@@ -3567,7 +3576,7 @@ function calendar_get_view(\calendar_information $calendar, $view, $includenavig
                     $groupedEvents = [];
 
                     $noGroupEvents = new StdClass();
-                    $noGroupEvents->color = '#fee7ae';
+                    $noGroupEvents->color = "event-background-color-by-theme-nogroup";
                     $noGroupEvents->count = 0;
                     $noGroupEvents->groupId = null;
 

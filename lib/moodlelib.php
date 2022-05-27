@@ -2598,10 +2598,10 @@ function dayofweek($day, $month, $year) {
 function get_login_url($redirectParam = '') {
     global $CFG;
 
-    $redirectUrl = "$CFG->wwwroot/#login_popup";
+    $redirectUrl = "$CFG->wwwroot/startpage#login";
 
     if($redirectParam != '') {
-        $redirectUrl = "$CFG->wwwroot/?redirect=$redirectParam#login_popup";
+        $redirectUrl = "$CFG->wwwroot/startpage?redirect=$redirectParam#login";
     }
 
     return $redirectUrl;

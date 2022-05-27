@@ -14,6 +14,7 @@ class groupstats_form_group implements renderable, templatable {
     private $groupname;
     private $groups;
     private $searchgroups = false;
+    private $colorindex;
 
     public function export_for_template(renderer_base $output){
         if(count($this->groups) > 0) {
@@ -28,9 +29,13 @@ class groupstats_form_group implements renderable, templatable {
     public function __construct($courseid, $groups)
     {
         foreach ($groups as $group) {
+            $this->colorindex = rand(1, 10);
             $this->groupid = $group->id;
             $this->groupname = $group->name;
             $this->groupimage = get_group_picture_url($group, $courseid);
+            if($this->groupimage === ""){
+                $this->groupimage = false;
+            }
             $this->set_groups_array($this->groups);
         }
     }
@@ -40,7 +45,8 @@ class groupstats_form_group implements renderable, templatable {
         $array[] = array(
             'groupid' => $this->groupid,
             'groupimage' => $this->groupimage,
-            'groupname' => $this->groupname
+            'groupname' => $this->groupname,
+            'colorindex' => $this->colorindex
         );
     }
 

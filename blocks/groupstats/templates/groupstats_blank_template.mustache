@@ -4,9 +4,9 @@
         <div class="gst-tab active">
             Успеваемость
         </div>
-        <div class="gst-tab">
+        <!--div class="gst-tab" id="GroupAttendanceTab">
             Посещаемость
-        </div>
+        </div-->
         <div class="gst-tab">
             Оплата
         </div>
@@ -15,67 +15,104 @@
     <div class="gst-tabs-contents show">
 
         <div class="gst-pie-diagram">
-            <img width="100%" height="100%" src="{{imageurl}}">
+            <img width="100%" height="100%" src="{{imageurl}}" alt="Blank diagram">
         </div>
 
-        <div class="group-performance">
-            <div class="gst-line-bold">
-                <div class="gst-line-text">
-                    Занятий пройдено
-                </div>
-                <div class="gst-line-value">
-                    <div class="blank"></div>
-                </div>
-            </div>
-            <div class="gst-line">
-                <div class="blank"></div>
-            </div>
-            <div class="gst-line">
-                <div class="blank"></div>
-            </div>
-            <div class="gst-line">
-                <div class="blank"></div>
-            </div>
-            <div class="gst-line">
-                <div class="blank"></div>
-            </div>
-            <div class="student-list show">
+        <div class="group-performance" style="display: flex;">
+            <div style="flex: auto; max-width: 300px; margin-right: 20px;">
                 <div class="gst-line-bold">
                     <div class="gst-line-text">
-                        Отличники
+                        Занятий пройдено
+                    </div>
+                    <div class="gst-line-value">
+                        0
                     </div>
                 </div>
-                <div class="gst-students-list">
+                <div class="gst-line" id="well-attending-students">
+                    <div class="gst-line-text">
+                        Успеваемость
+                    </div>
+                    <div class="gst-line-value">
+                        <div>N/A</div>
+                    </div>
+                </div>
+                <div class="gst-line" id="well-attending-students">
+                    <div class="gst-line-text">
+                        Качество знаний
+                    </div>
+                    <div class="gst-line-value">
+                        <div>N/A</div>
+                    </div>
+                </div>
+                <div class="gst-line" id="well-attending-students">
+                    <div class="gst-line-text">
+                        Обученность
+                    </div>
+                    <div class="gst-line-value">
+                        <div>N/A</div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="gst-student">
-                            <div class="student-image">
-                                <div class="blank"></div>
-                            </div>
-                            <div class="student-name">
-                                <div class="blank"></div>
-                            </div>
+            <div class="gst-list-holder">
+                <div class="gst-line-bold"
+                     style="display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-around;">
+                    <svg id="la-switch" width="10" height="14" viewBox="0 0 10 14" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" style=" margin-right: 10px;">
+                        <path d="M8.43447 1.70151L2.34607 7.07419L8.43447 12.4469" stroke="#353535" stroke-width="2" />
+                    </svg>
+
+                    <div class="gst-line-text" id="wl-stdnts">
+                        Отличники
+                    </div>
+                    <div class="gst-line-text hide" id="gd-stdnts">
+                        Хорошисты
+                    </div>
+                    <div class="gst-line-text hide" id="ok-stdnts">
+                        Успевающие
+                    </div>
+                    <div class="gst-line-text hide" id="bd-stdnts">
+                        Неуспевающие
+                    </div>
+
+                    <svg id="ra-switch" width="10" height="14" viewBox="0 0 10 14" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg); margin-left: 10px;">
+                        <path d="M8.43447 1.70151L2.34607 7.07419L8.43447 12.4469" stroke="#353535" stroke-width="2" />
+                    </svg>
+                </div>
+
+                <div id="well-students-list" class="student-list show">
+                    <div class="gst-students-list">
+                        <div class="no-students">
+                            Нет данных<br> о студентах
                         </div>
-
-
-                        <div class="gst-student">
-                            <div class="student-image">
-                                <div class="blank"></div>
-                            </div>
-                            <div class="student-name">
-                                <div class="blank"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="gst-student">
-                            <div class="student-image">
-                                <div class="blank"></div>
-                            </div>
-                            <div class="student-name">
-                                <div class="blank"></div>
-                            </div>
-                        </div>
-
+                    </div>
+                </div>
+            </div>
+            <div class="attendance-block">
+                <div class="gst-line-bold">
+                    <div class="gst-line-text">
+                        Всего прогулов
+                    </div>
+                    <div class="gst-line-value">
+                        N/A
+                    </div>
+                </div>
+                <div class="gst-line" id="well-attending-students">
+                    <div class="gst-line-text">
+                        По уважительной причине
+                    </div>
+                    <div class="gst-line-value">
+                        <div>N/A</div>
+                    </div>
+                </div>
+                <div class="gst-line" id="well-attending-students">
+                    <div class="gst-line-text">
+                        По неуважительной причине
+                    </div>
+                    <div class="gst-line-value">
+                        <div>N/A</div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,6 @@ defined('MOODLE_INTERNAL') || die();
 
 class block_groupmembers extends block_base
 {
-
     function hide_header(): bool
     {
         return true;
@@ -27,9 +26,34 @@ class block_groupmembers extends block_base
      */
     function get_content()
     {
+        global $CFG;
+        
         if ($this->content !== NULL) {
             return $this->content;
         }
+/*
+        switch($CFG->colorscheme) {
+            case 1:
+                $this->page->requires->css('/blocks/groupmembers/subcolors/subcolors.css');
+            break;
+
+            case 2:
+                $this->page->requires->css('/blocks/groupmembers/subcolors/subcolors 2.css');
+            break;
+            
+            case 3:
+                $this->page->requires->css('/blocks/groupmembers/subcolors/subcolors 3.css');
+            break;
+
+            case 4:
+                $this->page->requires->css('/blocks/groupmembers/subcolors/subcolors 4.css');
+            break;
+
+            case 5:
+                $this->page->requires->css('/blocks/groupmembers/subcolors/subcolors 5.css');
+            break;
+        }
+        */
 
         $this->page->requires->css('/blocks/groupmembers/styles.css');
         $this->page->requires->js('/blocks/groupmembers/assets/ajaxform.js');

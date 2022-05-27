@@ -1,5 +1,26 @@
 require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bootstrap, ajax) {
     $(document).ready(function () {
+        //#endregion
+
+        let blankFlag = false;
+
+        /*
+        document.getElementById('gs-summary-switch').addEventListener('click', ()=>{
+            document.getElementById('gs-summary').classList.toggle('active');
+            document.getElementById('gs-cs-form-header').classList.toggle('hide');
+            document.getElementById('gs-block-groupstats-holder').classList.toggle('hide');
+
+            let blank = document.getElementById('gs-group-stats-blank');
+            if(!blank.classList.contains('hide') && !blankFlag){
+                blank.classList.add('hide');
+                blankFlag = true;
+            } else if(blankFlag){
+                blankFlag = false;
+                blank.classList.remove('hide');
+            }
+        });
+
+        */
 
         let activeCourseElement;
         let activeGroupElement;
@@ -12,6 +33,27 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
         const groupListElements = document.getElementsByClassName('gs-cs-group-line');
         //const groupListElements = document.getElementsByClassName('gs-group-line');
         const courseSearch = document.getElementById('gs-cource-search');
+
+        /**
+         * Is number of part pie students under custom percent of all students
+         * @param {number} pieStudents - number of part pie students
+         * @param {number} allStudents - number of all students
+         * @param {number} customPercent - custom percent for check part pie students percent
+         * @return {boolean} under or not part pie students percent
+         * */
+         function isPartPieUnderCustomPercent(pieStudents, allStudents, customPercent = 20) {
+            return ((pieStudents / allStudents) * 100 ) < customPercent;
+        }
+
+        /**
+         * Return output part pie string
+         * @param {string} label - name of part pie label
+         * @param {number} students - number of part pie students
+         * @return {string} part pie string
+         */
+        function getOutputPartPieString(label, students) {
+            return `${label}\n${students} Чел.`;
+        }
 
         // eslint-disable-next-line require-jsdoc
         function getDataSectionOf(element) {
@@ -43,7 +85,7 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
         // eslint-disable-next-line require-jsdoc
         function addEventCloseListOnDocumetClick(select, list) {
             document.addEventListener('click', function (e) {
-                if(e.target.classList.contains('non-click')){
+                if (e.target.classList.contains('non-click')) {
                     return;
                 }
                 closeList(select, list);
@@ -53,12 +95,12 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
             });
         }
 
-        function initSearch(search, listElements, className){
-            if(search == null) {
+        function initSearch(search, listElements, className) {
+            if (search == null) {
                 return;
             }
-            search.addEventListener('input', function(e){
-                if(e.keyCode === 13){
+            search.addEventListener('input', function (e) {
+                if (e.keyCode === 13) {
                     return false;
                 }
                 let clear = false;
@@ -69,7 +111,7 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
                 for (let i = 0; i < listElements.length; i++) {
                     activeElement = getTextSectionOf(listElements[i], className);
                     if (!clear && !activeElement.innerText.toLowerCase().includes(search.value.toLowerCase())) {
-                        if (listElements[i].classList.contains('current-line')){
+                        if (listElements[i].classList.contains('current-line')) {
                             continue;
                         }
                         listElements[i].style.display = 'none';
@@ -86,25 +128,31 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
             for (let i = 0; i < listElements.length; i++) {
                 if (listElements[i].classList.contains('current-line')) {
                     activeElement = getDataSectionOf(listElements[i]);
-                    select.addEventListener('click', function(e){
+                    select.addEventListener('click', function (e) {
                         e.stopPropagation();
                         if (!select.classList.contains('active')) {
-                            let event = new Event('focus', {bubbles: true});
+                            let event = new Event('focus', { bubbles: true });
                             document.dispatchEvent(event);
                         }
                         select.classList.toggle('active');
                         toggleList(list);
                     });
                 } else {
-                    listElements[i].addEventListener('click', function(e){
+                    listElements[i].addEventListener('click', function (e) {
                         e.stopPropagation();
                         activeElement.innerHTML = getDataSectionOf(e.currentTarget).innerHTML;
                         closeList(select, list);
-                        let event = new Event('change', {bubbles: true});
+                        let event = new Event('change', { bubbles: true });
                         select.dispatchEvent(event);
                     });
                 }
             }
+        }
+
+        function getStyleFromElement(id){
+            let styleElement = document.getElementById(id);
+            let style = window.getComputedStyle(styleElement);
+            return style.getPropertyValue('background-color');
         }
 
         initList(courceSelect, courceList, courceListElements, activeCourseElement);
@@ -114,293 +162,348 @@ require(['core/first', 'jquery', 'jqueryui', 'core/ajax'], function (core, $, bo
         const currentLine = document.getElementById('gs-cs-gmsc-select');
         let autochange = false;
 
-        $('#gs-cs-gmsc-select').on('change', function() {
+        $('#gs-cs-gmsc-select').on('change', function () {
             $('#gs-block-groupstats-holder').html('');
-            $('#gs-block-groupstats-holder').css({'display' : 'none'});
-            $('#gs-group-stats-blank').css({'display' : 'block'});
+            $('#gs-block-groupstats-holder').css({ 'display': 'none' });
+            $('#gs-group-stats-blank').css({ 'display': 'block' });
             let selectedcourseline = document.getElementById('gs-cs-data-section').getElementsByClassName('gs-cs-cource-name').item(0);
             let selectedcourseid = selectedcourseline.getAttribute('data-id');
-              ajax.call([{
-                  methodname: 'gs_getgroupsbycourseid',
-                  args: {
-                      'courseid': selectedcourseid
-                  },
-              }])[0].done(function (response) {
-                  // clear out old values
-                  $('#gs-cs-groups-holder').html('');
-                  $('#gs-cs-groups-holder').append(response);
+            ajax.call([{
+                methodname: 'gs_getgroupsbycourseid',
+                args: {
+                    'courseid': selectedcourseid
+                },
+            }])[0].done(function (response) {
+                // clear out old values
+                $('#gs-cs-groups-holder').html('');
+                $('#gs-cs-groups-holder').append(response);
 
-                  const newGroupSelect = document.getElementById('gs-cs-gms-select');
-                  const newGroupList = document.getElementById('gs-cs-gms-list');
-                  const newGroupListElements = document.getElementsByClassName('gs-cs-group-line');
-                  const groupSearch = document.getElementById('gs-group-search');
+                const newGroupSelect = document.getElementById('gs-cs-gms-select');
+                const newGroupList = document.getElementById('gs-cs-gms-list');
+                const newGroupListElements = document.getElementsByClassName('gs-cs-group-line');
+                const groupSearch = document.getElementById('gs-group-search');
 
-                  initList(newGroupSelect, newGroupList, newGroupListElements, activeGroupElement);
-                  initSearch(groupSearch, newGroupListElements, 'gs-cs-group-name');
+                initList(newGroupSelect, newGroupList, newGroupListElements, activeGroupElement);
+                initSearch(groupSearch, newGroupListElements, 'gs-cs-group-name');
 
-                  $('#gs-cs-gms-select').on('change', function() {
-                      let selectedgroupline = document.getElementById('gs-cs-group-data-section').getElementsByClassName('gs-cs-group-name').item(0);
-                      let selectedgroupid = selectedgroupline.getAttribute('data-id');
+                $('#gs-cs-gms-select').on('change', function () {
+                    let selectedgroupline = document.getElementById('gs-cs-group-data-section').getElementsByClassName('gs-cs-group-name').item(0);
+                    let selectedgroupid = selectedgroupline.getAttribute('data-id');
 
-                      setnewvalue(selectedgroupid);
-                      ajax.call([{
-                          methodname: 'gs_getgroupstatsbygroupid',
-                          args: {
-                              'groupid': selectedgroupid
-                          },
-                      }])[0].done(function (response) {
-                          $('#gs-block-groupstats-holder').html('');
-                          $('#gs-block-groupstats-holder').append(response);
+                    setnewvalue(selectedgroupid);
+                    ajax.call([{
+                        methodname: 'gs_getgroupstatsbygroupid',
+                        args: {
+                            'groupid': selectedgroupid
+                        },
+                    }])[0].done(function (response) {
+                        $('#gs-block-groupstats-holder').html('');
+                        $('#gs-block-groupstats-holder').append(response);
 
-                          //let groupmemberscount = document.getElementById('gs-groupmemberscount');
-                          let wellstudentscount = document.getElementById('gs-wellstudentscount').innerHTML;
-                          let goodstudentscount = document.getElementById('gs-goodstudentscount').innerHTML;
-                          let okaystudentscount = document.getElementById('gs-okaystudentscount').innerHTML;
-                          let badstudentscount = document.getElementById('gs-badstudentscount').innerHTML;
-                          let wellattendingstudentscount = document.getElementById('gs-wellattendingstudentscount').innerHTML;
-                          let goodattendingstudentscount = document.getElementById('gs-goodattendingstudentscount').innerHTML;
-                          let okayattendingstudentscount = document.getElementById('gs-okayattendingstudentscount').innerHTML;
-                          let badattendingstudentscount = document.getElementById('gs-badattendingstudentscount').innerHTML;
-                          let paystudentscount = document.getElementById('gs-paystudentscount').innerHTML;
-                          let didntpaystudentscount = document.getElementById('gs-didntpaystudentscount').innerHTML;
+                        let hoverColor = getStyleFromElement("hover-color");
+                        let badSectorColor = getStyleFromElement("bss-color");
+                        let okaySectorColor = getStyleFromElement("oss-color");
+                        let goodSectorColor = getStyleFromElement("gss-color");
+                        let wellSectorColor = getStyleFromElement("wss-color");
 
-                          let performanceChart = {
-                              plugins: [ChartDataLabels],
-                              type: 'pie',
-                              data: {
-                                  labels: ['Хорошисты', 'Успевающие', 'Неуспевающие', 'Отличники'],
-                                  datasets: [{
-                                      data: [goodstudentscount, okaystudentscount, badstudentscount, wellstudentscount],
-                                      backgroundColor: [
-                                          '#edeab0',
-                                          '#d7883f',
-                                          '#dca1a1',
-                                          '#accca6'
-                                      ],
-                                      borderWidth: 1,
-                                      hoverBorderWidth: 3,
-                                      hoverBorderColor: '#599A4E',
-                                  }]
-                              },
-                              options: {
-                                  plugins: {
-                                      legend: {
-                                          display: false,
-                                      },
-                                      datalabels: {
-                                          formatter: function (value) {
-                                              var countAllStudents = +goodstudentscount + +okaystudentscount
-                                                  + +badstudentscount + +wellstudentscount;
+                        let currentSlideIndex = 0;
+                        let lastSlideIndex = 0;
+                        let controllerLeft = document.getElementById('la-switch'); //id here
+                        let controllerRight = document.getElementById('ra-switch'); //id here
+                        function slideLeft(controller, titles, items) {
+                            controller.addEventListener('click', () => {
+                                lastSlideIndex = currentSlideIndex;
+                                currentSlideIndex--;
+                                if (currentSlideIndex < 0) {
+                                    currentSlideIndex = 3;
+                                }
+                                titles[lastSlideIndex].classList.add('hide');
+                                titles[currentSlideIndex].classList.remove('hide');
+                                items[lastSlideIndex].classList.add('hide');
+                                items[currentSlideIndex].classList.remove('hide');
+                            });
+                        }
 
-                                              return Math.round((value*100)/countAllStudents) + '%';
-                                          }
-                                      }
-                                  }
-                              }
-                          };
+                        function slideRight(controller, titles, items) {
+                            controller.addEventListener('click', () => {
+                                lastSlideIndex = currentSlideIndex;
+                                currentSlideIndex++;
+                                if (currentSlideIndex > 3) {
+                                    currentSlideIndex = 0;
+                                }
+                                titles[lastSlideIndex].classList.add('hide');
+                                titles[currentSlideIndex].classList.remove('hide');
+                                items[lastSlideIndex].classList.add('hide');
+                                items[currentSlideIndex].classList.remove('hide');
+                            });
+                        }
 
-                          /*gst-pie-diagram-performance*/
+                        slideMenuIds = ['wl-stdnts', 'gd-stdnts', 'ok-stdnts', 'bd-stdnts']; //ids here
+                        slideMenuItemsIds = ['well-students-list', 'good-students-list', 'okay-students-list', 'bad-students-list']
+                        let slideMenuTitles = [];
+                        let slideMenuItems = [];
+                        for (let i = 0; i < 4; i++) { //diff value here
+                            slideMenuTitles.push(document.getElementById(slideMenuIds[i]));
+                            slideMenuItems.push(document.getElementById(slideMenuItemsIds[i]));
+                        }
 
-                          /*var chart = am4core.create("gst-pie-diagram-performance", am4charts.PieChart);
-                          chart.data = [{
-                              "students": "Хорошисты",
-                              "count": goodstudentscount
-                          }, {
-                              "students": "Успевающие",
-                              "count": okaystudentscount
-                          }, {
-                              "students": "Неуспевающие",
-                              "count": badstudentscount
-                          }, {
-                              "students": "Отличники",
-                              "count": wellstudentscount
-                          }];
-                          var pieSeries = chart.series.push(new am4charts.PieSeries());
-                          pieSeries.dataFields.value = "count";
-                          pieSeries.dataFields.category = "students";
-                          pieSeries.ticks.template.disabled = true;
-                          pieSeries.alignLabels = false;
-                          pieSeries.labels.template.text = "{value.percent.formatNumber('#.0')}%";
-                          pieSeries.labels.template.radius = am4core.percent(-40);
-                          pieSeries.labels.template.adapter.add("radius", function(radius, target) {
-                              if (target.dataItem && (target.dataItem.values.value.percent < 10)) {
-                                  return 0;
-                              }
-                              return radius;
-                          });
+                        slideLeft(controllerLeft, slideMenuTitles, slideMenuItems);
+                        slideRight(controllerRight, slideMenuTitles, slideMenuItems);
 
-                          pieSeries.labels.template.adapter.add("fill", function(color, target) {
-                              if (target.dataItem && (target.dataItem.values.value.percent < 10)) {
-                                  return am4core.color("#000");
-                              }
-                              return color;
-                          });
-                          pieSeries.labels.template.fill = am4core.color("white");
-                          pieSeries.slices.template.stroke = am4core.color("#4a2abb");
-                          pieSeries.slices.template.strokeWidth = 2;
-                          pieSeries.slices.template.strokeOpacity = 1;
-                          */
-                          let attendanceChart = {
-                              type: 'pie',
-                              data: {
-                                  labels: ['С 1м прогулом', 'Успевающие', 'Не посещающие занятия', 'Без прогулов'],
-                                  datasets: [{
-                                      data: [goodattendingstudentscount, okayattendingstudentscount, badattendingstudentscount, wellattendingstudentscount],
-                                      backgroundColor: [
-                                          '#edeab0',
-                                          '#d7883f',
-                                          '#dca1a1',
-                                          '#accca6'
-                                      ],
-                                      borderWidth: 1,
-                                      hoverBorderWidth: 3,
-                                      hoverBorderColor: '#599A4E'
-                                  }]
-                              },
-                              options: {
-                                  plugins: {
-                                      legend: {
-                                          display: false,
-                                      }
-                                  }
-                              }
-                          };
 
-                          let paymentChart = {
-                              type: 'pie',
-                              data: {
-                                  labels: ['Не оплатили', 'Оплатили недавно'],
-                                  datasets: [{
-                                      data: [didntpaystudentscount, paystudentscount],
-                                      backgroundColor: [
-                                          '#dca1a1',
-                                          '#accca6'
-                                      ],
-                                      borderWidth: 1,
-                                      hoverBorderWidth: 3,
-                                      hoverBorderColor: '#599A4E'
-                                  }]
-                              },
-                              options: {
-                                  plugins: {
-                                      legend: {
-                                          display: false,
-                                      }
-                                  }
-                              }
-                          };
 
-                          let lastAttendanceList = document.getElementById('well-attending-students-list');
-                          let lastPerformanceList = document.getElementById('well-students-list');
-                          let lastAttendanceSwitch = document.getElementById('well-attending-students');
-                          let lastPerformanceSwitch = document.getElementById('well-students');
-                          let lastGroupTab = document.getElementById('GroupPerformanceTab');
-                          let lastGroupContentTab = document.getElementById('group-performance');
+                        //let groupmemberscount = document.getElementById('gs-groupmemberscount');
+                        let wellstudentscount = document.getElementById('gs-wellstudentscount').innerHTML;
+                        let goodstudentscount = document.getElementById('gs-goodstudentscount').innerHTML;
+                        let okaystudentscount = document.getElementById('gs-okaystudentscount').innerHTML;
+                        let badstudentscount = document.getElementById('gs-badstudentscount').innerHTML;
+                        /*let wellattendingstudentscount = document.getElementById('gs-wellattendingstudentscount').innerHTML;
+                        let goodattendingstudentscount = document.getElementById('gs-goodattendingstudentscount').innerHTML;
+                        let okayattendingstudentscount = document.getElementById('gs-okayattendingstudentscount').innerHTML;
+                        let badattendingstudentscount = document.getElementById('gs-badattendingstudentscount').innerHTML;*/
+                        let paystudentscount = document.getElementById('gs-paystudentscount').innerHTML;
+                        let didntpaystudentscount = document.getElementById('gs-didntpaystudentscount').innerHTML;
 
-                          let pieDiagramPerformance = document.getElementById('gst-pie-diagram-performance');
-                          let pieDiagramAttendance = document.getElementById('gst-pie-diagram-attendance');
-                          let pieDiagramPayment = document.getElementById('gst-pie-diagram-payment');
+                        const formatPie = (countPartPieStudents, context) => {
+                            const countAllStudents = +goodstudentscount + +okaystudentscount
+                                + +badstudentscount + +wellstudentscount;
 
-                          let performanceListSwitchIds = ['well-students', 'good-students', 'okay-students', 'bad-students'];
-                          let performanceListIds = ['well-students-list', 'good-students-list', 'okay-students-list', 'bad-students-list'];
-                          let attendanceListIds = ['well-attending-students-list', 'good-attending-students-list', 'okay-attending-students-list', 'bad-attending-students-list'];
-                          let attendanceListSwitchIds = ['well-attending-students', 'good-attending-students', 'okay-attending-students', 'bad-attending-students'];
-                          let groupTabsIds = ['GroupPerformanceTab', 'GroupAttendanceTab', 'GroupPaymentTab'];
-                          let groupTabsContentIds = ['group-performance', 'group-attendance', 'group-payment'];
+                            const label = context.chart.data.labels[context.dataIndex];
 
-                          addTabListeners(groupTabsIds, groupTabsContentIds);
-                          addListListeners(performanceListSwitchIds, performanceListIds, "performance");
-                          addListListeners(attendanceListSwitchIds, attendanceListIds, "attendance");
+                            let resultString = '';
 
-                          new Chart(pieDiagramPerformance, performanceChart);
-                          new Chart(pieDiagramAttendance, attendanceChart);
-                          new Chart(pieDiagramPayment, paymentChart);
+                            if (countPartPieStudents === 0 || isPartPieUnderCustomPercent(countPartPieStudents, countAllStudents)) {
+                                resultString = '';
+                            } else {
+                                resultString = getOutputPartPieString(label, countPartPieStudents);
+                            }
+                            
+                            return resultString;
+                        };
 
-                          function setActive(element) {
-                              element.classList.add('active');
-                          }
+                        const dataLabelsPerformancePieConfig = {
+                            anchor: 'end',
+                            align: 'start',
+                            offset: 0,
+                            textAlign : 'center',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: formatPie
+                        };
 
-                          function setInactive(element) {
-                              element.classList.remove('active');
-                          }
+                        const dataLabelsPaymentPieConfig = {
+                            anchor: 'end',
+                            align: 'start',
+                            offset: 5,
+                            textAlign : 'center',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: formatPie
+                        };
 
-                          function showTabContent(tabContent) {
-                              tabContent.classList.remove('hide');
-                              tabContent.classList.add('show');
-                          }
+                        let performanceChart = {
+                            plugins: [ChartDataLabels],
+                            type: 'pie',
+                            data: {
+                                labels: ['Хорошисты', 'Успевающие', 'Неуспевающие', 'Отличники'],
+                                datasets: [{
+                                    data: [goodstudentscount, okaystudentscount, badstudentscount, wellstudentscount],
+                                    backgroundColor: [
+                                        goodSectorColor,
+                                        okaySectorColor,
+                                        badSectorColor,
+                                        wellSectorColor
+                                    ],
+                                    borderWidth: 1,
+                                    hoverBorderWidth: 3,
+                                    hoverBorderColor: hoverColor,
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        display: false,
+                                    },
+                                    datalabels: dataLabelsPerformancePieConfig
+                                }
+                            }
+                        };
 
-                          function hideTabContent(tabContent) {
-                              tabContent.classList.remove('show');
-                              tabContent.classList.add('hide');
-                          }
+                       //console.log ("params: " + goodattendingstudentscount + " " + okayattendingstudentscount + " " + badattendingstudentscount + " " + wellattendingstudentscount);
+                        /*let attendanceChart = {
+                            plugins: [ChartDataLabels],
+                            type: 'pie',
+                            data: {
+                                labels: ['С 1м прогулом', 'Успевающие', 'Не посещающие занятия', 'Без прогулов'],
+                                datasets: [{
+                                    data: [goodattendingstudentscount, okayattendingstudentscount, badattendingstudentscount, wellattendingstudentscount],
+                                    backgroundColor: [
+                                        '#edeab0',
+                                        '#d7883f',
+                                        '#dca1a1',
+                                        '#accca6'
+                                    ],
+                                    borderWidth: 1,
+                                    hoverBorderWidth: 3,
+                                    hoverBorderColor: hoverColor
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        display: false,
+                                    },
+                                    datalabels: {
+                                        formatter: function (value) {
 
-                          function addTabListeners(tabIds, contentIds) {
-                              for (var i = 0; i < tabIds.length; i++) {
-                                  let element = document.getElementById(tabIds[i]);
-                                  let content = document.getElementById(contentIds[i]);
-                                  element.addEventListener('click', function(){
-                                      setInactive(lastGroupTab);
-                                      hideTabContent(lastGroupContentTab);
-                                      setActive(element);
-                                      showTabContent(content);
-                                      lastGroupTab = element;
-                                      lastGroupContentTab = content;
-                                  });
-                              }
-                          }
+                                            return value + ' Чел.';
+                                        }
+                                    }
+                                }
+                            }
+                        };
+*/
+                        let paymentChart = {
+                            plugins: [ChartDataLabels],
+                            type: 'pie',
+                            data: {
+                                labels: ['Не оплатили', 'Оплатили недавно'],
+                                datasets: [{
+                                    data: [didntpaystudentscount, paystudentscount],
+                                    backgroundColor: [
+                                        badSectorColor,
+                                        okaySectorColor
+                                    ],
+                                    borderWidth: 1,
+                                    hoverBorderWidth: 3,
+                                    hoverBorderColor: hoverColor
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        display: false,
+                                    },
+                                    datalabels: dataLabelsPaymentPieConfig
+                                }
+                            }
+                        };
 
-                          function addListListeners(switchIds, contentIds, parameter) {
-                              for (var i = 0; i < switchIds.length; i++) {
-                                  let element = document.getElementById(switchIds[i]);
-                                  let content = document.getElementById(contentIds[i]);
-                                  element.addEventListener('click', function(){
-                                      if (parameter === "performance") {
-                                          setInactive(lastPerformanceSwitch);
-                                          hideTabContent(lastPerformanceList);
-                                          setActive(element);
-                                          showTabContent(content);
-                                          lastPerformanceSwitch = element;
-                                          lastPerformanceList = content;
-                                      } else if (parameter === "attendance") {
-                                          setInactive(lastAttendanceSwitch);
-                                          hideTabContent(lastAttendanceList);
-                                          setActive(element);
-                                          showTabContent(content);
-                                          lastAttendanceSwitch = element;
-                                          lastAttendanceList = content;
-                                      }
-                                  });
-                              }
-                          }
+                        //let lastAttendanceList = document.getElementById('well-attending-students-list');
+                        let lastPerformanceList = document.getElementById('well-students-list');
+                        let lastAttendanceSwitch = document.getElementById('well-attending-students');
+                        let lastPerformanceSwitch = document.getElementById('well-students');
+                        let lastGroupTab = document.getElementById('GroupPerformanceTab');
+                        let lastGroupContentTab = document.getElementById('group-performance');
 
-                          $('#gs-group-stats-blank').css({'display' : 'none'});
-                          $('#gs-block-groupstats-holder').css({'display' : 'block'});
-                      }).fail(function (err) {
-                          console.log(err);
-                      });
-                  });
-                  if(autochange){
-                      if(newGroupListElements.length === 1){
-                          return;
-                      }
-                      autochange = false;
-                      let istring = document.getElementById('gs-cs-group-data-section');
-                      istring.innerHTML = getDataSectionOf(newGroupListElements[1]).innerHTML;
+                        let pieDiagramPerformance = document.getElementById('gst-pie-diagram-performance');
+                        //let pieDiagramAttendance = document.getElementById('gst-pie-diagram-attendance');
+                        let pieDiagramPayment = document.getElementById('gst-pie-diagram-payment');
 
-                      //console.log(getDataSectionOf(newGroupListElements[1]).innerHTML);
+                        //let performanceListSwitchIds = ['well-students', 'good-students', 'okay-students', 'bad-students'];
+                       // let performanceListIds = ['well-students-list', 'good-students-list', 'okay-students-list', 'bad-students-list'];
+                        //let attendanceListIds = ['well-attending-students-list', 'good-attending-students-list', 'okay-attending-students-list', 'bad-attending-students-list'];
+                        //let attendanceListSwitchIds = ['well-attending-students', 'good-attending-students', 'okay-attending-students', 'bad-attending-students'];
+                        //let groupTabsIds = ['GroupPerformanceTab', 'GroupAttendanceTab', 'GroupPaymentTab'];
+                        let groupTabsIds = ['GroupPerformanceTab', 'GroupPaymentTab'];
+                        //let groupTabsContentIds = ['group-performance', 'group-attendance', 'group-payment'];
+                        let groupTabsContentIds = ['group-performance', 'group-payment'];
 
-                      let event = new Event('change', {bubbles: true});
-                      newGroupSelect.dispatchEvent(event);
-                  }
-              }).fail(function (err) {
-                  console.log(err);
-                  //notification.exception(new Error('Failed to load data'));
-                  return;
-              });
+                        addTabListeners(groupTabsIds, groupTabsContentIds);
+                        //addListListeners(performanceListSwitchIds, performanceListIds, "performance");
+                        //addListListeners(attendanceListSwitchIds, attendanceListIds, "attendance");
+
+                        new Chart(pieDiagramPerformance, performanceChart);
+                        //new Chart(pieDiagramAttendance, attendanceChart);
+                        new Chart(pieDiagramPayment, paymentChart);
+
+                        function setActive(element) {
+                            element.classList.add('active');
+                        }
+
+                        function setInactive(element) {
+                            element.classList.remove('active');
+                        }
+
+                        function showTabContent(tabContent) {
+                            tabContent.classList.remove('hide');
+                            tabContent.classList.add('show');
+                        }
+
+                        function hideTabContent(tabContent) {
+                            tabContent.classList.remove('show');
+                            tabContent.classList.add('hide');
+                        }
+
+                        function addTabListeners(tabIds, contentIds) {
+                            for (var i = 0; i < tabIds.length; i++) {
+                                let element = document.getElementById(tabIds[i]);
+                                let content = document.getElementById(contentIds[i]);
+                                element.addEventListener('click', function () {
+                                    setInactive(lastGroupTab);
+                                    hideTabContent(lastGroupContentTab);
+                                    setActive(element);
+                                    showTabContent(content);
+                                    lastGroupTab = element;
+                                    lastGroupContentTab = content;
+                                });
+                            }
+                        }
+
+                        /*function addListListeners(switchIds, contentIds, parameter) {
+                            for (var i = 0; i < switchIds.length; i++) {
+                                let element = document.getElementById(switchIds[i]);
+                                let content = document.getElementById(contentIds[i]);
+                                element.addEventListener('click', function () {
+                                    if (parameter === "performance") {
+                                        setInactive(lastPerformanceSwitch);
+                                        hideTabContent(lastPerformanceList);
+                                        setActive(element);
+                                        showTabContent(content);
+                                        lastPerformanceSwitch = element;
+                                        lastPerformanceList = content;
+                                    } else if (parameter === "attendance") {
+                                        setInactive(lastAttendanceSwitch);
+                                        hideTabContent(lastAttendanceList);
+                                        setActive(element);
+                                        showTabContent(content);
+                                        lastAttendanceSwitch = element;
+                                        lastAttendanceList = content;
+                                    }
+                                });
+                            }
+                        }*/
+
+                        $('#gs-group-stats-blank').css({ 'display': 'none' });
+                        $('#gs-block-groupstats-holder').css({ 'display': 'block' });
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                });
+                if (autochange) {
+                    if (newGroupListElements.length === 1) {
+                        return;
+                    }
+                    autochange = false;
+                    let istring = document.getElementById('gs-cs-group-data-section');
+                    istring.innerHTML = getDataSectionOf(newGroupListElements[1]).innerHTML;
+
+                    //console.log(getDataSectionOf(newGroupListElements[1]).innerHTML);
+
+                    let event = new Event('change', { bubbles: true });
+                    newGroupSelect.dispatchEvent(event);
+                }
+            }).fail(function (err) {
+                console.log(err);
+                //notification.exception(new Error('Failed to load data'));
+                return;
+            });
         });
-        if(getDataSectionOf(currentLine).getElementsByClassName('gs-cs-checker').length === 0) {
+        if (getDataSectionOf(currentLine).getElementsByClassName('gs-cs-checker').length === 0) {
             autochange = true;
-            let event = new Event('change', {bubbles: true});
+            let event = new Event('change', { bubbles: true });
             courceSelect.dispatchEvent(event);
         }
     });

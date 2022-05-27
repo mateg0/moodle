@@ -1,3 +1,7 @@
+.shadowed-item {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
 .cource-group-members {
     margin: 0 auto;
     max-width: 300px;
@@ -151,6 +155,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    flex-shrink: 0;
     overflow: hidden;
 }
 
@@ -320,7 +325,7 @@
 
 .cs-logo {
     width: 35px;
-    height: inherit;
+    height: 35px;
 }
 
 .cs-group-line,
@@ -413,6 +418,9 @@
     height: 35px;
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cs-group-logo img,
@@ -431,6 +439,13 @@
     font-size: 1rem;
     line-height: 1rem;
     margin-left: 15px;
+}
+
+.cs-group-name{
+    max-width: 110px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .cs-group-selector,
@@ -460,9 +475,7 @@
 }
 /***************************************************/
 .gm-block-add-user{
-    // width: 300px;
     margin: 0 auto;
-    //padding-bottom: 15px;
 }
 
 .gm-block-add-user a{

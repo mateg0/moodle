@@ -2074,8 +2074,9 @@ class theme_config {
             return null;
 
         } else if ($component === 'theme') { //exception
+            $colorscheme = "colorscheme" . $CFG->colorscheme;
             if ($image === 'favicon') {
-                return "$this->dir/pix/favicon.ico";
+                return "$this->dir/pix/favicon/$colorscheme/favicon.ico";
             }
             if ($imagefile = $this->image_exists("$this->dir/pix/$image", $svg)) {
                 return $imagefile;
@@ -2088,20 +2089,21 @@ class theme_config {
             return null;
 
         } else {
+            $colorscheme = "colorscheme" . $CFG->colorscheme;
             if (strpos($component, '_') === false) {
                 $component = 'mod_'.$component;
             }
             list($type, $plugin) = explode('_', $component, 2);
 
-            if ($imagefile = $this->image_exists("$this->dir/pix_plugins/$type/$plugin/$image", $svg)) {
+            if ($imagefile = $this->image_exists("$this->dir/pix_plugins/$colorscheme/$type/$plugin/$image", $svg)) {
                 return $imagefile;
             }
             foreach (array_reverse($this->parent_configs) as $parent_config) { // base first, the immediate parent last
-                if ($imagefile = $this->image_exists("$parent_config->dir/pix_plugins/$type/$plugin/$image", $svg)) {
+                if ($imagefile = $this->image_exists("$parent_config->dir/pix_plugins/$colorscheme/$type/$plugin/$image", $svg)) {
                     return $imagefile;
                 }
             }
-            if ($imagefile = $this->image_exists("$CFG->dataroot/pix_plugins/$type/$plugin/$image", $svg)) {
+            if ($imagefile = $this->image_exists("$CFG->dataroot/pix_plugins/$colorscheme/$type/$plugin/$image", $svg)) {
                 return $imagefile;
             }
             $dir = core_component::get_plugin_directory($type, $plugin);

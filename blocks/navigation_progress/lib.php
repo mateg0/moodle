@@ -563,12 +563,20 @@ function block_navigation_progress_bar($activities, $completions, $config, $user
     }
     ksort($sectionsArr);
 
-
+    $content .= HTML_WRITER::start_div('contentsDiv');
+    $content .= HTML_WRITER::div('Ход курса', 'headerDiv');
     $content .= HTML_WRITER::start_div('sections');
     foreach ($sectionsArr as $sectionId => $section) {
-        $content .= HTML_WRITER::div(HTML_WRITER::span('Раздел ' . $sectionId), 'section', array('data-section-ref' => 'sectionBar'.$instance.'-'.$userid.'-'.$sectionId));
+        $content .= HTML_WRITER::div(HTML_WRITER::span('Модуль ' . $sectionId), 'section', array('data-section-ref' => 'sectionBar'.$instance.'-'.$userid.'-'.$sectionId));
     }
     $content .= HTML_WRITER::end_div();
+    $content .= HTML_WRITER::end_div();
+
+    $stringincomplete = get_string('completion-n', 'completion');
+    $stringcomplete = get_string('completed', 'completion');
+    $stringpassed = get_string('completion-pass', 'completion');
+    $stringfailed = get_string('completion-fail', 'completion');
+    $stringsubmitted = get_string('submitted', 'block_navigation_progress');
 
     foreach ($sectionsArr as $sectionId => $section) {
 
@@ -632,7 +640,63 @@ function block_navigation_progress_bar($activities, $completions, $config, $user
 
             $counter++;
 //        $content .= HTML_WRITER::div($cellcontent, null, $celloptions);
-            $indicator = HTML_WRITER::div('', 'indicator ' . $celloptions['class'], array('data-text' => $activity['name']));
+            $indicator = '';
+//            $activityname = HTML_WRITER::div($activity['name'], 'activityname');
+//            $indicator = $activityname;
+            $activityicon = html_writer::empty_tag('img',
+                array('src' => $activity['icon'], 'class' => 'moduleIcon', 'alt' => '', 'role' => 'presentation'));;
+/*
+            $shortinfo = '';
+            $completed = $completions[$activity['id']];
+            $divoptions = array('class' => 'progressEventInfo',
+                'id' => 'progressBarInfo'.$instance.'-'.$userid.'-'.$activity['id'],
+                'style' => 'display: none;');
+            $shortinfo .= HTML_WRITER::start_tag('div', $divoptions);
+
+            $text = '';
+            $text .= html_writer::empty_tag('img',
+                array('src' => $activity['icon'], 'class' => 'moduleIcon', 'alt' => '', 'role' => 'presentation'));
+            $text .= s(format_string($activity['name']));
+            if (!empty($activity['link']) && (!empty($activity['available']) || $simple)) {
+                $shortinfo .= $OUTPUT->action_link($activity['link'], $text, null, ['class' => 'action_link']);
+            } else {
+                $shortinfo .= $text;
+            }
+            $shortinfo .= HTML_WRITER::empty_tag('br');
+            $altattribute = '';
+            if ($completed == COMPLETION_COMPLETE) {
+                $shortinfo .= $stringcomplete.'&nbsp;';
+                $icon = 'tick';
+                $altattribute = $stringcomplete;
+            } else if ($completed == COMPLETION_COMPLETE_PASS) {
+                $shortinfo .= $stringpassed.'&nbsp;';
+                $icon = 'tick';
+                $altattribute = $stringpassed;
+            } else if ($completed == COMPLETION_COMPLETE_FAIL) {
+                $shortinfo .= $stringfailed.'&nbsp;';
+                $icon = 'cross';
+                $altattribute = $stringfailed;
+            } else {
+                $shortinfo .= $stringincomplete .'&nbsp;';
+                $icon = 'cross';
+                $altattribute = $stringincomplete;
+                if ($completed === 'submitted') {
+                    $shortinfo .= '(' . $stringsubmitted . ')&nbsp;';
+                    $altattribute .= '(' . $stringsubmitted . ')';
+                }
+            }
+            $shortinfo .= $OUTPUT->pix_icon($icon, $altattribute, 'block_navigation_progress', array('class' => 'iconInInfo'));
+            $shortinfo .= HTML_WRITER::empty_tag('br');
+            if ($activity['expected'] != 0) {
+                $shortinfo .= HTML_WRITER::start_tag('div', array('class' => 'expectedBy'));
+                $shortinfo .= get_string('time_expected', 'block_navigation_progress').': ';
+                $shortinfo .= userdate($activity['expected'], $dateformat, $CFG->timezone);
+                $shortinfo .= HTML_WRITER::end_tag('div');
+            }
+            $shortinfo .= HTML_WRITER::end_tag('div');
+            $indicator .= $shortinfo;
+*/
+            $indicator .= HTML_WRITER::div($activityicon, 'indicator ' . $celloptions['class'], array('data-text' => $activity['name']));
             $content .= HTML_WRITER::div($indicator, 'activity', $celloptions);
         }
 
@@ -750,14 +814,21 @@ function block_navigation_progress_percentage($activities, $completions) {
 }
 
 /**
- * Checks whether the current page is the My home page.
+ * Checks whether the given page is the Dashboard or Site home page.
  *
- * @return bool True when on the My home page.
+ * @param moodle_page $page the page to check, or the current page if not passed.
+ * @return boolean True when on the Dashboard or Site home page.
  */
-function block_navigation_progress_on_site_page() {
-    global $SCRIPT, $COURSE;
+function block_navigation_progress_on_site_page($page = null) {
+    global $PAGE;
 
-    return $SCRIPT === '/my/index.php' || $COURSE->id == 1;
+    $page = $page ?? $PAGE;
+    if (empty($page)) {
+        return false;   // Might be an asynchronous course copy.
+    }
+
+    $pagetypepatterns = matching_page_type_patterns_from_pattern($page->pagetype);
+    return in_array('my-*', $pagetypepatterns) || in_array('site-*', $pagetypepatterns);
 }
 
 /**

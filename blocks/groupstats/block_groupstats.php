@@ -38,15 +38,14 @@ class block_groupstats extends block_base
             $this->content = new stdClass;
             $this->content->text = '';
             $mform = new \block_groupstats\form\courcegroupform();
-
-            $this->content->text = $mform->render();
+            //$this->content->text .= '<div id="gs-summary" class="groupstats-summary active"> <h5>Статистика группы </h5><div id="gs-summary-switch" class="gs-summary-switch"></div></div>';               
+            $this->content->text .= $mform->render();
             $this->content->text .= '<div id="gs-block-groupstats-holder"></div>';
 
             $template = new \block_groupstats\output\groupstats_blank();
             $renderer = $this->page->get_renderer('block_groupstats');
             $this->content->text .=$renderer->renderGroupStatsBlank($template);
-
-            $this->content->text .= '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>' . '<br>' .
+            $this->content->text .= '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>' .
                                     '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>';
 
             return $this->content;

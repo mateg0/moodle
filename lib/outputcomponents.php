@@ -344,7 +344,7 @@ class user_picture implements renderable {
      * @param renderer_base $renderer
      * @return moodle_url
      */
-    public function get_url(moodle_page $page, renderer_base $renderer = null) {
+    public function get_url(moodle_page $page, renderer_base $renderer = null, $flag = null) {
         global $CFG;
 
         if (is_null($renderer)) {
@@ -371,6 +371,10 @@ class user_picture implements renderable {
         }
 
         $defaulturl = $renderer->image_url('u/'.$filename); // default image
+
+        if($flag !== null){
+            return false;
+        }
 
         if ((!empty($CFG->forcelogin) and !isloggedin()) ||
             (!empty($CFG->forceloginforprofileimage) && (!isloggedin() || isguestuser()))) {

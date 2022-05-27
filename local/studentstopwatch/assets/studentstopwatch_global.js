@@ -1,13 +1,13 @@
 if (!window.location.href.includes('my')) {
-    let minuteChangeInterval;
-    let hourChangeInterval;
+    let secondsChangeInterval;
 
     let AFKTimeout;
     let mouseMoveThrottle;
     
     let timerData = JSON.parse(sessionStorage.getItem('timer'));
 
-    const minute = 60_000;
+    const second = 1_000;
+    const minute = 60 * second;
     const hour = minute * 60;
 
     const checkTimerDataDay = (timerData) => {
@@ -21,23 +21,41 @@ if (!window.location.href.includes('my')) {
         timerData = {
             hour: 0,
             minute: 0,
+            second: 0,
             lastUpdate: new Date()
         };
     };
 
     const updateTimerData = () => sessionStorage.setItem('timer', JSON.stringify(timerData));
 
+    const updateSeconds = () => {
+        let valueOfSeconds = +timerData.second;
+
+        if (valueOfSeconds >= 59) {
+            updateMinutes();
+
+            valueOfSeconds = -1;
+        }
+
+        valueOfSeconds++;
+
+        timerData.second = valueOfSeconds;
+        timerData.lastUpdate = new Date();
+        updateTimerData();
+    };
+
     const updateMinutes = () => {
         let valueOfMinutes = timerData.minute;
 
         if (valueOfMinutes >= 59) {
+            updateHours();
+
             valueOfMinutes = -1;
         }
 
         valueOfMinutes++;
 
         timerData.minute = valueOfMinutes;
-        timerData.lastUpdate = new Date();
         updateTimerData();
     };
 
@@ -47,17 +65,21 @@ if (!window.location.href.includes('my')) {
         valueOfHours++;
 
         timerData.hour = valueOfHours;
-        timerData.lastUpdate = new Date();
         updateTimerData();
     };
 
     const startChangeIntervals = () => {
-        minuteChangeInterval = setInterval(updateMinutes, minute);
-        hourChangeInterval = setInterval(updateHours, hour);
+        secondsChangeInterval = setInterval(updateSeconds, second);
     }
 
     const startChangeIntervalsAfterAFK = () => {
         document.addEventListener('mousemove', startChangeIntervals, {once: true});
+    }
+
+    const clearChangeIntervals = () => {
+        clearInterval(secondsChangeInterval);
+        clearInterval(minuteChangeInterval);
+        clearInterval(hourChangeInterval);
     }
 
     const setAFKTimeout = () => {
@@ -72,8 +94,7 @@ if (!window.location.href.includes('my')) {
                 }
 
                 AFKTimeout = setTimeout(() => {
-                    clearInterval(hourChangeInterval);
-                    clearInterval(minuteChangeInterval);
+                    clearChangeIntervals();
                     clearTimerData();
                     updateTimerData();
 
@@ -83,6 +104,11 @@ if (!window.location.href.includes('my')) {
                 mouseMoveThrottle = false;
             }, 10000);
         });
+    }
+
+    const startStopwatch = () => {
+        startChangeIntervals();
+        setAFKTimeout();
     }
 
     if (timerData) {
@@ -95,6 +121,5 @@ if (!window.location.href.includes('my')) {
         updateTimerData();
     }
 
-    startChangeIntervals();
-    setAFKTimeout();
+    startStopwatch();
 }

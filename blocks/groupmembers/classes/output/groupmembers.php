@@ -17,6 +17,7 @@ class groupmembers implements renderable, templatable
     private $userfullname;
     private $userprofile;
     private $students;
+    private $colorindex;
 
     public function export_for_template(renderer_base $output){
         $imageurl = $output->image_url('alpha', 'block_groupmembers')->out();
@@ -42,12 +43,24 @@ class groupmembers implements renderable, templatable
         $users = $this->groupmembers;
 
         foreach ($users as $user) {
-            $user_picture = new user_picture($user);
-            $this->picturesrc = $user_picture->get_url($PAGE);
+            $this->colorindex = rand(1, 10);
+            $this->picturesrc = $this->get_user_image($user);
             $this->userfullname = $user->firstname . ' ' . $user->lastname;
             $this->userprofile = $CFG->wwwroot . '/user/view.php?id=' . $user->id . '&amp;course=' . $this->course->id;
             $this->set_user_array($this->students);
         }
+    }
+
+    private function get_user_image($user) {
+        global $USER,$PAGE; 
+        $user_picture=new user_picture($user);
+        if($user->picture){
+            $src=$user_picture->get_url($PAGE);
+        }
+        else{
+            $src=$user_picture->get_url($PAGE, null,  false);
+        }
+        return $src;
     }
 
     private function set_user_array(&$array)
@@ -55,7 +68,8 @@ class groupmembers implements renderable, templatable
         $array[] = array(
             'fullname' => $this->userfullname,
             'picturesrc' => $this->picturesrc,
-            'userprofile' => $this->userprofile
+            'userprofile' => $this->userprofile,
+            'colorindex' => $this->colorindex
         );
     }
 

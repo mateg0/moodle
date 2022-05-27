@@ -1,110 +1,129 @@
 {{!
-    This file is part of Moodle - http://moodle.org/
+This file is part of Moodle - http://moodle.org/
 
-    Moodle is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Moodle is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    Moodle is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Moodle is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Moodle. If not, see
+<http: //www.gnu.org/licenses />.
 }}
 {{!
-    @template theme_classic/columns
+@template theme_classic/columns
 
-    Admin time setting template.
+Admin time setting template.
 
-    Classic 1-3 column layout template.
+Classic 1-3 column layout template.
 
-    Context variables required for this template:
-    * sitename - The name of the site
-    * output - The core renderer for the page
-    * bodyattributes - attributes for the body tag as a string of html attributes
-    * sidepreblocks - HTML for the blocks
-    * hasblocks - true if there are blocks on this page
-    * regionmainsettingsmenu - HTML for the region main settings menu
-    * hasregionmainsettingsmenu - There is a region main settings menu on this page.
+Context variables required for this template:
+* sitename - The name of the site
+* output - The core renderer for the page
+* bodyattributes - attributes for the body tag as a string of html attributes
+* sidepreblocks - HTML for the blocks
+* hasblocks - true if there are blocks on this page
+* regionmainsettingsmenu - HTML for the region main settings menu
+* hasregionmainsettingsmenu - There is a region main settings menu on this page.
 
-    Example context (json):
-    {
-        "sitename": "Moodle",
-        "output": {
-            "doctype": "<!DOCTYPE html>",
-            "page_title": "Test page",
-            "favicon": "favicon.ico",
-            "main_content": "<h1>Headings make html validators happier</h1>"
-         },
-        "bodyattributes":"",
-        "sidepreblocks": "<h2>Blocks html goes here</h2>",
-        "sidepostblocks": "<h2>Blocks html goes here</h2>",
-        "haspreblocks":true,
-        "haspostblocks":true
-    }
+Example context (json):
+{
+"sitename": "Moodle",
+"output": {
+"doctype": "
+<!DOCTYPE html>",
+"page_title": "Test page",
+"favicon": "favicon.ico",
+"main_content": "<h1>Headings make html validators happier</h1>"
+},
+"bodyattributes":"",
+"sidepreblocks": "<h2>Blocks html goes here</h2>",
+"sidepostblocks": "<h2>Blocks html goes here</h2>",
+"haspreblocks":true,
+"haspostblocks":true
+}
 }}
 {{> theme_boost/head }}
 
 <body {{{ bodyattributes }}}>
 
-<div id="page-wrapper" class="d-print-block">
+    <div id="page-wrapper" class="d-print-block">
 
-    {{{ output.standard_top_of_body_html }}}
+        {{{ output.standard_top_of_body_html }}}
 
-    {{>theme_classic/navbar}}
+        {{>theme_classic/navbar}}
 
-    <div id="page" class="container-fluid d-print-block">
-        {{! output.full_header }}
-        <div class="card-only-buttons">
-            {{{ output.full_header }}}
-        </div>
+        <div id="page" class="container-fluid d-print-block">
+            {{! output.full_header }}
+            <div class="card-only-buttons">
+                {{{ output.full_header }}}
+            </div>
 
-        <div id="page-content" class="row {{#haspreblocks}} blocks-pre {{/haspreblocks}} {{#haspostblocks}} blocks-post {{/haspostblocks}} d-print-block">
-            <div id="region-main-box" class="region-main">
-                <div class="card-only-course-name">
-                    {{{ output.full_header }}}
+            <div id="page-content"
+                class="row {{#haspreblocks}} blocks-pre {{/haspreblocks}} {{#haspostblocks}} blocks-post {{/haspostblocks}} d-print-block">
+                {{#haspreblocks}}
+                <div class="left-column-toggle">
+                    <div class="left-column-toggle-inner">
+                        <svg id="site-left-column-switch" width="21" height="10" viewBox="0 0 21 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.1328 10C9.86089 10.0003 9.59203 9.95412 9.34417 9.86463C9.0963 9.77515 8.87514 9.64438 8.69544 9.48106L0.539235 2.06294C0.40054 1.94252 0.293326 1.80112 0.223893 1.64706C0.15446 1.493 0.124209 1.32938 0.134919 1.16583C0.145631 1.00228 0.197087 0.842089 0.286264 0.694681C0.37544 0.547271 0.500535 0.415616 0.654201 0.307451C0.807866 0.199287 0.987001 0.116798 1.18107 0.0648305C1.37515 0.0128638 1.58024 -0.00753239 1.7843 0.00484154C1.98836 0.0172164 2.18728 0.0621107 2.36935 0.136887C2.55142 0.211664 2.71298 0.314814 2.84452 0.440274L9.97652 6.92697C9.99603 6.94478 10.0201 6.95905 10.047 6.96882C10.074 6.9786 10.1032 6.98366 10.1328 6.98366C10.1624 6.98366 10.1917 6.9786 10.2186 6.96882C10.2456 6.95905 10.2696 6.94478 10.2891 6.92697L17.4211 0.438944C17.5527 0.313484 17.7142 0.210336 17.8963 0.135559C18.0784 0.0607823 18.2773 0.0158871 18.4813 0.00351323C18.6854 -0.00886164 18.8905 0.0115337 19.0846 0.0635003C19.2786 0.115468 19.4578 0.197959 19.6114 0.306123C19.7651 0.414287 19.8902 0.545941 19.9794 0.693351C20.0685 0.840759 20.12 1.00095 20.1307 1.1645C20.1414 1.32805 20.1112 1.49167 20.0417 1.64573C19.9723 1.79979 19.8651 1.94119 19.7264 2.06162L11.5727 9.4784C11.3927 9.64212 11.1712 9.77331 10.9229 9.86324C10.6747 9.95317 10.4053 9.99979 10.1328 10Z"
+                                fill="#353535" />
+                        </svg>
+
+                    </div>
                 </div>
+                {{/haspreblocks}}
+                <div id="region-main-box" class="region-main">
+                    <div class="card-only-course-name">
+                        {{{ output.full_header }}}
+                    </div>
+                    <div id="page-navbar2">
+                        {{{output.navbar}}}
+                    </div>
 
-                {{#hasregionmainsettingsmenu}}
-                <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
-                    <div> {{{ output.region_main_settings_menu }}} </div>
-                </div>
-                {{/hasregionmainsettingsmenu}}
-                <section id="region-main" class="region-main-content" aria-label="{{#str}}content{{/str}}">
                     {{#hasregionmainsettingsmenu}}
-                        <div class="region_main_settings_menu_proxy"></div>
+                    <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
+                        <div> {{{ output.region_main_settings_menu }}} </div>
+                    </div>
                     {{/hasregionmainsettingsmenu}}
-                    {{{ output.course_content_header }}}
-                    {{{ output.main_content }}}
-                    {{{ output.activity_navigation }}}
-                    {{{ output.course_content_footer }}}
-                </section>
-            </div>
-            <div class="columnleft blockcolumn {{#haspreblocks}} has-blocks {{/haspreblocks}}">
-                <section data-region="blocks-column" class="d-print-none" aria-label="{{#str}}blocks{{/str}}">
-                    {{{ sidepreblocks }}}
-                </section>
-            </div>
+                    <section id="region-main" class="region-main-content" aria-label="{{#str}}content{{/str}}">
+                        {{#hasregionmainsettingsmenu}}
+                        <div class="region_main_settings_menu_proxy"></div>
+                        {{/hasregionmainsettingsmenu}}
+                        {{{ output.course_content_header }}}
+                        {{{ output.main_content }}}
+                        {{{ output.activity_navigation }}}
+                        {{{ output.course_content_footer }}}
+                    </section>
+                </div>
+                <div class="columnleft blockcolumn {{#haspreblocks}} has-blocks {{/haspreblocks}}">
+                    <section data-region="blocks-column" class="d-print-none" aria-label="{{#str}}blocks{{/str}}">
+                        {{{ sidepreblocks }}}
+                    </section>
+                </div>
 
-            <div class="columnright blockcolumn {{#haspostblocks}} has-blocks {{/haspostblocks}}">
-                <section data-region="blocks-column" class="d-print-none" aria-label="{{#str}}blocks{{/str}}">
-                    {{{ sidepostblocks }}}
-                </section>
+                <div class="columnright blockcolumn {{#haspostblocks}} has-blocks {{/haspostblocks}}">
+                    <section data-region="blocks-column" class="d-print-none" aria-label="{{#str}}blocks{{/str}}">
+                        {{{ sidepostblocks }}}
+                    </section>
+                </div>
             </div>
         </div>
+        {{{ output.standard_after_main_region_html }}}
+        {{> theme_boost/footer }}
     </div>
-    {{{ output.standard_after_main_region_html }}}
-    {{> theme_boost/footer }}
-</div>
 
 </body>
+
 </html>
 {{#js}}
 M.util.js_pending('theme_boost/loader');
 require(['theme_boost/loader'], function() {
-    M.util.js_complete('theme_boost/loader');
+M.util.js_complete('theme_boost/loader');
 });
 {{/js}}

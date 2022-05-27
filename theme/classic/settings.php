@@ -113,35 +113,211 @@ if ($ADMIN->fulltree) {
         global $CFG;
         $scss_path = __DIR__.'/scss/custom.scss';
         $scss_color_schemes = [
+            //green theme
             1 => [
+                //main colors
                 'custom-theme-color-1' => '#C3E4AF',
                 'custom-theme-color-2' => '#F8FFF3',
                 'custom-theme-color-3' => '#4E9A5F',
-                'custom-theme-color-4' => '#C0C7BA'
+                'custom-theme-color-4' => '#C0C7BA',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#C3E4AF',
+                'custom-theme-subcolor-2' =>  '#A3D97D',
+                'custom-theme-subcolor-3' =>  '#4E9A5F',
+                'custom-theme-subcolor-4' =>  '#3D8244',
+                'custom-theme-subcolor-5' =>  '#53795B',
+                'custom-theme-subcolor-6' =>  '#1F612D',
+                'custom-theme-subcolor-7' =>  '#92BD78',
+                'custom-theme-subcolor-8' =>  '#82AE4A',
+                'custom-theme-subcolor-9' =>  '#809470',
+                'custom-theme-subcolor-10' =>  '#BCCAB2',
+                //event colors
+                'group-event-color-1' =>  '#CC7167',
+                'group-event-color-2' =>  '#5B508D',
+                'group-event-color-3' =>  '#467E86',
+                'group-event-color-4' =>  '#478646',
+                'group-event-color-5' =>  '#466F86',
+                'group-event-color-6' =>  '#50AC4E',
+                'group-event-color-7' =>  '#6790C0',
+                'group-event-color-8' =>  '#BC6BA5',
+                'group-event-color-9' =>  '#BB5549',
+                'group-event-color-10' =>  '#8C7DD1',
+                //no group event color
+                'nogroup-event-color' =>  '#CCB867',
+                //pie diagram colors
+                'pie-sector-color-1' => '#E9ACA6',
+                'pie-sector-color-2' => '#A99DE0',
+                'pie-sector-color-3' => '#9CD5DD',
+                'pie-sector-color-4' => '#A0DF9F',
+                // Logo color set
+                'icon-fill-color-1' => '#4E9A5F',
+                'icon-fill-color-2' => '#353535',
+                'icon-fill-color-3' => '#353535',
             ],
+            //yellow theme
             2 => [
+                //main colors
                 'custom-theme-color-1' => '#E3E4AF',
                 'custom-theme-color-2' => '#FFFEF3',
                 'custom-theme-color-3' => '#9A8E4E',
-                'custom-theme-color-4' => '#C7C6BA'
+                'custom-theme-color-4' => '#C7C6BA',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#E9DB94',
+                'custom-theme-subcolor-2' =>  '#E3E4AF',
+                'custom-theme-subcolor-3' =>  '#C1B262',
+                'custom-theme-subcolor-4' =>  '#9A8E4E',
+                'custom-theme-subcolor-5' =>  '#C7C6BA',
+                'custom-theme-subcolor-6' =>  '#796F3B',
+                'custom-theme-subcolor-7' =>  '#BCBD78',
+                'custom-theme-subcolor-8' =>  '#D8DA78',
+                'custom-theme-subcolor-9' =>  '#D8DA8B',
+                'custom-theme-subcolor-10' =>  '#B1A772',
+                //event colors
+                'group-event-color-1' =>  '#DB7979',
+                'group-event-color-2' =>  '#DB79C5',
+                'group-event-color-3' =>  '#7E5392',
+                'group-event-color-4' =>  '#4B8882',
+                'group-event-color-5' =>  '#8D79DB',
+                'group-event-color-6' =>  '#6394AF',
+                'group-event-color-7' =>  '#6A64B6',
+                'group-event-color-8' =>  '#E4BA69',
+                'group-event-color-9' =>  '#DB79C5',
+                'group-event-color-10' =>  '#CE6767',
+                //no group event color
+                'nogroup-event-color' =>  '#DBAB79',
+                //pie diagram colors
+                'pie-sector-color-1' => '#E0A5A5',
+                'pie-sector-color-2' => '#EAB7DF',
+                'pie-sector-color-3' => '#C699DB',
+                'pie-sector-color-4' => '#8ACCC5',
+                 // Logo color set
+                 'icon-fill-color-1' => '#9A8E4E',
+                 'icon-fill-color-2' => '#353535',
+                 'icon-fill-color-3' => '#353535',
             ],
+            //blue theme
             3 => [
+                //main colors
                 'custom-theme-color-1' => '#AFCBE4',
                 'custom-theme-color-2' => '#F3F8FF',
                 'custom-theme-color-3' => '#4E719A',
-                'custom-theme-color-4' => '#BAC2C7'
+                'custom-theme-color-4' => '#BAC2C7',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#93AED2',
+                'custom-theme-subcolor-2' =>  '#AFCBE4',
+                'custom-theme-subcolor-3' =>  '#6A83A9',
+                'custom-theme-subcolor-4' =>  '#4E719A',
+                'custom-theme-subcolor-5' =>  '#BAC2C7',
+                'custom-theme-subcolor-6' =>  '#7E9BAD',
+                'custom-theme-subcolor-7' =>  '#7AB1E2',
+                'custom-theme-subcolor-8' =>  '#83A4C1',
+                'custom-theme-subcolor-9' =>  '#707A94',
+                'custom-theme-subcolor-10' =>  '#395B83',
+                //event colors
+                'group-event-color-1' =>  '#E38874',
+                'group-event-color-2' =>  '#D874E3',
+                'group-event-color-3' =>  '#4BB1B8',
+                'group-event-color-4' =>  '#B4D136',
+                'group-event-color-5' =>  '#D3E374',
+                'group-event-color-6' =>  '#5BBFA7',
+                'group-event-color-7' =>  '#9174E3',
+                'group-event-color-8' =>  '#4B84B8',
+                'group-event-color-9' =>  '#74E393',
+                'group-event-color-10' =>  '#A5E374',
+                //no group event color
+                'nogroup-event-color' =>  '#FFCB81',
+                //pie diagram colors
+                'pie-sector-color-1' => '#E3AB9E',
+                'pie-sector-color-2' => '#E6A6ED',
+                'pie-sector-color-3' => '#98D7DB',
+                'pie-sector-color-4' => '#D3E390',
+                 // Logo color set
+                 'icon-fill-color-1' => '#4E719A',
+                 'icon-fill-color-2' => '#353535',
+                 'icon-fill-color-3' => '#353535',
             ],
+            //purple theme
             4 => [
+                //main colors
                 'custom-theme-color-1' => '#B0AFE4',
                 'custom-theme-color-2' => '#F3F3FF',
                 'custom-theme-color-3' => '#4E5A9A',
-                'custom-theme-color-4' => '#BAC2C7'
+                'custom-theme-color-4' => '#BAC2C7',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#A57BB9',
+                'custom-theme-subcolor-2' =>  '#CCCCFE',
+                'custom-theme-subcolor-3' =>  '#7381C9',
+                'custom-theme-subcolor-4' =>  '#4E5A9A',
+                'custom-theme-subcolor-5' =>  '#B0AFE4',
+                'custom-theme-subcolor-6' =>  '#BAC2C7',
+                'custom-theme-subcolor-7' =>  '#8FB7CF',
+                'custom-theme-subcolor-8' =>  '#8F8FB5',
+                'custom-theme-subcolor-9' =>  '#8686CF',
+                'custom-theme-subcolor-10' =>  '#B4A2DA',
+                //event colors
+                'group-event-color-1' =>  '#C3705E',
+                'group-event-color-2' =>  '#B54F88',
+                'group-event-color-3' =>  '#41967A',
+                'group-event-color-4' =>  '#ABD25B',
+                'group-event-color-5' =>  '#E17F69',
+                'group-event-color-6' =>  '#6E5DB0',
+                'group-event-color-7' =>  '#9E5BD2',
+                'group-event-color-8' =>  '#418296',
+                'group-event-color-9' =>  '#60C35E',
+                'group-event-color-10' =>  '#C3A75E',
+                //no group event color
+                'nogroup-event-color' =>  '#E1BC62',
+                //pie diagram colors
+                'pie-sector-color-1' => '#DA8AB7',
+                'pie-sector-color-2' => '#D89688',
+                'pie-sector-color-3' => '#C2DB8F',
+                'pie-sector-color-4' => '#80D2B7',
+                 // Logo color set
+                 'icon-fill-color-1' => '#4E5A9A',
+                 'icon-fill-color-2' => '#353535',
+                 'icon-fill-color-3' => '#353535',
             ],
+            //light green theme
             5 => [
+                //main colors
                 'custom-theme-color-1' => '#DCF4B5',
                 'custom-theme-color-2' => '#F8FFF3',
                 'custom-theme-color-3' => '#92B861',
-                'custom-theme-color-4' => '#C0C7BA'
+                'custom-theme-color-4' => '#C0C7BA',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#AED09A',
+
+                'custom-theme-subcolor-2' =>  '#DCF4B5',
+                'custom-theme-subcolor-3' =>  '#A5CA87',
+                'custom-theme-subcolor-4' =>  '#92B861',
+                'custom-theme-subcolor-5' =>  '#C0C7BA',
+                'custom-theme-subcolor-6' =>  '#949F8B',
+                'custom-theme-subcolor-7' =>  '#92BD78',
+                'custom-theme-subcolor-8' =>  '#7A8F5E',
+                'custom-theme-subcolor-9' =>  '#AFDB8D',
+                'custom-theme-subcolor-10' =>  '#739A41',
+                //event colors
+                'group-event-color-1' =>  '#CA6A6A',
+                'group-event-color-2' =>  '#A6577F',
+                'group-event-color-3' =>  '#7057A6',
+                'group-event-color-4' =>  '#4F9564',
+                'group-event-color-5' =>  '#6ACA79',
+                'group-event-color-6' =>  '#91CCDE',
+                'group-event-color-7' =>  '#CE894A',
+                'group-event-color-8' =>  '#C79E4E',
+                'group-event-color-9' =>  '#6A8BCA',
+                'group-event-color-10' =>  '#6ACAB9',
+                //no group event color
+                'nogroup-event-color' =>  '#CACA6A',
+                //pie diagram colors
+                'pie-sector-color-1' => '#D292B2',
+                'pie-sector-color-2' => '#D7A5A5',
+                'pie-sector-color-3' => '#A697C6',
+                'pie-sector-color-4' => '#97C9A6',
+                 // Logo color set
+                 'icon-fill-color-1' => '#92B861',
+                 'icon-fill-color-2' => '#353535',
+                 'icon-fill-color-3' => '#353535',
             ]
         ];
         

@@ -1663,6 +1663,7 @@ $string['privacy:metadata:upgrade_log:userid'] = 'The user who ran the upgrade.'
 $string['privacy:metadata:upgrade_log:version'] = 'The old version of the plugin.';
 $string['privatefiles'] = 'Private files';
 $string['privatefilesmanage'] = 'Manage private files';
+$string['privatefilesaddfile'] = 'Upload files';
 $string['private_files_handler'] = 'Store attachments to an e-mail in the user\'s private files storage space.';
 $string['private_files_handler_name'] = 'Email to Private files';
 $string['proceed'] = 'Proceed';

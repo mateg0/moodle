@@ -4,46 +4,78 @@
             Курс
         </div>
     </div>
-    <div class="cs-cource-line current-line" id="cs-gmsc-select">
+    <div class="cs-cource-line current-line shadowed-item" id="cs-gmsc-select">
         <div class="cs-data-section" id="cs-data-section">
-            <div class="cs-logo">
-
-            </div>
-
             {{#lastcoursename}}
-                <div class="cs-cource-name" data-id="{{lastcourseid}}">
-                    {{lastcoursename}}
-                </div>
+            {{#coursesrc}}
+            <div class="gs-cs-logo">
+                <img src="{{coursesrc}}" alt="">
+            </div>
+            {{/coursesrc}}
+            {{^coursesrc}}
+            <div class="gs-cs-logo clr-background-subcolor-by-theme-{{colorindex}}" data-cindex="{{colorindex}}">
+                <svg width="33" height="27" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path
+                            d="M9.5 2L2 6L9.5 10L15.6364 6.72667V11.3333H17V6L9.5 2ZM4.72727 8.78667V11.4533L9.5 14L14.2727 11.4533V8.78667L9.5 11.3333L4.72727 8.78667Z"
+                            fill="white" />
+                    </g>
+                </svg>
+            </div>
+            {{/coursesrc}}
             {{/lastcoursename}}
             {{^lastcoursename}}
-                <div class="cs-cource-name">
-                    Выберите курс
-                </div>
-                <div class="cs-checker"></div>
+            <div class="gs-cs-logo">
+                
+            </div>
+            {{/lastcoursename}}
+            {{#lastcoursename}}
+            <div class="cs-cource-name" data-id="{{lastcourseid}}">
+                {{lastcoursename}}
+            </div>
+            {{/lastcoursename}}
+            {{^lastcoursename}}
+            <div class="cs-cource-name">
+                Выберите курс
+            </div>
+            <div class="cs-checker"></div>
             {{/lastcoursename}}
         </div>
         <div class="cs-cource-selector">
             <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2L10.5 11L19 2" stroke-width="3"/>
+                <path d="M2 2L10.5 11L19 2" stroke-width="3" />
             </svg>
         </div>
     </div>
     <!-- list -->
     <div class="cs-cource-list hide" id="cs-gmsc-list">
         {{#searchcource}}
-            <div class="cs-cource-search-line">
-                <input type="search" placeholder="Найти курс" class="non-click" id="cs-cource-search">
-            </div>
+        <div class="cs-cource-search-line">
+            <input type="search" placeholder="Найти курс" class="non-click" id="cs-cource-search">
+        </div>
         {{/searchcource}}
         {{^searchcource}}
-            <div class="cs-nodata">Нет доступных курсов</div>
+        <div class="cs-nodata">Нет доступных курсов</div>
         {{/searchcource}}
         {{#courses}}
         <div class="cs-cource-line">
             <div class="cs-data-section">
-                <div class="cs-logo">
-
+                {{#coursesrc}}
+                <div class="gs-cs-logo">
+                    <img src="{{coursesrc}}" alt="">
                 </div>
+                {{/coursesrc}}
+                {{^coursesrc}}
+                <div class="gs-cs-logo clr-background-subcolor-by-theme-{{colorindex}}" data-cindex="{{colorindex}}">
+                    <svg width="33" height="27" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path
+                            d="M9.5 2L2 6L9.5 10L15.6364 6.72667V11.3333H17V6L9.5 2ZM4.72727 8.78667V11.4533L9.5 14L14.2727 11.4533V8.78667L9.5 11.3333L4.72727 8.78667Z"
+                            fill="white" />
+                    </g>
+                </svg>
+                </div>
+                {{/coursesrc}}
                 <div class="cs-cource-name" data-id="{{courseid}}">
                     {{coursename}}
                 </div>

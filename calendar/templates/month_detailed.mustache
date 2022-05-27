@@ -89,7 +89,7 @@
                                 <div data-region="day-content">
                                         {{#groupedEvents}}
                                                 <a>
-                                                    <span class="eventname" style="background-color: {{color}};">{{{count}}}</span>
+                                                    <span class="eventname {{color}}">{{{count}}}</span>
                                                 </a>
                                         {{/groupedEvents}}
                                 </div>
@@ -122,7 +122,7 @@
     <div class="table-legend">
         {{#legendGroups}}
             <div data-group-id="{{idOfGroup}}" class="legend-group">
-                <div class="legend-group-color" style="background-color: {{color}};"></div>
+                <div class="legend-group-color {{color}}"></div>
                 <div class="legend-group-name">{{nameOfGroup}}</div>
             </div>
         {{/legendGroups}}

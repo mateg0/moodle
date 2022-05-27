@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Test">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Universeria</title>
+    <link rel="shortcut icon" href="./assets/icons/favicon/colorscheme{{colorscheme}}/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./static/style/startpage.css">
+    <link rel="stylesheet" href="./static/pagepiling/jquery.pagepiling.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./static/pagepiling/jquery.pagepiling.js"></script>
+<!--    <link rel="stylesheet" href="./static/slick/slick.css"/>-->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#pagepiling').pagepiling({
+                navigation: {
+                    'position': 'right',
+                    'tooltips': ['Главная', 'Платформа', 'Демо', 'Преимущества', 'Студенту', 'Учителю', 'О нас', 'Отзывы', 'Контакты']
+                },
+                anchors: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+                menu: '#myMenu'
+            });
+            $('.single-item').slick({
+                dots: true,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                speed: 500,
+                zindex: 0
+            });
+            $("#for-student .control-content-item").on("click", function(){
+                if (!$(this).hasClass('active')) {
+                    $("#for-student .control-content-item").removeClass('active');
+                    $(this).addClass('active');
+                    $("#for-student-img").attr('src', $(this).attr('imgsrc'));
+                    $("#for-student-text").text($(this).attr('text'));
+                    if ($(this).attr('id') === 'bonuses') {
+                        $("#for-student .selected-content").removeClass('right-placed');
+                    }
+                    else {
+                        $("#for-student .selected-content").addClass('right-placed');
+                    }
+                }
+            });
+            $("#for-teacher .control-content-item").on("click", function(){
+                if (!$(this).hasClass('active')) {
+                    $("#for-teacher .control-content-item").removeClass('active');
+                    $(this).addClass('active');
+                    $("#for-teacher-img").attr('src', $(this).attr('imgsrc'));
+                    $("#for-teacher-text").text($(this).attr('text'));
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="selector-information-wrapper">
+    <div class="selector-information">
+        <span class="selector focused">Главная</span>
+        <span class="selector">Платформа</span>
+        <span class="selector">О нас</span>
+        <span class="selector">Контакты</span>
+    </div>
+</div>
+<div id="pagepiling">
+    <div class="section pp-scrollable">
+        <div class="shadow"></div>
+
+        <div class="login-wrapper">
+            <div class="auth-load">
+            </div>
+
+            <form class="login-form">
+                <input type="hidden" name="logintoken" value="{{token}}">
+
+                <h2 class="header">Вход в EDU</h2>
+                <p class="under-header">Введите Ваши данные в форму ниже</p>
+
+                <div class="username-wrapper">
+                    <input type="text" name="username" placeholder="Имя пользователя">
+                </div>
+                <div class="password-wrapper">
+                    <input type="password" name="password" placeholder="Пароль">
+                </div>
+
+                <div class="auth-error">
+                    Неверный логин или пароль
+                </div>
+
+                {{#alts}}
+                <div class="alts">
+                    <p>или войти с помощью</p>
+                {{/alts}}
+
+                {{#alts}}
+                    <div class="alt">
+                        <a href="{{url}}" title="{{name}}">
+                            <img src="{{icon}}" width="40" height="40">
+                        </a>
+                    </div>
+                {{/alts}}
+                {{#alts}}
+                </div>
+                {{/alts}}
+
+                <div class="login-button-wrapper">
+                    <button type="submit">Войти</button>
+                </div>
+            </form>
+        </div>
+
+        <nav class="nav-wrapper">
+            <div class="logo-wrapper">
+                <svg width="167" height="39" viewBox="0 0 167 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                            d="M1.11475 20.1908V1.05078H6.51929H9.28747L9.68293 11.7428V19.7948L10.2102 24.2828L12.9784 29.1668L15.2193 30.2228L14.8238 31.5428H12.9784L8.7602 30.7508L5.72838 29.1668L3.22384 26.3948L1.64202 22.9628L1.11475 20.1908Z"
+                            class="clr-icon-fill-color-1" />
+                    <path
+                            d="M18.9102 22.0399L19.3056 0.919922H27.8738L27.0829 10.8199L24.7102 16.6279L21.4147 20.9839L18.9102 22.0399Z"
+                            class="clr-icon-fill-color-1" />
+                    <path
+                            d="M11.9241 27.8483L10.3423 23.0963H16.1423L19.965 22.0403L23.3923 18.6083L25.8968 13.5923L27.3468 10.8203L27.8741 14.1203L27.3468 21.6443L24.9741 27.8483L20.3605 30.6203H15.615L11.9241 27.8483Z"
+                            class="clr-icon-fill-color-1" />
+                    <path
+                            d="M0.0648045 10.5477C0.113408 18.0051 0.178212 21.4021 0.324023 22.0816C1.05483 25.4868 1.57157 25.5442 2.23576 26.6595C3.30503 28.4551 6.35084 30.833 8.74861 31.7713C9.89889 32.2242 12.7179 32.5639 15.2453 32.5801C17.3676 32.5801 18.7022 32.2962 20.0145 31.8918C20.8245 31.6491 21.234 31.4895 21.882 31.1174C22.5463 30.7454 23.1928 30.2668 23.5006 30.0889C24.9425 29.2801 27.1855 26.0933 27.8011 24.0874C27.947 23.6021 28.0824 23.1172 28.1721 22.6475C28.4151 22.0652 28.9801 20.618 28.6598 10.9521L28.7084 0.000671387H23.605H18.4855L18.4693 6.82714C18.4531 13.7992 18.2911 19.2021 18.0805 20.2213C18.0157 20.5286 17.6754 21.111 17.3514 21.5154C16.8492 22.1139 16.5576 22.2918 15.7313 22.5507C14.8564 22.7933 14.5648 22.8095 13.8196 22.6639C12.8961 22.486 11.7944 21.9198 11.3246 21.4183C11.1788 21.2404 10.9034 20.7066 10.7251 20.2213C10.4011 19.3801 10.3849 18.911 10.2877 9.6742L10.1743 0.000671387H5.08716H0L0.0648045 10.5477ZM8.619 11.2433C8.68381 17.0668 8.79721 21.3213 8.89442 21.8713C9.46146 24.8963 10.5469 27.3389 12.086 29.0536C12.6693 29.7007 13.2849 30.3014 13.4793 30.3661C13.609 30.4653 13.7664 30.6147 13.8844 30.6896C14.7754 31.2558 13.8844 31.094 12.8313 30.9323C12.5559 30.8352 11.4704 30.6389 10.7089 30.5095C8.10057 30.0404 5.86639 28.8378 3.83967 26.322C3.32859 25.6876 3.30211 25.678 3.02961 25.1087C2.94861 25.0278 2.58668 24.294 2.39226 23.7278C1.58221 21.4308 1.4743 21.0948 1.4743 11.0654C1.4743 5.90508 1.52291 1.61832 1.58771 1.55361C1.65252 1.50508 3.24023 1.47273 5.10336 1.48891L8.5218 1.53744L8.619 11.2433ZM26.9425 3.15508C26.8615 5.74331 26.5213 8.36609 26.3592 8.97861C26.2782 9.49844 26.0514 10.5014 25.9542 11.197C25.5044 12.8077 25.4195 13.2145 24.9681 14.3468C24.5576 15.0842 24.4505 15.6064 24.1061 16.144C23.4095 17.6808 22.8053 18.3907 21.3958 19.8628C19.9495 21.0798 19.5568 21.8159 19.7816 20.4477C19.8788 20.2051 19.9436 16.3874 19.9436 10.9845C19.9436 3.47861 19.7492 1.60216 19.9436 1.53745C20.3486 1.45657 23.1838 1.42422 25.0469 1.45657H26.9101L26.9425 3.15508ZM27.1855 17.3904C27.0883 21.2727 26.262 24.1683 24.6419 26.336C23.4106 28.0021 22.6006 28.6977 21.0291 29.458C19.9112 29.9918 19.5548 30.0889 18.6475 30.0889C16.2173 30.0889 13.9492 28.8271 12.5235 26.708C11.9564 25.8507 11.2274 24.0227 11.3894 23.8448C11.438 23.8124 11.8106 23.8933 12.2319 24.0389C13.3335 24.411 16.5576 24.2816 18.0319 23.7963C19.328 23.3757 21.6857 21.6533 22.5929 20.618C23.3868 19.7283 24.9505 17.5515 25.2746 16.775C25.4042 16.4676 25.8191 15.6131 26.1269 14.9013C26.4348 14.1895 26.6589 13.4394 26.7399 13.1805C26.9505 12.3717 27.0847 12.3871 27.1855 17.3904Z"
+                            class="clr-icon-fill-color-2" />
+                    <path
+                            d="M40.105 17.5996C41.185 17.5996 42.175 17.8696 43.075 18.4096C43.995 18.9296 44.725 19.6496 45.265 20.5696C45.805 21.4696 46.075 22.4596 46.075 23.5396V32.5996H44.005V23.5396C44.005 22.8396 43.825 22.1996 43.465 21.6196C43.125 21.0196 42.655 20.5496 42.055 20.2096C41.455 19.8496 40.805 19.6696 40.105 19.6696C39.405 19.6696 38.755 19.8496 38.155 20.2096C37.555 20.5496 37.075 21.0196 36.715 21.6196C36.375 22.1996 36.205 22.8396 36.205 23.5396V32.5996H34.165V17.9896H36.205V19.3096C36.705 18.7496 37.285 18.3296 37.945 18.0496C38.625 17.7496 39.345 17.5996 40.105 17.5996ZM51.0342 13.4296C51.3942 13.4296 51.7042 13.5596 51.9642 13.8196C52.2242 14.0796 52.3542 14.3896 52.3542 14.7496C52.3542 15.1296 52.2242 15.4496 51.9642 15.7096C51.7042 15.9696 51.3942 16.0996 51.0342 16.0996C50.6542 16.0996 50.3342 15.9696 50.0742 15.7096C49.8142 15.4496 49.6842 15.1296 49.6842 14.7496C49.6842 14.3896 49.8142 14.0796 50.0742 13.8196C50.3342 13.5596 50.6542 13.4296 51.0342 13.4296ZM52.0542 17.5996V32.5996H49.9842V17.5996H52.0542ZM69.9778 17.6596L64.0678 32.5996H61.8778L55.9678 17.6596H58.1578L62.9878 29.7496L67.7878 17.6596H69.9778ZM73.6469 26.2096C73.8869 27.4896 74.5169 28.5596 75.5369 29.4196C76.5569 30.2596 77.7269 30.6796 79.0469 30.6796C80.0269 30.6796 80.9269 30.4496 81.7469 29.9896C82.5669 29.5296 83.2269 28.8996 83.7269 28.0996L85.4969 29.1196C84.8169 30.2196 83.9069 31.0996 82.7669 31.7596C81.6269 32.4196 80.3869 32.7496 79.0469 32.7496C77.6869 32.7496 76.4269 32.4096 75.2669 31.7296C74.1069 31.0496 73.1869 30.1296 72.5069 28.9696C71.8269 27.8096 71.4869 26.5496 71.4869 25.1896C71.4869 23.8096 71.8269 22.5496 72.5069 21.4096C73.1869 20.2496 74.1069 19.3296 75.2669 18.6496C76.4269 17.9696 77.6869 17.6296 79.0469 17.6296C80.4069 17.6296 81.6669 17.9696 82.8269 18.6496C83.9869 19.3296 84.9069 20.2496 85.5869 21.4096C86.2669 22.5496 86.6069 23.8096 86.6069 25.1896C86.6069 25.4296 86.5869 25.7696 86.5469 26.2096H73.6469ZM79.0469 19.6696C78.1669 19.6696 77.3069 19.8796 76.4669 20.2996C75.6269 20.6996 74.9469 21.2596 74.4269 21.9796C73.9069 22.6796 73.6469 23.4396 73.6469 24.2596H84.4469C84.4469 23.4396 84.1869 22.6796 83.6669 21.9796C83.1469 21.2596 82.4669 20.6996 81.6269 20.2996C80.8069 19.8796 79.9469 19.6696 79.0469 19.6696ZM97.0764 19.8196C96.6164 19.6196 96.1564 19.5196 95.6964 19.5196C94.7564 19.5196 93.9464 19.8596 93.2664 20.5396C92.5864 21.2196 92.2464 22.0296 92.2464 22.9696V32.5996H90.2064V22.9696C90.2064 21.8896 90.4864 20.9096 91.0464 20.0296C91.6264 19.1296 92.3764 18.4596 93.2964 18.0196L93.3564 17.9896C94.0964 17.6496 94.8764 17.4796 95.6964 17.4796C96.9764 17.4796 98.1164 17.8696 99.1164 18.6496L97.0764 19.8196ZM103.014 28.5796C103.174 29.1396 103.424 29.5796 103.764 29.8996C104.324 30.4196 105.144 30.6796 106.224 30.6796C107.164 30.6796 107.924 30.4596 108.504 30.0196C109.084 29.5796 109.374 29.0096 109.374 28.3096C109.374 27.6496 109.244 27.1596 108.984 26.8396C108.724 26.5196 108.384 26.3196 107.964 26.2396C107.564 26.1396 107.004 26.0796 106.284 26.0596C105.244 25.9996 104.394 25.8896 103.734 25.7296C103.074 25.5496 102.474 25.1596 101.934 24.5596C101.274 23.7396 100.944 22.8396 100.944 21.8596C100.944 21.6196 100.954 21.4396 100.974 21.3196C101.134 20.0596 101.664 19.0996 102.564 18.4396C103.464 17.7596 104.674 17.4196 106.194 17.4196H106.224C107.344 17.4196 108.254 17.6296 108.954 18.0496C109.654 18.4696 110.194 18.9796 110.574 19.5796C110.974 20.2396 111.224 20.9296 111.324 21.6496H109.224C109.184 21.3696 109.054 21.0396 108.834 20.6596C108.334 19.8996 107.464 19.4996 106.224 19.4596C104.964 19.4596 104.134 19.6696 103.734 20.0896C103.334 20.5096 103.094 20.9996 103.014 21.5596C102.994 21.6396 102.984 21.7496 102.984 21.8896C102.984 22.3696 103.154 22.7996 103.494 23.1796C103.774 23.5196 104.134 23.7496 104.574 23.8696C105.014 23.9696 105.644 24.0496 106.464 24.1096C107.124 24.1496 107.684 24.2096 108.144 24.2896C108.624 24.3696 109.074 24.5196 109.494 24.7396C110.794 25.4396 111.444 26.6296 111.444 28.3096C111.444 28.8896 111.324 29.4496 111.084 29.9896C110.864 30.5096 110.544 30.9696 110.124 31.3696C109.184 32.2896 107.894 32.7496 106.254 32.7496C104.654 32.7496 103.354 32.2996 102.354 31.3996C101.574 30.6396 101.094 29.6996 100.914 28.5796H103.014ZM116.308 26.2096C116.548 27.4896 117.178 28.5596 118.198 29.4196C119.218 30.2596 120.388 30.6796 121.708 30.6796C122.688 30.6796 123.588 30.4496 124.408 29.9896C125.228 29.5296 125.888 28.8996 126.388 28.0996L128.158 29.1196C127.478 30.2196 126.568 31.0996 125.428 31.7596C124.288 32.4196 123.048 32.7496 121.708 32.7496C120.348 32.7496 119.088 32.4096 117.928 31.7296C116.768 31.0496 115.848 30.1296 115.168 28.9696C114.488 27.8096 114.148 26.5496 114.148 25.1896C114.148 23.8096 114.488 22.5496 115.168 21.4096C115.848 20.2496 116.768 19.3296 117.928 18.6496C119.088 17.9696 120.348 17.6296 121.708 17.6296C123.068 17.6296 124.328 17.9696 125.488 18.6496C126.648 19.3296 127.568 20.2496 128.248 21.4096C128.928 22.5496 129.268 23.8096 129.268 25.1896C129.268 25.4296 129.248 25.7696 129.208 26.2096H116.308ZM121.708 19.6696C120.828 19.6696 119.968 19.8796 119.128 20.2996C118.288 20.6996 117.608 21.2596 117.088 21.9796C116.568 22.6796 116.308 23.4396 116.308 24.2596H127.108C127.108 23.4396 126.848 22.6796 126.328 21.9796C125.808 21.2596 125.128 20.6996 124.288 20.2996C123.468 19.8796 122.608 19.6696 121.708 19.6696ZM139.737 19.8196C139.277 19.6196 138.817 19.5196 138.357 19.5196C137.417 19.5196 136.607 19.8596 135.927 20.5396C135.247 21.2196 134.907 22.0296 134.907 22.9696V32.5996H132.867V22.9696C132.867 21.8896 133.147 20.9096 133.707 20.0296C134.287 19.1296 135.037 18.4596 135.957 18.0196L136.017 17.9896C136.757 17.6496 137.537 17.4796 138.357 17.4796C139.637 17.4796 140.777 17.8696 141.777 18.6496L139.737 19.8196ZM145.811 13.4296C146.171 13.4296 146.481 13.5596 146.741 13.8196C147.001 14.0796 147.131 14.3896 147.131 14.7496C147.131 15.1296 147.001 15.4496 146.741 15.7096C146.481 15.9696 146.171 16.0996 145.811 16.0996C145.431 16.0996 145.111 15.9696 144.851 15.7096C144.591 15.4496 144.461 15.1296 144.461 14.7496C144.461 14.3896 144.591 14.0796 144.851 13.8196C145.111 13.5596 145.431 13.4296 145.811 13.4296ZM146.831 17.5996V32.5996H144.761V17.5996H146.831ZM164.986 17.9896V32.5996H162.916V29.8396C161.536 31.7796 159.696 32.7496 157.396 32.7496C156.016 32.7496 154.746 32.4196 153.586 31.7596C152.426 31.0796 151.506 30.1596 150.826 28.9996C150.166 27.8396 149.836 26.5796 149.836 25.2196C149.836 23.8396 150.166 22.5696 150.826 21.4096C151.506 20.2496 152.426 19.3396 153.586 18.6796C154.746 17.9996 156.016 17.6596 157.396 17.6596C158.816 17.6596 159.976 17.9596 160.876 18.5596C161.796 19.1396 162.476 19.7696 162.916 20.4496V17.9896H164.986ZM157.396 30.7096C158.396 30.7096 159.316 30.4696 160.156 29.9896C160.996 29.4896 161.656 28.8196 162.136 27.9796C162.636 27.1396 162.886 26.2196 162.886 25.2196C162.886 24.2196 162.636 23.2996 162.136 22.4596C161.656 21.5996 160.996 20.9296 160.156 20.4496C159.316 19.9496 158.396 19.6996 157.396 19.6996C156.396 19.6996 155.466 19.9496 154.606 20.4496C153.766 20.9296 153.096 21.5996 152.596 22.4596C152.116 23.2996 151.876 24.2196 151.876 25.2196C151.876 26.2196 152.116 27.1396 152.596 27.9796C153.096 28.8196 153.766 29.4896 154.606 29.9896C155.466 30.4696 156.396 30.7096 157.396 30.7096Z"
+                            class="clr-icon-fill-color-3" />
+                </svg>
+            </div>
+        </nav>
+
+        <div class="gradient-wrapper">
+            <div class="information-gradient">
+            </div>
+
+            <div class="image-gradient">
+            </div>
+        </div>
+
+        <div class="center-container">
+            <div class="fragment hello-fragment">
+                <div class="information-wrapper">
+                    <p class="first-paragraph">Образовательная платформа</p>
+                    <p class="second-paragraph">Очная<br>online<br>платформа</p>
+                    <button onClick="location.href='/my'">Получить Demo</button>
+                    <button class="login">Войти в кабинет</button>
+                </div>
+                <div class="images-wrapper">
+                    <div  class="single-item">
+                        <div><img src="./assets/demo_img_01.png" alt="Platform use case 1"></div>
+                        <div><img src="./assets/demo_img_02.png" alt="Platform use case 2"></div>
+                        <div><img src="./assets/demo_img_03.png" alt="Platform use case 3"></div>
+                    </div>
+
+                    <div class="selector-image hide">
+                        <span class="selector focused"></span>
+                        <span class="selector"></span>
+                        <span class="selector"></span>
+                    </div>
+                </div>
+
+                <div class="delimiter"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section pp-scrollable">
+        <div class="center-container">
+            <div class="fragment cards-fragment">
+                <div class="title-wrapper">
+                    <p class="title">Мы учитываем интересы каждого,<br> кто заходит на ИМЯ</p>
+                </div>
+
+                <div class="cards-wrapper">
+                    <div class="card student-card">
+                        <div class="card-header">
+                            <div class="svg-wrapper">
+                                <img src="./assets/graduate-cap.png" width="45" height="45">
+                            </div>
+
+                            <div class="title">
+                                Студенту
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text">
+                                Процесс обучения нацелен на постоянное подкрепление знаний и близкий контакт с
+                                группой.<br>
+                                Ученики имеют доступ ко всем материалам курса, и могут двигат ься в своем темпе.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card parents-card">
+                        <div class="card-header">
+                            <div class="svg-wrapper">
+                                <img src="./assets/family.png" width="45" height="45">
+                            </div>
+
+                            <div class="title">
+                                Родителю
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text">
+                                Образовательные метрики и контакт с преподавателем помогает достичь олимпиадного уровня
+                                знаний
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card teacher-card">
+                        <div class="card-header">
+                            <div class="svg-wrapper">
+                                <img src="./assets/class.png" width="45" height="45">
+                            </div>
+
+                            <div class="title">
+                                Преподавателю
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text">
+                                Инструменты аналитики вовлеченности и успеваемости студента помогают найти подход
+                                преподавателю.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card methodist-card">
+                        <div class="card-header">
+                            <div class="svg-wrapper">
+                                <img src="./assets/research.png" width="45" height="45">
+                            </div>
+
+                            <div class="title">
+                                Методисту
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text">
+                                Специалисты ведущих ВУЗов России помогали составлять образовательную методику платформы.
+                                Основной упор сделан на закреплении полученных знаний.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section pp-scrollable">
+        <div class="center-container">
+            <div class="fragment try-demo-fragment">
+                <div class="try-demo-wrapper">
+                    <div class="student-name-wrapper">
+                        <span class="student-name">Лёша</span>
+                    </div>
+
+                    <p class="text">
+                        День из жизни <img src="./assets/student.png" alt="Student"> на <br>
+                        <span class="platform-name">ИМЯ</span>
+                    </p>
+
+                    <button onclick="location.href=&#39;/my&#39;">Получить Demo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section pp-scrollable" id="0">
+        <div class="center-container">
+            <div class="content">
+                <div class="content-section-title">
+                    Преимущества не заканчиваются
+                </div>
+                <div class="three-column-content">
+                    <div class="tcc-column">
+                        <div class="tcc-title">
+                            Время - важшейший ресурс поколений
+                        </div>
+                        <div class="tcc-text">
+                            Студент сам подстраивает комфортный график и количество занятий в неделю, под свой
+                            бюджет.
+                        </div>
+                    </div>
+                    <div class="delimiter"></div>
+                    <div class="tcc-column">
+                        <div class="tcc-title">
+                            Образоваетльные метрики показывают истинные знания студента
+                        </div>
+                        <div class="tcc-text">
+                            Родителей всегда мучает вопрос - насколько качественно студент выучил предмет?
+                            Преподаватель корректирует работу со студентом, исходя из метрик.
+                        </div>
+                    </div>
+                    <div class="delimiter"></div>
+                    <div class="tcc-column">
+                        <div class="tcc-title">
+                            Эксперементируйте с процессом обучения
+                        </div>
+                        <div class="tcc-text">
+                            Студент сам подстраивает комфортный график и количество занятий в неделю, под свой
+                            бюджет.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="green-blur">
+        </div>
+    </div>
+    <div class="section pp-scrollable" id="one">
+        <div class="center-container">
+            <div class="content">
+                <div class="two-column-content for-student" id="for-student">
+                    <div class="twcc-column">
+                        <div class="control-content-section">
+                            <div class="control-content-section-title">
+                                <div class="control-content-section-subtitle">
+                                    Студенту
+                                </div>
+                                Почему студент выберет ИМЯ
+                            </div>
+                            <div class="control-content">
+                                <div class="control-content-item active" id="schedule" imgsrc="./assets/calendar.png" text="Напоминания и календарь позволят распланировать учебный процесс. Занятия строятся по принципу согласования удобного времени с преподавателем.">
+                                    <div class="cci-image">
+                                        <img src="./assets/icons/calendar_icon.png" alt="">
+                                    </div>
+                                    <div class="cci-text">
+                                        Гибкий график. Его можно подстроить под себя.
+                                    </div>
+                                </div>
+                                <div class="control-content-item" id="chat" imgsrc="./assets/chat.png" text="Студент можем присоединить удобный для него месседжер к системе обмена сообщения платформы. Есть обмен файлами, изображениями и видео.">
+                                    <div class="cci-image">
+                                        <img src="./assets/icons/chat_icon.png" alt="">
+                                    </div>
+                                    <div class="cci-text">
+                                        Интеграция месседжеров в образовательную платформу
+                                    </div>
+                                </div>
+                                <div class="control-content-item" id="bonuses" imgsrc="./assets/course-progress.png" text="Напоминания и календарь позволят распланировать учебный процесс. Занятия строятся по принципу согласования удобного времени с преподавателем.">
+                                    <div class="cci-image">
+                                        <img src="./assets/icons/star_icon.png" alt="">
+                                    </div>
+                                    <div class="cci-text">
+                                        Бонусы за хорошее обучение.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="twcc-column displayed-content">
+                        <div class="selected-content right-placed">
+                            <div class="content-relative-image">
+                                <img id="for-student-img" src="./assets/calendar.png" alt="">
+                            </div>
+                            <div id="for-student-text" class="content-relative-image-description">
+                                Напоминания и календарь позволят распланировать учебный процесс. Занятия
+                                строятся по
+                                принципу согласования удобного времени с преподавателем.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section pp-scrollable" id="4">
+        <div class="center-container">
+            <div class="content">
+                <div class="two-column-content for-teacher" id="for-teacher">
+                    <div class="twcc-column">
+                        <div class="control-content-section">
+                            <div class="control-content-section-title">
+                                <div class="control-content-section-subtitle">
+                                    Преподавателю
+                                </div>
+                                Почему преподаватель выберет ИМЯ
+                            </div>
+                            <div class="control-content">
+                                <div class="control-content-item active" id="analitics" imgsrc="./assets/group-stats.png" text="Преподаватель видит метрики успеваемости студента и группы. Контроль качества обучения зависит от результатов группы.">
+                                    <div class="cci-image">
+                                        <img src="./assets/icons/analitics_icon.png" alt="">
+                                    </div>
+                                    <div class="cci-text">
+                                        Аналитика успеваемости студента и группы.
+                                    </div>
+                                </div>
+                                <div class="control-content-item" id="teacher" imgsrc="./assets/teacher-pp.png" text="Преподаватель управляет всем учебным процессом студента из одного экрана. Он имеет доступ к добавлению групп/студентов/занятий и прочих событий. Есть интеграция с месседжерами.">
+                                    <div class="cci-image">
+                                        <img src="./assets/icons/control_icon.png" alt="">
+                                    </div>
+                                    <div class="cci-text">
+                                        Управление всем учебным процессом из одного экрана
+                                    </div>
+                                </div>
+                                <div class="control-content-item" id="communication" imgsrc="./assets/group-stats.png" text="Преподаватель управляет всем учебным процессом студента из одного экрана. Он имеет доступ к добавлению групп/студентов/занятий и прочих событий. Есть интеграция с месседжерами.">
+                                    <div class="cci-image">
+                                        <img src="./assets/icons/communication_icon.png" alt="">
+                                    </div>
+                                    <div class="cci-text">
+                                        Построение индивидуальной работы со студентом и с группой
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="twcc-column displayed-content">
+                        <div class="selected-content">
+                            <div class="content-relative-image">
+                                <img id="for-teacher-img" src="./assets/group-stats.png">
+                            </div>
+                            <div  id="for-teacher-text"class="content-relative-image-description">
+                                Преподаватель видит метрики успеваемости студента и группы. Контроль качества обучения зависит от результатов группы.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section pp-scrollable" id="6">
+        <div class="center-container">
+            <div class="content">
+                <div class="content-section-title">
+                    ИМЯ в цифрах
+                </div>
+                <div class="three-column-content">
+                    <div class="tcc-column">
+                        <div class="tcc-title-bold">
+                            <span class="title-number" style="color: #C6EF83">15</span> Преподавателей
+                        </div>
+                        <div class="tcc-text">
+                            Для обучения первых групп и корректировки процесса обучения, мы пригласили
+                            преподавателей
+                            1-й категории.
+                        </div>
+                    </div>
+                    <div class="delimiter"></div>
+                    <div class="tcc-column">
+                        <div class="tcc-title-bold">
+                            <span class="title-number" style="color: #D1B5FF">12</span> Групп выпущено
+                        </div>
+                        <div class="tcc-text">
+                            Пилотные группы уже прошли курсы на платформе.
+                        </div>
+                    </div>
+                    <div class="delimiter"></div>
+                    <div class="tcc-column">
+                        <div class="tcc-title-bold">
+                            <span class="title-number" style="color: #FCECB0">20</span> Курсов
+                        </div>
+                        <div class="tcc-text">
+                            С момента запуска платформы, мы залили около 20 курсов, которые можно пройти прямо
+                            сейчас.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="orange-blur">
+        </div>
+    </div>
+
+    <div class="section pp-scrollable">
+        <div class="center-container">
+            <div class="fragment reviews-fragment">
+                <div class="title-wrapper">
+                    <span class="title">Отзывы</span>
+                    <span class="description">Что говорят наши студенты и преподаватели</span>
+                </div>
+                <div class="reviews">
+                    <div class="column first">
+                        <div class="blank-cell first-row"></div>
+                        <div class="review-cell">
+                            <h1 class="header">Дистанционное обучение может быть интересным</h1>
+
+                            <p class="review">
+                                Я часто бросал онлайн-курсы. Они казались мне скучными и монотонными.
+                                С ИМЯ я поменял свой взгляд на дистанционное образование.
+                                Постоянный контакт с группой и преподавателем помогли втянуться в процесс.
+                                Мне очень понравилась система наград, за выполнение домашних заданий и контрольных.
+                            </p>
+
+                            <div class="author-card">
+                                <img class="author-image" src="./assets/student.png" alt="student">
+                                <div class="author-info">
+                                    <div class="name">Пётр Петренко</div>
+                                    <div class="role">Студент платформы ИМЯ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column second">
+                        <div class="blank-cell first-row"></div>
+                        <div class="review-cell">
+                            <h1 class="header">ИМЯ сэкономило мне 20 часов в месяц.</h1>
+
+                            <p class="review">
+                                Сколько себя помню, я никогда не любил подготавливать отчеты об эффективности обучения.
+                                Работая в школе, это занимало у меня несколько дней.<br>
+                                В ИМЯ это происходит автоматически. Я имею доступ к основным функциям на одном экрана.
+                            </p>
+
+                            <div class="author-card">
+                                <img class="author-image" src="./assets/student.png" alt="teacher">
+                                <div class="author-info">
+                                    <div class="name">Пётр Петренко</div>
+                                    <div class="role">Преподаватель платформы ИМЯ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-cell">
+                            <h1 class="header">После курсов на платформе ИМЯ я поступил в Бонч.</h1>
+
+                            <p class="review">
+                                Хорошо помню с каким усердием я выбирал онлайн-школу. Время, которое я потратил,
+                                окупилось.<br>
+                                Я все еще отлично помню материал курсов, а прошло уже 9 месяцев.
+                                Методика, заложенная в платформе ИМЯ,
+                                помогла мне освоить материал курсов, на которые я записывался.<br>
+                                ОГРОМНОЕ спасибо ИМЯ!!!
+                            </p>
+
+                            <div class="author-card">
+                                <img class="author-image" src="./assets/student.png" alt="student">
+                                <div class="author-info">
+                                    <div class="name">Пётр Петренко</div>
+                                    <div class="role">Выпускник платформы ИМЯ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column last">
+                        <div class="blank-cell first-row"></div>
+                        <div class="blank-cell second-row"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section pp-scrollable">
+        <div class="center-container">
+            <div class="fragment footer-fragment">
+                <div class="background-and-card-wrapper">
+                    <div class="demo-card-wrapper">
+                        <h1>Уже захотели попробовать?</h1>
+                        <p>Тогда заполняйте нашу анкету и получите demo-доступ</p>
+                        <button onclick="location.href=&#39;/my&#39;">Получить Demo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="./static/slick/slick.min.js"></script>
+</body>
+
+<script src="/local/login_page/login.js" charset="utf-8"></script>
+<script src="/local/login_page/login-auth-error.js" charset="utf-8"></script>
+</html>

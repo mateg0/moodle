@@ -11,7 +11,8 @@ use user_picture;
 class groupstats implements renderable, templatable
 {
     private $groupmembers;
-    private $groupmemberscount;
+    private $groupmemberscount = 0;
+    private $colorindex;
 
     public function __construct($groupid)
     {
@@ -19,6 +20,7 @@ class groupstats implements renderable, templatable
         $this->groupmemberscount = count($this->groupmembers);
         $this->collect_data();
         $this->count_data();
+        $this->get_metric();
     }
 
     private $picturesrc;
@@ -31,18 +33,39 @@ class groupstats implements renderable, templatable
     {
         global $CFG, $PAGE;
         $users = $this->groupmembers;
-
+        $attendanceindex = 0;
+        $paymentindex = 0;
         foreach ($users as $user) {
-            $user_picture = new user_picture($user);
-            $this->picturesrc = $user_picture->get_url($PAGE);
+            $attendanceindex++;
+            $this->colorindex = rand(1, 10);
+            if ($attendanceindex > 4) {
+                $attendanceindex = 1;
+            }
+            $paymentindex++;
+            if ($paymentindex > 2) {
+                $paymentindex = 1;
+            }
+            $this->picturesrc = $this->get_user_image($user);
             $this->userfullname = $user->firstname . ' ' . $user->lastname;
             $this->userprofile = $CFG->wwwroot . '/user/view.php?id=' . $user->id . '&amp;course=' . $this->course->id;
             $this->get_student_performance($user);
-            $this->get_student_attendance($user);
-            $this->get_student_payment($user);
+            $this->get_student_attendance($user, $attendanceindex);
+            $this->get_student_payment($user, $paymentindex);
             //test: collect all students
             $this->set_user_array($this->test);
         }
+    }
+
+    private function get_user_image($user) {
+        global $USER,$PAGE; 
+        $user_picture=new user_picture($user);
+        if($user->picture){
+            $src=$user_picture->get_url($PAGE);
+        }
+        else{
+            $src=$user_picture->get_url($PAGE, null,  false);
+        }
+        return $src;
     }
 
     /**
@@ -55,9 +78,52 @@ class groupstats implements renderable, templatable
     private $okaystudents;
     private $badstudents;
 
+    /*private $wellgrades;
+    private $goodgrades;
+    private $okaygrades;
+    private $badgrades;
+*/
+    private $performance;
+    private $kquality;
+    private $learning;
+
+    private $found;
+
     private function get_student_performance($student)
     {
         $grades = $this->get_student_grades_by_student_id($student->id);
+        $gradescount = count($grades);
+        //for($i = 1; $i < $gradescount; $i++)
+       /* $index = 0;
+        foreach($grades as $singlegrade)
+        {
+            if($index == 0)
+            {
+                $index++;
+                continue;
+            }
+            //$thegrade = $grades[$i];
+            $thegrade = $singlegrade;
+            if(isset($thegrade->finalgrade))
+            {
+                $currentgrade = $thegrade->finalgrade / $thegrade->rawgrademax;
+
+                $this->found =  $gradescount;
+                if ($currentgrade < 0.65) {
+    
+                } elseif ($currentgrade >= 0.65 && $currentgrade < 0.75) {
+                    $this->okaygrades[] = $currentgrade;
+    
+                } elseif ($currentgrade >= 0.75 && $currentgrade < 0.85) {
+                    $this->goodgrades[] = $currentgrade;
+    
+                } elseif ($currentgrade > 0.85) {
+                    $this->wellgrades[] = $currentgrade;
+    
+                }
+            }  
+        }
+*/
         $total = array_shift($grades);
         $gradetotal = $total->finalgrade / $total->rawgrademax;
 
@@ -72,6 +138,31 @@ class groupstats implements renderable, templatable
             $this->set_user_array($this->wellstudents);
         }
     }
+
+    
+    private function get_metric()
+    {
+        /*
+            Успеваемость = (кол-во "5" + кол-во "4" + "кол-во "3") / общее количество учащихся
+
+            Качество знаний = (кол-во "5" + кол-во "4") / общее количество учащихся
+
+            Обученность = (кол-во "5" + кол-во "4" * 0,64 + кол-во "3" * 0,36 + кол-во "2" * 0,16 + кол-во "н/а" * 0,08 ) / общее количество учащихся
+        */
+        /*$wellcount = count($this->wellgrades);
+        $goodcount = count($this->goodgrades);
+        $okaycount = count($this->okaygrades);
+        $badcount = count($this->badgrades);
+*/
+        $performance = (($this->wellstudentscount + $this->goodstudentscount + $this->okaystudentscount) / $this->groupmemberscount) * 100;
+        $kquality = (($this->wellstudentscount + $this->goodstudentscount) / $this->groupmemberscount) * 100;
+        $learning = (($this->wellstudentscount + ($this->goodstudentscount * 0.64) + ($this->okaystudentscount * 0.36) + ($this->badstudentscount * 0.16)) / $this->groupmemberscount) * 100;
+    
+        $this->performance = round($performance, 2);
+        $this->kquality = round($kquality, 2);
+        $this->learning = round($learning, 2);
+    }
+  
 
     private function get_student_grades_by_student_id($studentid, $fields = 'g.*')
     {
@@ -92,9 +183,22 @@ class groupstats implements renderable, templatable
     private $okayattendingstudents;
     private $badattendingstudents;
 
-    private function get_student_attendance($student)
+    private function get_student_attendance($student, $index)
     {
-        $this->set_user_array($this->wellattendingstudents);
+        switch ($index) {
+            case 1: 
+                $this->set_user_array($this->wellattendingstudents);
+                break;
+                case 2: 
+                    $this->set_user_array($this->goodattendingstudents);
+                    break;
+                    case 3: 
+                        $this->set_user_array($this->okayattendingstudents);
+                        break;
+                        case 4: 
+                            $this->set_user_array($this->badattendingstudents);
+                            break;
+        }
     }
 
     /**
@@ -105,9 +209,18 @@ class groupstats implements renderable, templatable
     private $paystudents;
     private $didntpaystudents;
 
-    private function get_student_payment($student)
+    private function get_student_payment($student, $index)
     {
-        $this->set_user_array($this->paystudents);
+
+        switch ($index) {
+            case 1: 
+                $this->set_user_array($this->paystudents);
+                break;
+                case 2: 
+                    $this->set_user_array($this->didntpaystudents);
+                    break;
+                    
+        }
     }
 
     /**
@@ -117,13 +230,23 @@ class groupstats implements renderable, templatable
      **/
     public function export_for_template(renderer_base $output)
     {
-        return [
+        $groupPerformance = $this->performance;
+        $groupKquality = $this->kquality;
+        $groupLearning = $this->learning;
+        $groupFound = $this->found;
+
+        $wellStudentsCount = $this->wellstudentscount;
+        $goodStudentsCount = $this->goodstudentscount;
+        $okayStudentsCount = $this->okaystudentscount;
+        $badStudentsCount = $this->badstudentscount;
+
+        $exportData = [
             'groupmemberscount' => $this->groupmemberscount,
 
-            'wellstudentscount' => $this->wellstudentscount,
-            'goodstudentscount' => $this->goodstudentscount,
-            'okaystudentscount' => $this->okaystudentscount,
-            'badstudentscount' => $this->badstudentscount,
+            'wellstudentscount' => $wellStudentsCount,
+            'goodstudentscount' => $goodStudentsCount,
+            'okaystudentscount' => $okayStudentsCount,
+            'badstudentscount' => $badStudentsCount,
 
             'wellattendingstudentscount' => $this->wellattendingstudentscount,
             'goodattendingstudentscount' => $this->goodattendingstudentscount,
@@ -146,6 +269,33 @@ class groupstats implements renderable, templatable
             'paystudents' => $this->paystudents,
             'didntpaystudents' => $this->didntpaystudents
         ];
+
+        if ( !is_nan($groupPerformance) ) {
+            $exportData['performance'] = $groupPerformance;
+        }
+
+        if ( !is_nan($groupKquality) ) {
+            $exportData['kquality'] = $groupKquality;
+        }
+
+        if ( !is_nan($groupLearning) ) {
+            $exportData['learning'] = $groupLearning;
+        }
+
+        if ( !is_nan($groupFound) ) {
+            $exportData['found'] = $groupFound;
+        }
+
+        if (
+            $wellStudentsCount == 0 &&
+            $goodStudentsCount == 0 &&
+            $okayStudentsCount == 0 &&
+            $badStudentsCount == 0
+        ) {
+            $exportData['performanceEmptyImageURL'] = $output->image_url('blank_diagram', 'block_groupstats')->out();
+        }
+
+        return $exportData;
     }
 
     public function export_for_js()
@@ -212,7 +362,8 @@ class groupstats implements renderable, templatable
         $array[] = array(
             'fullname' => $this->userfullname,
             'picturesrc' => $this->picturesrc,
-            'userprofile' => $this->userprofile
+            'userprofile' => $this->userprofile,
+            'colorindex' => $this->colorindex
         );
     }
 

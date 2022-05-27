@@ -15,6 +15,7 @@ class groupmembers_form_group implements renderable, templatable {
     private $groups;
     private $searchgroups = false;
     private $addgroup;
+    private $colorindex;
 
     public function export_for_template(renderer_base $output){
         if(count($this->groups) > 0) {
@@ -30,9 +31,13 @@ class groupmembers_form_group implements renderable, templatable {
     public function __construct($courseid, $groups) {
         global $CFG;
         foreach ($groups as $group) {
+            $this->colorindex = rand(1, 10);
             $this->groupid = $group->id;
             $this->groupname = $group->name;
             $this->groupimage = get_group_picture_url($group, $courseid);
+            if($this->groupimage === ""){
+                $this->groupimage = false;
+            }
             //$this->console_log(get_group_picture_url($courseid, $group));
             $this->set_groups_array($this->groups);
         }
@@ -44,7 +49,8 @@ class groupmembers_form_group implements renderable, templatable {
         $array[] = array(
             'groupid' => $this->groupid,
             'groupimage' => $this->groupimage,
-            'groupname' => $this->groupname
+            'groupname' => $this->groupname,
+            'colorindex' => $this->colorindex
         );
     }
 

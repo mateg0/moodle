@@ -1,9 +1,118 @@
 /**********************************************/
+.hide {
+    display: none !important;
+}
+
+.cs-group-logo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.groupstats-summary {
+    width: 100%;
+    position: relative;
+    top: 0.3rem;
+    content: ""
+}
+
+.groupstats-summary h5 {
+    height: auto;
+}
+
+.groupstats-summary.active {
+    height: 0 !important;
+}
+
+.groupstats-summary.active h5 {
+    height: 0 !important;
+    overflow: hidden;
+}
+
+.groupstats-summary.active .gs-summary-switch {
+    transform: rotate(180deg);
+}
+
+.gs-summary-switch {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1.375rem;
+    height: 1.2rem;
+    content: "";
+    transition: transform 0.2s;
+    will-change: transform;
+    background: url(/theme/image.php/classic/theme/1649259186/icons/arrow-details) no-repeat center;
+    background-size: auto;
+    background-size: contain;
+}
+
+.gst-student.blanked {
+    width: 85px;
+    margin-right: 18px;
+}
+
+.no-students {
+    width: 240px;
+    margin: 0 auto;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.gst-list-holder .gst-line-text {
+    width: 145px;
+    text-align: center;
+}
+
+.blank-holder {
+    color: #353535;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(140, 140, 140, 0.35) 50%, rgba(255, 255, 255, 0) 100%);
+    user-select: none;
+    font-size: 34px;
+}
+
+.shadowed-item {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.select-gc-holder {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.selector-name {
+    width: 65px;
+    margin-right: 30px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
 .gs-nodata {
     margin-top: 10px;
     text-align: center;
     width: 100%;
 }
+
 .gs-cs-form-holder {
     display: flex;
     flex-wrap: wrap;
@@ -31,19 +140,27 @@
 
 .gs-cs-group-select,
 .gs-cs-cource-select {
-    margin-right: 20px;
-    max-width: 310px;
-    min-width: 280px;
+    max-width: 300px;
+    min-width: 200px;
     min-height: 50px;
-    //margin: 0 auto;
     position: relative;
     cursor: pointer;
     margin-top: 10px;
 }
 
 .gs-cs-logo {
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 35px;
-    height: inherit;
+    height: 35px;
+}
+
+.gs-cs-logo img {
+    width: 100%;
+    height: 100%;
 }
 
 .gs-cs-group-line,
@@ -59,6 +176,7 @@
     border: 1px solid white;
     padding: 5px;
     border-radius: 5px;
+    flex-shrink: 0;
 }
 
 .gs-cs-group-list,
@@ -145,8 +263,10 @@
 .gs-cs-group-name,
 .gs-cs-cource-name {
     height: inherit;
-    max-width: 150px;
-    word-wrap: break-word;
+    max-width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     font-style: normal;
     font-weight: normal;
     font-size: 1rem;
@@ -181,9 +301,9 @@
 }
 
 .gs-cs-form-header {
-    max-width: 700px;
-    margin: 0 auto;
+    margin: 10px !important;
 }
+
 /******************************/
 .gs-cource-search-line input,
 .gs-group-search-line input {
@@ -196,23 +316,30 @@
 }
 
 .gs-cource-search-line input:focus,
-.gs-group-search-line input:focus{
+.gs-group-search-line input:focus {
     outline: 1px solid forestgreen !important;
     border-bottom: 1px solid transparent;
 }
 
 /******************************/
-.group-stats .gst-color-well{
+.group-stats .gst-color-well {
     background: #accca6;
 }
-.group-stats .gst-color-good{
+
+.group-stats .gst-color-good {
     background: #edeab0;
 }
-.group-stats .gst-color-okay{
+
+.group-stats .gst-color-okay {
     background: #d7883f;
 }
-.group-stats .gst-color-bad{
+
+.group-stats .gst-color-bad {
     background: #dca1a1;
+}
+
+.block_groupstats {
+    overflow: hidden;
 }
 
 .group-stats .active {
@@ -223,14 +350,36 @@
     color: #353535;
 }
 
-.blank-template-gst {
+.blank-template-gst {}
+
+.gst-students-list.blanked {
+    display: flex;
+    flex-wrap: nowrap;
+    background: transparent;
+}
+
+.gst-student.blanked {
+    display: block;
+    background: transparent;
+}
+
+.gst-student.blanked:first-child {
+    margin: 10px 15px;
+}
+
+.gst-student.blanked .student-image {
+    margin: 0 auto;
+}
+
+.gst-student.blanked .student-name {
+    margin: 0 auto;
 }
 
 .group-stats.blank-template-gst .gst-line {
     margin-top: 9px;
 }
 
-.group-stats.blank-template-gst .gst-line-bold{
+.group-stats.blank-template-gst .gst-line-bold {
     color: rgba(53, 53, 53, 0.2) !important;
 }
 
@@ -260,15 +409,14 @@
     margin-top: 4px;
 }
 
-.gst-line .blank{
+.gst-line .blank {}
 
-}
-
-.gst-line .blank, .gst-line-bold .blank {
+.gst-line .blank,
+.gst-line-bold .blank {
     height: 15px;
 }
 
-.student-name .blank{
+.student-name .blank {
     width: 85px;
     height: 12px;
     border-radius: 3px;
@@ -279,17 +427,22 @@
     display: none !important;
 }
 
-.group-stats .show
-{
+.group-stats .show {
     display: flex;
 }
 
-.group-stats .student-list.show{
+.group-stats .student-list.show {
     display: block;
 }
 
+.group-stats .student-list {
+    margin-left: 0 !important;
+    margin-top: 18px;
+}
+
+
 .group-performance .gst-line.active,
-.group-attendance .gst-line.active{
+.group-attendance .gst-line.active {
     font-size: 14px;
     line-height: 14px;
     border-radius: 5px;
@@ -298,7 +451,7 @@
     color: white;
 }
 
-.diagram-sample-color{
+.diagram-sample-color {
     margin-top: 2px;
     width: 12px;
     height: 12px;
@@ -308,12 +461,23 @@
 }
 
 .group-stats {
-    max-width: 700px;
-    margin: 0 auto;
+    max-width: 100% !important;
+    max-height: 300px;
     min-height: 270px;
     color: #353535;
     width: 100%;
     transition: .3s;
+    margin: 10px !important;
+}
+
+@media (max-width: 1366px) {
+    .attendance-block {
+        display: none;
+    }
+}
+
+.attendance-block {
+    margin-left: 15px;
 }
 
 .gst-tabs {
@@ -331,23 +495,25 @@
     margin-bottom: 5px;
 }
 
-.gst-tab:hover{
+.gst-tab:hover {
     color: #599A4E;
 }
 
 .gst-tabs-contents {
     display: flex;
-    flex-wrap: wrap;
+
 }
 
-.gst-tab-content{}
+.gst-tab-content {}
 
 .gst-pie-diagram {
     padding: 5px;
-    margin-top: 15px;
+    margin-top: 10px;
     width: 255px;
     height: 255px;
     margin-right: 35px;
+    flex-shrink: 0;
+    margin-bottom: 30px;
 }
 
 .group-performance,
@@ -361,9 +527,10 @@
 .gst-line,
 .gst-line-bold {
     min-width: 200px;
-    max-width: 220px;
+    max-width: 300px;
     display: flex;
     flex-wrap: nowrap;
+    flex-shrink: 0;
 }
 
 .gst-line-bold {
@@ -376,7 +543,7 @@
 
 .gst-line-bold .gst-line-value {
     margin-top: 2px;
-    line-height: 21px;
+    line-height: 21px !important;
 }
 
 .group-performance .gst-line:hover,
@@ -389,13 +556,18 @@
     border: 1px solid transparent;
     cursor: pointer;
     padding: 3px;
-    margin-top: 10px;
+    margin-top: 11px;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 18px;
+    line-height: 18 px;
 }
 
+/*
+.gst-line:first-child{
+    margin-top: 10px;
+}
+*/
 .gst-line-text {}
 
 .gst-line-value {
@@ -404,46 +576,52 @@
     flex: auto;
     font-weight: bold;
     font-style: normal;
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 16px;
+    line-height: 21px;
     display: flex !important;
     flex-wrap: nowrap !important;
 }
 
 .gst-students-list {
-    padding-top: 3px;
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: nowrap;
+    padding-top: 0px;
+    max-height: 200px;
+    margin-top: 0px;
     max-width: 440px;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: auto;
 }
 
-.gst-students-list a{
+.gst-students-list a {
     color: #353535;
     text-decoration: none;
 }
 
-.gst-students-list a:hover{
+.gst-students-list a:hover {
     color: #599A4E !important;
 }
 
-.gst-students-list a:hover .student-image{
+.gst-students-list a:hover .student-image {
     border: 2px solid #599A4E;
 }
 
 .gst-student {
-    margin-right: 10px;
+    width: 260px;
+    margin: 10px 0 10px 0;
     text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.gst-student:first-child {
+    margin-top: 0px;
 }
 
 .student-image {
-    width: 40px;
-    height: 40px;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 0 auto;
     border: 2px solid transparent;
 }
 
@@ -456,22 +634,27 @@
     margin-top: 8px;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 14px;
+    text-align: left;
+    margin-left: 15px;
 }
 
-@media(max-width: 510px){
-    .gst-pie-diagram{
+@media(max-width: 510px) {
+    .gst-pie-diagram {
         margin: 0 auto;
     }
+
     .gst-line,
-    .gst-line-bold{
+    .gst-line-bold {
         max-width: 300px;
     }
-    .gst-students-list{
+
+    .gst-students-list {
         justify-content: space-between;
     }
-    .gst-tab{
+
+    .gst-tab {
         width: 100%;
     }
 }

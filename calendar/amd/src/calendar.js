@@ -94,6 +94,8 @@ define([
     const sessionStorageEventTypeFieldName = 'eventType';
     const sessionStorageEventIdFieldName = 'eventId';
 
+    const CSSClassGroupSubstring = 'color-by-theme';
+
     /**
      * Handler for the drag and drop move event. Provides a loading indicator
      * while the request is sent to the server to update the event start date.
@@ -304,14 +306,20 @@ define([
                                 scheduleContent.innerHTML = '';
 
                                 for (let event of eventsOfDay) {
-                                    let groupColor = '#fee7ae';
+                                    let groupColor = 'event-background-color-by-theme-nogroup';
 
                                     if (event.groupid) {
                                         const groupId = event.groupid;
 
                                         document.querySelectorAll(SELECTORS.LEGEND_GROUP).forEach(group => {
                                             if (groupId === +group.dataset.groupId) {
-                                                groupColor = group.querySelector(SELECTORS.LEGEND_GROUP_COLOR).style.backgroundColor;
+                                                const legendGroupColorClassList = group.querySelector(SELECTORS.LEGEND_GROUP_COLOR).classList;
+
+                                                legendGroupColorClassList.forEach(_class => {
+                                                    if (_class.includes(CSSClassGroupSubstring)) {
+                                                        groupColor = _class;
+                                                    }
+                                                });
                                             }
                                         });
                                     }
@@ -421,7 +429,6 @@ define([
 
     const getScheduleLine = (groupColor) => {
         return getDivWithStyles('schedule-line', {
-            borderColor: groupColor,
             background: '#EFFAFF'
         });
     };
@@ -439,15 +446,11 @@ define([
     };
 
     const getScheduleEventGroup = (groupColor) => {
-        return getDivWithStyles('schedule-event-group', {
-            background: groupColor
-        });
+        return getDiv('schedule-event-group ' + groupColor);
     };
 
     const getEventTime = (groupColor) => {
-        return getDivWithStyles('event-time', {
-            background: groupColor
-        });
+        return getDiv('event-time ' + groupColor);
     };
 
     const getEventTimeStart = () => {

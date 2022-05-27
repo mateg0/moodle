@@ -75,3 +75,5 @@ $event = \core\event\course_category_viewed::create($eventparams);
 $event->trigger();
 
 echo $OUTPUT->footer();
+
+$PAGE->requires->js('/local/course_show_more/assets/course_show_more.js');

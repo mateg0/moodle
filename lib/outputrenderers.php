@@ -3512,7 +3512,7 @@ EOD;
 
         $loginpage = $this->is_login_page();
 //        $loginurl = get_login_url();
-        $loginurl = '#login_popup';
+        $loginurl = '/startpage#login';
         $script = $this->not_loggedin_block();
         // If not logged in, show the typical not-logged-in string.
         if (!isloggedin()) {
@@ -5044,6 +5044,29 @@ EOD;
         return $this->render_from_template($element->get_template(), $element->export_for_template($this));
     }
 
+    public function question_mark() {
+        global $PAGE;
+
+        if (strpos($PAGE->url, 'my')) {
+            $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/local/show_tips/assets/show_tips.js'));
+
+            return 
+            '<div class="trigger-howto" title="Подсказки">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M19.9994 8.97461C16.7206 8.97461 14.0156 11.6384 14.0156 14.9584C14.0156 15.8192 14.7123 16.4747 15.5319 16.4747C16.3516 16.4747 17.0483 15.778 17.0483 14.9584C17.0483 13.36 18.3599 12.0484 19.9582 12.0484C21.6386 12.0484 22.8682 13.2368 22.8682 14.8351V14.958C22.8682 15.8597 22.6224 17.9909 19.7124 18.4418C18.9749 18.5647 18.4008 19.1794 18.4008 19.9581V24.0974C18.4008 24.9582 19.0975 25.6137 19.9171 25.6137C20.7367 25.6137 21.4334 24.917 21.4334 24.0974V21.1874C25.286 19.999 25.9006 16.6791 25.9006 14.8349C25.9829 11.5564 23.2782 8.97466 19.9995 8.97466L19.9994 8.97461Z"
+                    />
+                <path
+                    d="M19.9994 27.4609C18.8927 27.4609 18.0322 28.3626 18.0322 29.4281C18.0322 30.4936 18.9339 31.3952 19.9994 31.3952C21.0649 31.3952 21.9665 30.4936 21.9665 29.4281C21.9665 28.3626 21.0649 27.4609 19.9994 27.4609Z"
+                    />
+                <path
+                    d="M20 0C8.97541 0 0 8.97541 0 20C0 31.0246 8.97541 40 20 40C31.0246 39.9997 40 31.0246 40 20C40 8.97541 31.0246 0 20 0ZM20 36.9672C10.6557 36.9672 3.03279 29.3443 3.03279 20C3.03279 10.6557 10.6557 3.03279 20 3.03279C29.3443 3.03279 36.9672 10.6557 36.9672 20C36.926 29.3443 29.3443 36.9672 20 36.9672Z"
+                    />
+                </svg>
+            </div>';
+        }
+    }
+
     /**
      * Construct a logout icon, returning HTML that can be echoed out by a
      * layout file.
@@ -5052,7 +5075,7 @@ EOD;
      */
     public function custom_logout()
     {
-        if (!isloggedin()) {
+        if (!isloggedin() || isguestuser()) {
             return null;
         } else {
             return

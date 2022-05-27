@@ -1,46 +1,81 @@
-<div class="gs-cs-group-select">
-    <div class="gs-cs-group-line current-line" id="gs-cs-gms-select">
-        <div class="gs-cs-data-section" id="gs-cs-group-data-section">
-            <div class="gs-cs-logo">
-
-            </div>
-            <div class="gs-cs-group-name">
-                Выберите группу
-            </div>
-        </div>
-        <div class="gs-cs-group-selector">
-            <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2L10.5 11L19 2" stroke-width="3"/>
-            </svg>
-        </div>
+<div class="select-gc-holder">
+    <div class="selector-name">
+        Группа
     </div>
-    <!-- list -->
-    <div class="gs-cs-group-list hide" id="gs-cs-gms-list">
-        {{#searchgroups}}
-            <div class="gs-group-search-line">
-                <input type="search" placeholder="Найти группу" class="non-click" id="gs-group-search">
-            </div>
-        {{/searchgroups}}
-        {{^searchgroups}}
-            <div class="gs-nodata">Нет доступных групп</div>
-        {{/searchgroups}}
-        {{#groups}}
-        <div class="gs-cs-group-line">
-            <div class="gs-cs-data-section">
-                <div class="gs-cs-group-logo">
-                    <img src="{{groupimage}}" />
+    <div class="gs-cs-group-select">
+        <div class="gs-cs-group-line current-line shadowed-item" id="gs-cs-gms-select">
+            <div class="gs-cs-data-section" id="gs-cs-group-data-section">
+                <div class="gs-cs-logo">
+
                 </div>
-                <div class="gs-cs-group-name" data-id="{{groupid}}">
-                    {{groupname}}
+                <div class="gs-cs-group-name">
+                    Выберите группу
                 </div>
             </div>
             <div class="gs-cs-group-selector">
-                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" version="1.1">
-                    <circle cx="5" cy="5" r="3"></circle>
+                <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L10.5 11L19 2" stroke-width="3" />
                 </svg>
             </div>
         </div>
-        {{/groups}}
+        <!-- list -->
+        <div class="gs-cs-group-list hide" id="gs-cs-gms-list">
+            {{#searchgroups}}
+            <div class="gs-group-search-line">
+                <input type="search" placeholder="Найти группу" class="non-click" id="gs-group-search">
+            </div>
+            {{/searchgroups}}
+            {{^searchgroups}}
+            <div class="gs-nodata">Нет доступных групп</div>
+            {{/searchgroups}}
+            {{#groups}}
+            <div class="gs-cs-group-line">
+                <div class="gs-cs-data-section">
+                    {{#groupimage}}
+                    <div class="cs-group-logo">
+                        <img src="{{groupimage}}" />
+                    </div>
+                    {{/groupimage}}
+                    {{^groupimage}}
+                    <div class="cs-group-logo clr-background-subcolor-by-theme-{{colorindex}}" data-cindex="{{colorindex}}">
+                        <svg width="30" height="18" viewBox="0 0 37 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g filter="url(#filter0_d_130_41)">
+                                <path
+                                    d="M18.5 2C19.7764 2 21.0004 2.53405 21.903 3.48467C22.8055 4.43528 23.3125 5.72459 23.3125 7.06897C23.3125 8.41334 22.8055 9.70265 21.903 10.6533C21.0004 11.6039 19.7764 12.1379 18.5 12.1379C17.2236 12.1379 15.9996 11.6039 15.097 10.6533C14.1945 9.70265 13.6875 8.41334 13.6875 7.06897C13.6875 5.72459 14.1945 4.43528 15.097 3.48467C15.9996 2.53405 17.2236 2 18.5 2V2ZM8.875 5.62069C9.645 5.62069 10.36 5.83793 10.9788 6.22897C10.7725 8.3 11.35 10.3566 12.5325 11.9641C11.845 13.3545 10.47 14.3103 8.875 14.3103C7.78098 14.3103 6.73177 13.8526 5.95818 13.0378C5.1846 12.223 4.75 11.1178 4.75 9.96552C4.75 8.8132 5.1846 7.70807 5.95818 6.89326C6.73177 6.07845 7.78098 5.62069 8.875 5.62069V5.62069ZM28.125 5.62069C29.219 5.62069 30.2682 6.07845 31.0418 6.89326C31.8154 7.70807 32.25 8.8132 32.25 9.96552C32.25 11.1178 31.8154 12.223 31.0418 13.0378C30.2682 13.8526 29.219 14.3103 28.125 14.3103C26.53 14.3103 25.155 13.3545 24.4675 11.9641C25.65 10.3566 26.2275 8.3 26.0212 6.22897C26.64 5.83793 27.355 5.62069 28.125 5.62069ZM9.5625 20.4655C9.5625 17.4676 13.5638 15.0345 18.5 15.0345C23.4362 15.0345 27.4375 17.4676 27.4375 20.4655V23H9.5625V20.4655ZM2 23V20.8276C2 18.8145 4.59875 17.12 8.11875 16.6276C7.3075 17.6124 6.8125 18.9738 6.8125 20.4655V23H2ZM35 23H30.1875V20.4655C30.1875 18.9738 29.6925 17.6124 28.8812 16.6276C32.4012 17.12 35 18.8145 35 20.8276V23Z"
+                                    fill="white" />
+                            </g>
+                            <defs>
+                                <filter id="filter0_d_130_41" x="0" y="0" width="37" height="25"
+                                    filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feColorMatrix in="SourceAlpha" type="matrix"
+                                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                    <feOffset />
+                                    <feGaussianBlur stdDeviation="1" />
+                                    <feComposite in2="hardAlpha" operator="out" />
+                                    <feColorMatrix type="matrix"
+                                        values="0 0 0 0 0.508333 0 0 0 0 0.508333 0 0 0 0 0.508333 0 0 0 1 0" />
+                                    <feBlend mode="normal" in2="BackgroundImageFix"
+                                        result="effect1_dropShadow_130_41" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_130_41"
+                                        result="shape" />
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                    {{/groupimage}}
+                    <div class="gs-cs-group-name" data-id="{{groupid}}">
+                        {{groupname}}
+                    </div>
+                </div>
+                <div class="gs-cs-group-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" version="1.1">
+                        <circle cx="5" cy="5" r="3"></circle>
+                    </svg>
+                </div>
+            </div>
+            {{/groups}}
+        </div>
+        <!-- list -->
     </div>
-    <!-- list -->
 </div>

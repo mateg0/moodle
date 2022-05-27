@@ -5,6 +5,7 @@
 .block_navigation_progress .barContainer {
     position: relative;
     padding: 0;
+    margin-bottom: 16px;
     clear: both;
 }
 
@@ -201,7 +202,8 @@
 .block_navigation_progress .moduleIcon {
     float: left;
     margin-right: 5px;
-    max-width: 24px;
+    height: 32px;
+    /*max-width: 24px;*/
 }
 
 .block_navigation_progress .progressBarHeader {
@@ -262,11 +264,23 @@
     margin-right: 2px;
 }
 
+.contentsDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
 
-.sections {
+.headerDiv{
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.1em;
+}
+
+.block_navigation_progress .sections {
     max-width: 400px;
     min-width: 340px;
-    height: 30px;
+    height: 1.625rem;
     display: flex;
     flex: auto;
 }
@@ -278,12 +292,11 @@
 .sections .section {
     height: 100%;
     flex: auto;
-    background: #eaf7ee;
+    background: #B5E399;
     border: 1px solid #868686;
     text-align: center;
-    font-size: 0.75rem;
-    line-height: 1.9rem;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.12);
+    font-size: 0.6875rem;
+    line-height: 1.625rem;
 }
 
 .sections .section:hover {
@@ -305,8 +318,8 @@
 
 .bar {
     width: 100%;
-    margin-top: 30px;
-    height: 65px;
+    margin-top: 21px;
+    /*height: 65px;*/
     display: flex;
     flex: auto;
 }
@@ -326,9 +339,8 @@
     visibility: hidden;
 }
 
-.bar .activity .indicator:before {
+.bar .activity .indicator:after {
     content: '';
-    z-index: 2;
     border: 5px solid transparent;
     border-top: 5px solid grey;
     position: relative;
@@ -336,25 +348,32 @@
     bottom: 10px;
 }
 
+.bar .activity:last-child .indicator:after {
+    border: none;
+    content: url([[pix:block_navigation_progress|star]]);
+    left: 2px;
+    top: 1px;
+}
+
 .bar .activity {
     flex: 1 1 90px;
     box-sizing: content-box;
 }
 
-.bar .activity .completed {
-    background: linear-gradient(180deg, #bdf29d 25%, rgba(190, 240, 160, 0.3) 80%) !important;
+.bar .activity .indicator.completed {
+    background: #BDF29D;
 }
 
-.bar .activity .submittedNotComplete {
-    background: linear-gradient(180deg, yellow 25%, rgba(190, 240, 160, 0.3) 80%) !important;
+.bar .activity .indicator.submittedNotComplete {
+    background: #EAF7EE;
 }
 
-.bar .activity .notCompleted {
-    background: linear-gradient(180deg, red 25%, rgba(190, 240, 160, 0.3) 80%) !important;
+.bar .activity .indicator.notCompleted {
+    background: #EAF7EE;
 }
 
-.bar .activity .futureNotCompleted {
-    background: linear-gradient(180deg, lightgrey 25%, rgba(190, 240, 160, 0.3) 80%) !important;
+.bar .activity .indicator.futureNotCompleted {
+    background: #EAF7EE;
 }
 
 .bar .activity .completed .round {
@@ -366,21 +385,38 @@
     filter: contrast(1.1);
 }
 
+.block_navigation_progress .progressEventInfo {
+    height: 50px;
+}
 
-.bar .activity .indicator:hover:after {
-    min-width: 80px;
-    content: attr(data-text);
-    position: absolute;
-    letter-spacing: normal;
+.bar .activity .activityname {
+    position: relative;
+    line-height: 14px;
+    height: 14px;
+    width: 90%;
+    left: 50%;
+    bottom: 6px;
+    margin: auto;
     text-align: center;
-    left: 0%;
-    top: 209.5%;
-    z-index: 1;
-    background: #d6ffe3;
-    font-size: 14px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #868686;
+    overflow: hidden;
+    font-size: 0.5625rem;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.bar .activity:last-child .activityname {
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    top: 40px;
+    left: 0;
+
+}
+
+.block_navigation_progress .bar .activity .moduleIcon {
+    margin: auto;
+    /*height: 32px;*/
+    margin-top: -9px;
 }
 
 .bar .activity .indicator {
@@ -388,11 +424,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background: #eaf7ee;
+    background: #B5E399;
     border-top: 1px solid #868686;
     border-bottom: 1px solid #868686;
-    border-right: 1px dashed #747474;
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.12);
+    border-right: 0.5px dashed #747474;
 }
 .bar .activity:first-child .indicator {
     border-radius: 20px 0 0 20px;
@@ -419,5 +454,5 @@
     height: 26px;
     z-index: 5;
     border: 1px solid #868686;
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
 }

@@ -70,7 +70,7 @@ class block_navigation_progress extends block_base {
      * @return bool
      */
     public function instance_allow_multiple() {
-        return !block_navigation_progress_on_site_page();
+        return !block_navigation_progress_on_site_page($this->page);
     }
 
     /**
@@ -79,7 +79,7 @@ class block_navigation_progress extends block_base {
      * @return bool
      */
     public function instance_allow_config() {
-        return !block_navigation_progress_on_site_page();
+        return !block_navigation_progress_on_site_page($this->page);
     }
 
     /**
@@ -118,9 +118,34 @@ class block_navigation_progress extends block_base {
             return $this->content;
         }
 
+        $course = $COURSE;
         // Draw the multi-bar content for the Dashboard and Front page.
-        if (block_navigation_progress_on_site_page()) {
+        if (block_navigation_progress_on_site_page($this->page)) {
+            $veriflastcourse = $DB->count_records('logstore_standard_log', array('action' => "viewed",
+                'target' => "course", 'userid' => $USER->id));
 
+            if ($veriflastcourse !== 0) {
+                $sql = 'SELECT * FROM {logstore_standard_log} WHERE ';
+                $sql .= 'action = ?  AND target = ? AND userid = ? AND courseid != 1 ';
+                $sql .= 'order by timecreated desc';
+                $lastcourse = $DB->get_records_sql($sql, array('viewed', 'course', $USER->id), 0, 1);
+                if (count($lastcourse) > 0) {
+                    $record = reset($lastcourse);
+                    $id = intval($record->courseid);
+
+                    //    $id          = optional_param('id', 16, PARAM_INT);
+                    $marker = optional_param('marker', -1, PARAM_INT);
+
+                    $params = array('id' => $id);
+                    $course = $DB->get_record('course', $params, '*', MUST_EXIST);
+
+                    // Fix course format if it is no longer installed
+                    $course->format = course_get_format($course)->get_format();
+                }
+            }
+        }
+
+/*
             if (!$CFG->enablecompletion) {
                 $this->content->text .= get_string('completion_not_enabled', 'block_navigation_progress');
                 return $this->content;
@@ -214,14 +239,27 @@ class block_navigation_progress extends block_base {
                 $this->content->text = get_string('no_blocks', 'block_navigation_progress');
             }
 
+echo'<pre>';
+echo '--------------------------------------------------------';
+print_r('case 1');
+echo '</pre>';
+
         } else {
+
+echo'<pre>';
+echo '--------------------------------------------------------';
+print_r($COURSE);
+echo '</pre>';
+*/
+
+
             // Gather content for block on regular course.
 
             // Check if user is in group for block.
             if (
                 !empty($this->config->group) &&
                 !has_capability('moodle/site:accessallgroups', $this->context) &&
-                !block_navigation_progress_group_membership($this->config->group, $COURSE->id, $USER->id)
+                !block_navigation_progress_group_membership($this->config->group, $course->id, $USER->id)
             ) {
                 return $this->content;
             }
@@ -235,7 +273,7 @@ class block_navigation_progress extends block_base {
             }
 
             // Check if completion is enabled at course level.
-            $completion = new completion_info($COURSE);
+            $completion = new completion_info($course);
             if (!$completion->is_enabled()) {
                 if (has_capability('moodle/block:edit', $this->context)) {
                     $this->content->text .= get_string('completion_not_enabled_course', 'block_navigation_progress');
@@ -244,9 +282,9 @@ class block_navigation_progress extends block_base {
             }
 
             // Check if any activities/resources have been created.
-            $exclusions = block_navigation_progress_exclusions($COURSE->id, $USER->id);
-            $activities = block_navigation_progress_get_activities($COURSE->id, $this->config);
-            $activities = block_navigation_progress_filter_visibility($activities, $USER->id, $COURSE->id, $exclusions);
+            $exclusions = block_navigation_progress_exclusions($course->id, $USER->id);
+            $activities = block_navigation_progress_get_activities($course->id, $this->config);
+            $activities = block_navigation_progress_filter_visibility($activities, $USER->id, $course->id, $exclusions);
 
 
 //            echo'<pre>';
@@ -262,14 +300,14 @@ class block_navigation_progress extends block_base {
 
             // Display progress bar.
             if (has_capability('block/navigation_progress:showbar', $this->context)) {
-                $submissions = block_navigation_progress_submissions($COURSE->id, $USER->id);
-                $completions = block_navigation_progress_completions($activities, $USER->id, $COURSE, $submissions);
+                $submissions = block_navigation_progress_submissions($course->id, $USER->id);
+                $completions = block_navigation_progress_completions($activities, $USER->id, $course, $submissions);
                 $this->content->text .= block_navigation_progress_bar(
                     $activities,
                     $completions,
                     $this->config,
                     $USER->id,
-                    $COURSE->id,
+                    $course->id,
                     $this->instance->id
                 );
             }
@@ -277,13 +315,13 @@ class block_navigation_progress extends block_base {
 
             // Allow teachers to access the overview page.
             if (has_capability('block/navigation_progress:overview', $this->context)) {
-                $parameters = array('instanceid' => $this->instance->id, 'courseid' => $COURSE->id, 'sesskey' => sesskey());
+                $parameters = array('instanceid' => $this->instance->id, 'courseid' => $course->id, 'sesskey' => sesskey());
                 $url = new moodle_url('/blocks/navigation_progress/overview.php', $parameters);
                 $label = get_string('overview', 'block_navigation_progress');
                 $options = array('class' => 'overviewButton');
                 $this->content->text .= $OUTPUT->single_button($url, $label, 'post', $options);
             }
-        }
+//        }
 
         // Organise access to JS.
         $this->page->requires->js_call_amd('block_navigation_progress/progressbar', 'init', [

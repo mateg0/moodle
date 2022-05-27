@@ -1,0 +1,17 @@
+/* @copyright  2021 Ascensio System SIA <integration@onlyoffice.com>
+ * @copyright  based on work by 2018 Olumuyiwa Taiwo <muyi.taiwo@logicexpertise.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+#page-content .onlyoffice .activityinstance > a {
+    display: inline-block;
+}
+
+.onlyoffice-container > iframe {
+    height: 80vh;
+    max-height: 60rem;
+}
+
+#onlyoffice-editor.error {
+    color: red;
+}

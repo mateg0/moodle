@@ -1,0 +1,73 @@
+stdClass Object
+(
+    [events] => 
+    [defaulteventcontext] => 2
+    [filter_selector] => <label class="sr-only" for="course">Список курсов</label><select class="select custom-select cal_courses_flt ml-1 mr-auto" id="course" name="course"><option selected="selected" value="1">Все курсы</option><option value="29">Alpha</option><option value="25">календарь</option><option value="7">По неделям</option><option value="2">Курс 1</option></select>
+    [courseid] => 1
+    [categoryid] => 0
+    [neweventtimestamp] => 1643116721
+    [date] => stdClass Object
+        (
+            [seconds] => 41
+            [minutes] => 18
+            [hours] => 16
+            [mday] => 25
+            [wday] => 2
+            [mon] => 1
+            [year] => 2022
+            [yday] => 24
+            [weekday] => Tuesday
+            [month] => January
+            [timestamp] => 1643116721
+        )
+
+    [periodname] => Вторник 25 января 2022
+    [previousperiod] => stdClass Object
+        (
+            [seconds] => 41
+            [minutes] => 18
+            [hours] => 16
+            [mday] => 24
+            [wday] => 1
+            [mon] => 1
+            [year] => 2022
+            [yday] => 23
+            [weekday] => Monday
+            [month] => January
+            [timestamp] => 1643030321
+        )
+
+    [previousperiodlink] => https://edu.bonch-ikt.ru/calendar/view.php?view=day&time=1643030321
+    [previousperiodname] => Понедельник
+    [nextperiod] => stdClass Object
+        (
+            [seconds] => 41
+            [minutes] => 18
+            [hours] => 16
+            [mday] => 26
+            [wday] => 3
+            [mon] => 1
+            [year] => 2022
+            [yday] => 25
+            [weekday] => Wednesday
+            [month] => January
+            [timestamp] => 1643203121
+        )
+
+    [nextperiodname] => Среда
+    [nextperiodlink] => https://edu.bonch-ikt.ru/calendar/view.php?view=day&time=1643203121
+    [larrow] => &#x25C4;
+    [rarrow] => &#x25BA;
+    [viewingday] => 1
+    [legendGroups] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [nameOfGroup] => Без группы
+                    [idOfGroup] => -1
+                    [color] => #fee7ae
+                )
+
+        )
+
+)

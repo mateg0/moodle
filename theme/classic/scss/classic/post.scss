@@ -1,9 +1,10 @@
 // General Post SCSS for use in all presets.
-$custom-grid-gutter-half: 0.5rem;
+$custom-grid-gutter-half: 0.625rem;
 // Generate the column layout css.
-@mixin page_layout($blockswidth) {
-  $mainwidth-oneblock: (100% - $blockswidth);
-  $mainwidth-twoblocks: (100% - $blockswidth * 2);
+@mixin page_layout($blockswidth-left, $blockswidth-right) {
+  $mainwidth-leftblock: calc(100% - #{$blockswidth-left});
+  $mainwidth-rightblock: calc(100% - #{$blockswidth-right});
+  $mainwidth-twoblocks: calc(100% - #{$blockswidth-left} - #{$blockswidth-right});
   #page-content {
     display: flex;
 
@@ -15,36 +16,36 @@ $custom-grid-gutter-half: 0.5rem;
 
     &.blocks-pre {
       .columnleft {
-        flex: 0 0 $blockswidth;
+        flex: 0 0 $blockswidth-left;
         order: -1;
-        padding: 0 $custom-grid-gutter-half;
-        max-width: $blockswidth;
+        padding: 0 $custom-grid-gutter-half 0 (1 + $custom-grid-gutter-half);
+        max-width: $blockswidth-left;
       }
 
       .region-main {
-        flex: 0 0 $mainwidth-oneblock;
-        max-width: $mainwidth-oneblock;
+        flex: 0 0 $mainwidth-leftblock;
+        max-width: $mainwidth-leftblock;
         padding: 0 $custom-grid-gutter-half;
       }
     }
 
     &.blocks-post {
       .region-main {
-        flex: 0 0 $mainwidth-oneblock;
-        max-width: $mainwidth-oneblock;
+        flex: 0 0 $mainwidth-rightblock;
+        max-width: $mainwidth-rightblock;
         padding: 0 $custom-grid-gutter-half;
       }
 
       .columnright {
-        flex: 0 0 $blockswidth;
+        flex: 0 0 $blockswidth-right;
         padding: 0 $custom-grid-gutter-half;
-        max-width: $blockswidth;
+        max-width: $blockswidth-right;
       }
     }
 
     &.blocks-pre.blocks-post {
       .region-main {
-        flex: 0 0 $mainwidth-twoblocks;
+        flex: 1;
         max-width: $mainwidth-twoblocks;
         padding: 0 $custom-grid-gutter-half;
       }
@@ -59,15 +60,15 @@ $custom-grid-gutter-half: 0.5rem;
     &.used-region-side-post {
       #page-content {
         .region-main {
-          flex: 0 0 $mainwidth-oneblock;
-          max-width: $mainwidth-oneblock;
+          flex: 0 0 $mainwidth-rightblock;
+          max-width: $mainwidth-rightblock;
           padding-left: 1rem;
         }
 
         .columnright {
-          flex: 0 0 $blockswidth;
-          padding: 0 1rem;
-          max-width: $blockswidth;
+          flex: 0 0 $blockswidth-right;
+          padding: 0 0.625rem;
+          max-width: $blockswidth-right;
         }
       }
     }
@@ -76,16 +77,16 @@ $custom-grid-gutter-half: 0.5rem;
     &.used-region-side-pre {
       #page-content {
         .region-main {
-          flex: 0 0 $mainwidth-oneblock;
-          max-width: $mainwidth-oneblock;
+          flex: 0 0 $mainwidth-leftblock;
+          max-width: $mainwidth-leftblock;
           padding-right: 1rem;
         }
 
         .columnleft {
-          flex: 0 0 $blockswidth;
+          flex: 0 0 $blockswidth-left;
           order: -1;
-          padding: 0 1rem;
-          max-width: $blockswidth;
+          padding: 0 0.625rem;
+          max-width: $blockswidth-left;
         }
       }
     }
@@ -100,16 +101,16 @@ $custom-grid-gutter-half: 0.5rem;
         }
 
         .columnleft {
-          flex: 0 0 $blockswidth;
+          flex: 0 0 $blockswidth-left;
           order: -1;
-          padding: 0 1rem;
-          max-width: $blockswidth;
+          padding: 0 0.625rem;
+          max-width: $blockswidth-left;
         }
 
         .columnright {
-          flex: 0 0 $blockswidth;
-          padding: 0 1rem;
-          max-width: $blockswidth;
+          flex: 0 0 $blockswidth-right;
+          padding: 0 0.625rem;
+          max-width: $blockswidth-right;
         }
       }
     }
@@ -122,22 +123,22 @@ $custom-grid-gutter-half: 0.5rem;
   .region-main {
     flex: 0 0 100%;
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0 0.625rem;
     margin-bottom: 1rem;
   }
 }
 
 // When changing this please check the size of the calendar block.
 @include media-breakpoint-up(md) {
-  @include page_layout(32%);
+  @include page_layout(32%, 32%);
 }
 
 @include media-breakpoint-up(lg) {
-  @include page_layout(25%);
+  @include page_layout(20rem, 20rem);
 }
 
 @include media-breakpoint-up(xl) {
-  @include page_layout(25%);
+  @include page_layout(25rem, 20rem);
 }
 
 @media print {

@@ -43,6 +43,15 @@ redirect_if_major_upgrade_required();
 $edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and off
 $reset  = optional_param('reset', null, PARAM_BOOL);
 
+if (!isloggedin() && !isguestuser()) {
+    $guest = get_complete_user_data('id', $CFG->siteguest);
+    complete_user_login($guest);
+}
+
+if (isguestuser()) {
+    redirect($CFG->wwwroot . '/course');
+}
+
 require_login();
 
 $hassiteconfig = has_capability('moodle/site:config', context_system::instance());

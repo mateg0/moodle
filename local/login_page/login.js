@@ -2,11 +2,40 @@ const urlAfterSuccessfulAuthorization = `${window.location.protocol}//${window.l
 const urlPostRequest = `${urlAfterSuccessfulAuthorization}/login/index.php`;
 const nameOfAuthError = 'auth-error';
 
-const loginButton = document.getElementsByClassName('btn-login')[0];
-const loginForm = document.getElementsByClassName('loginform')[0];
-const loginLogo = document.getElementsByClassName('potentialidps')[0].firstElementChild;
+const loginWrapper = document.querySelector('.login-wrapper');
+const shadow = document.querySelector('.shadow');
+const showLoginFormButton = document.querySelector('button.login');
 
-loginButton.addEventListener('click', async (event) => {
+const loginForm = loginWrapper.querySelector('form.login-form');
+const loginButton = loginForm
+                        .querySelector('.login-button-wrapper')
+                        .querySelector('button');
+
+const authLoad = loginWrapper.querySelector('.auth-load');
+
+const showLoginForm = () => {
+    loginWrapper.style.display = 'block';
+    shadow.style.display = 'block';
+    document.body.style.overflowY = 'hidden';
+
+    setTimeout(() => {
+        document.addEventListener('click', hideLoginForm);
+    }, 100);
+};
+
+const hideLoginForm = (e) => {
+    if (!e.target.closest('.login-wrapper')) {
+        loginWrapper.style.display = 'none';
+        shadow.style.display = 'none';
+        document.body.style.overflowY = '';
+
+        document.removeEventListener('click', hideLoginForm);
+    }
+}
+
+showLoginFormButton.addEventListener('click', showLoginForm);
+
+loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const setAuthenticationErrorToSessionStorage = () => {
@@ -21,8 +50,9 @@ loginButton.addEventListener('click', async (event) => {
 
     const setWaitingThemeLoginPage = () => {
         loginButton.disabled = true;
-        loginForm.classList.add('brightless-login-form');
-        loginLogo.classList.add('logo-pulse');
+
+        loginForm.classList.add('during-load');
+        authLoad.style.display = 'block';
     };
 
     const makePrettyHTTPSLink = (HTTPSink) => {
@@ -35,7 +65,7 @@ loginButton.addEventListener('click', async (event) => {
 
     setWaitingThemeLoginPage();
 
-    const loginFormData = new FormData(document.getElementsByClassName('loginform')[0]);
+    const loginFormData = new FormData(loginForm);
     const response = await fetch(urlPostRequest, {
         method: 'POST',
         body: loginFormData
@@ -53,6 +83,10 @@ loginButton.addEventListener('click', async (event) => {
         window.location.href = redirectUrl;
     } else {
         setAuthenticationErrorToSessionStorage();
-        window.location.reload(false);
+
+        location.href = location.href + '#login';
+        location.reload();
     }
 });
+
+if (location.href.includes('#login')) showLoginForm(); 

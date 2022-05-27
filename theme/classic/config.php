@@ -81,7 +81,7 @@ $THEME->layouts = [
     'mydashboard' => array(
         'file' => 'columns.php',
         'regions' => array('side-pre', 'side-post', 'center-pre', 'horizontal'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('nonavbar' => true, 'langmenu' => true, 'nocontextheader' => true),
     ),
     // My public page.

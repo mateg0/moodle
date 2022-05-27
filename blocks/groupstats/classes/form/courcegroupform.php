@@ -24,8 +24,9 @@ class courcegroupform extends moodleform
 
         $mform = $this->_form; // Don't forget the underscore!
         $mform->disable_form_change_checker();
-        $mform->addElement('html', '<div class="gs-cs-form-header">');
-        $mform->addElement('html', '<h5>Статистика группы</h5>');
+        
+        $mform->addElement('html', '<div class="gs-cs-form-header" id="gs-cs-form-header">');
+        //$mform->addElement('html', '<h5>Статистика группы</h5>');
         $mform->addElement('html', '<div class="gs-cs-form-holder">');
         $mform->addElement('hidden', 'gs-csgm_groupid');
         $mform->setType('groupid', PARAM_INT);

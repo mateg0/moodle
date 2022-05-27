@@ -5771,6 +5771,7 @@ input[type="button"].btn-block {
   background-color: transparent; }
 
 .breadcrumb-item {
+  color: #C0C7BA;
   display: flex; }
   .breadcrumb-item + .breadcrumb-item {
     padding-left: 0.5rem; }
@@ -5785,6 +5786,9 @@ input[type="button"].btn-block {
     text-decoration: none; }
   .breadcrumb-item.active {
     color: #6c757d; }
+  .breadcrumb-item:hover {
+    color: #353535;
+  }
 
 .pagination {
   display: flex;
@@ -9610,9 +9614,8 @@ a.text-dark:hover, a.text-dark:focus {
  * moodle scss should be placed immediately after the definition of the ltr rule.
  */
 .breadcrumb-item + .breadcrumb-item::before {
-  content: "/";
+  content: ">";
   /*rtl:remove*/
-  content: "/";
   /* stylelint-disable-line declaration-block-no-duplicate-properties */ }
 
 .dir-rtl .custom-select {
