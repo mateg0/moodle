@@ -318,6 +318,88 @@ if ($ADMIN->fulltree) {
                  'icon-fill-color-1' => '#92B861',
                  'icon-fill-color-2' => '#353535',
                  'icon-fill-color-3' => '#353535',
+            ],
+            6 => [
+                //main colors
+                'custom-theme-color-1' => '#FFFFFF',
+                'custom-theme-color-2' => '#F3F3F3',
+                'custom-theme-color-3' => '#00B9AE',
+                'custom-theme-color-4' => '#DADADA',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#00B9AE',
+
+                'custom-theme-subcolor-2' =>  '#ADE9E6',
+                'custom-theme-subcolor-3' =>  '#00B9AE',
+                'custom-theme-subcolor-4' =>  '#199890',
+                'custom-theme-subcolor-5' =>  '#93D4D1',
+                'custom-theme-subcolor-6' =>  '#08C5B9',
+                'custom-theme-subcolor-7' =>  '#65C1BC',
+                'custom-theme-subcolor-8' =>  '#41CEC6',
+                'custom-theme-subcolor-9' =>  '#69AFAB',
+                'custom-theme-subcolor-10' =>  '#92B9B7',
+                //event colors
+                'group-event-color-1' =>  '#00B9AE',
+                'group-event-color-2' =>  '#85C6C2',
+                'group-event-color-3' =>  '#4ABEB7',
+                'group-event-color-4' =>  '#5ED0CB',
+                'group-event-color-5' =>  '#92B9B7',
+                'group-event-color-6' =>  '#69AFAB',
+                'group-event-color-7' =>  '#41CEC6',
+                'group-event-color-8' =>  '#65C1BC',
+                'group-event-color-9' =>  '#6A8BCA',
+                'group-event-color-10' =>  '#56C5BF',
+                //no group event color
+                'nogroup-event-color' =>  '#FAC660',
+                //pie diagram colors
+                'pie-sector-color-1' => '#B277D9',
+                'pie-sector-color-2' => '#FA608E',
+                'pie-sector-color-3' => '#3AE09E',
+                'pie-sector-color-4' => '#00B9AE',
+                 // Logo color set
+                 'icon-fill-color-1' => '#00B9AE',
+                 'icon-fill-color-2' => '#353535',
+                 'icon-fill-color-3' => '#353535',
+            ],
+            7 => [
+                //main colors
+                'custom-theme-color-1' => '#2B3141',
+                'custom-theme-color-2' => '#16181E',
+                'custom-theme-color-3' => '#00B9AE',
+                'custom-theme-color-4' => '#252934',
+                //subcolors
+                'custom-theme-subcolor-1' =>  '#00B9AE',
+
+                'custom-theme-subcolor-2' =>  '#00B9AE',
+                'custom-theme-subcolor-3' =>  '#FF565E',
+                'custom-theme-subcolor-4' =>  '#FFC542',
+                'custom-theme-subcolor-5' =>  '#00B9AE',
+                'custom-theme-subcolor-6' =>  '#85C6C2',
+                'custom-theme-subcolor-7' =>  '#199890',
+                'custom-theme-subcolor-8' =>  '#65C1BC',
+                'custom-theme-subcolor-9' =>  '#08C5B9',
+                'custom-theme-subcolor-10' =>  '#93D4D1',
+                //event colors
+                'group-event-color-1' =>  '#E0555C',
+                'group-event-color-2' =>  '#B8EB50',
+                'group-event-color-3' =>  '#52DAAD',
+                'group-event-color-4' =>  '#EE7C63',
+                'group-event-color-5' =>  '#EA5B3B',
+                'group-event-color-6' =>  '#7256E4',
+                'group-event-color-7' =>  '#B573E9',
+                'group-event-color-8' =>  '#72C6E1',
+                'group-event-color-9' =>  '#74EB71',
+                'group-event-color-10' =>  '#E2B235',
+                //no group event color
+                'nogroup-event-color' =>  '#E7BE62',
+                //pie diagram colors
+                'pie-sector-color-1' => '#C03ED5',
+                'pie-sector-color-2' => '#FF565E',
+                'pie-sector-color-3' => '#FFC542',
+                'pie-sector-color-4' => '#00B9AE',
+                 // Logo color set
+                 'icon-fill-color-1' => '#00B9AE',
+                 'icon-fill-color-2' => '#FFFFFF',
+                 'icon-fill-color-3' => '#FFFFFF',
             ]
         ];
         
@@ -375,7 +457,9 @@ if ($ADMIN->fulltree) {
         2 => 'Scheme 2 (Yellow)',
         3 => 'Scheme 3 (Blue)',
         4 => 'Scheme 4 (Purple)',
-        5 => 'Scheme 5 (Light Green)'
+        5 => 'Scheme 5 (Light Green)',
+        6 => 'Scheme 6 (Contrast light)',
+        7 => 'Scheme 7 (Contrast dark)'
     ];
 
     $colorschemeselector = new admin_setting_configselect('colorscheme', 'Color scheme', '', 1, $color_schemes);
