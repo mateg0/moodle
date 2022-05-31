@@ -94,11 +94,18 @@ $navbar-item-size: 40px;
 $custom-drop-shadow: none;
 //$custom-drop-shadow: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
 $custom-image-shadow: drop-shadow(-7px 4px 1px rgba(0, 0, 0, 0.25));
-$font-rubik: Rubik,
-  sans-serif;
+$font-rubik: 'Choco Cooky', 'Rubik', sans-serif;
+$font-poppins: 'Choco Cooky', 'Poppins', sans-serif;
 
 $shadow-bg-color: rgba(0, 0, 0, .5);
 $shadow-zIndex: 1040;
+
+@font-face {
+  font-family: "Choco Cooky";
+  src: url("/theme/classic/ChocoCooky.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
 
 /*Buttons and selects*/
 button.btn.btn-secondary,
@@ -295,7 +302,7 @@ div.path-calendar {
 
       th.header {
         color: $maincalendar-main-text-color;
-        font-family: "Poppins", sans-serif !important;
+        font-family: $font-poppins !important;
         padding: 15px;
         border: none;
       }
@@ -1274,7 +1281,7 @@ section.block_calendar_month {
 //student header styles end
 .online-class {
   color: #353535;
-  font-family: 'Rubik', sans-serif;
+  font-family: $font-rubik;
 
   width: 100%;
   display: -webkit-flex;
@@ -1569,7 +1576,7 @@ section.block_calendar_month {
 }
 
 body {
-  font-family: 'Rubik', sans-serif !important;
+  font-family: $font-rubik !important;
   line-height: 1.2 !important;
   color: $custom-main-text-color;
   background-color: $custom-main-bg-color  !important;
