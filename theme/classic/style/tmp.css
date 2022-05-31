@@ -499,6 +499,7 @@
 .course-about .course-about-image img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .course-about .course-about-body {
     max-height: 640px;
