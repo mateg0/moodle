@@ -66,8 +66,8 @@ class restore_textfolder_activity_task extends restore_activity_task {
     static public function define_decode_rules() {
         $rules = array();
 
-        $rules[] = new restore_decode_rule('textfolderVIEWBYID', '/mod/textfolder/view.php?id=$1', 'course_module');
-        $rules[] = new restore_decode_rule('textfolderINDEX', '/mod/textfolder/index.php?id=$1', 'course');
+        $rules[] = new restore_decode_rule('TEXTFOLDERVIEWBYID', '/mod/textfolder/view.php?id=$1', 'course_module');
+        $rules[] = new restore_decode_rule('TEXTFOLDERINDEX', '/mod/textfolder/index.php?id=$1', 'course');
 
         return $rules;
 

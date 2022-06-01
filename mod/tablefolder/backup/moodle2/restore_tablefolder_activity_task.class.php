@@ -66,8 +66,8 @@ class restore_tablefolder_activity_task extends restore_activity_task {
     static public function define_decode_rules() {
         $rules = array();
 
-        $rules[] = new restore_decode_rule('tablefolderVIEWBYID', '/mod/tablefolder/view.php?id=$1', 'course_module');
-        $rules[] = new restore_decode_rule('tablefolderINDEX', '/mod/tablefolder/index.php?id=$1', 'course');
+        $rules[] = new restore_decode_rule('TABLEFOLDERVIEWBYID', '/mod/tablefolder/view.php?id=$1', 'course_module');
+        $rules[] = new restore_decode_rule('TABLEFOLDERINDEX', '/mod/tablefolder/index.php?id=$1', 'course');
 
         return $rules;
 

@@ -66,8 +66,8 @@ class restore_videofolder_activity_task extends restore_activity_task {
     static public function define_decode_rules() {
         $rules = array();
 
-        $rules[] = new restore_decode_rule('videofolderVIEWBYID', '/mod/videofolder/view.php?id=$1', 'course_module');
-        $rules[] = new restore_decode_rule('videofolderINDEX', '/mod/videofolder/index.php?id=$1', 'course');
+        $rules[] = new restore_decode_rule('VIDEOFOLDERVIEWBYID', '/mod/videofolder/view.php?id=$1', 'course_module');
+        $rules[] = new restore_decode_rule('VIDEOFOLDERINDEX', '/mod/videofolder/index.php?id=$1', 'course');
 
         return $rules;
 
