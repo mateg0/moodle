@@ -53,6 +53,8 @@ loginForm.addEventListener('submit', async (event) => {
 
         loginForm.classList.add('during-load');
         authLoad.style.display = 'block';
+
+        document.removeEventListener('click', hideLoginForm);
     };
 
     const makePrettyHTTPSLink = (HTTPSink) => {
