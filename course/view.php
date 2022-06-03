@@ -231,6 +231,9 @@
     // means you can back out of a situation where you removed the admin block. :)
     if ($PAGE->user_allowed_editing()) {
         $buttons = $OUTPUT->edit_button($PAGE->url);
+        if ($USER->editing == 1) {
+            $buttons .= $OUTPUT->single_button(new moodle_url('/course/admin.php', array('courseid' => $id)), get_string('courseadministration'));
+        }
         $PAGE->set_button($buttons);
     } else if ($candownloadcourse) {
         // Show the download course content button if user has permission to access it.
