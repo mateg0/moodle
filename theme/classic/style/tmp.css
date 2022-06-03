@@ -387,6 +387,7 @@
 .course-promo .course-image img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .course-promo .course-image-blank {
     width: 100%;

@@ -10,10 +10,13 @@ class course_show_more_external extends external_api
         global $CFG, $DB;
         require_once($CFG->dirroot . "/course/lib.php");
         require_once($CFG->libdir . '/completionlib.php');
+        require_once($CFG->libdir. "/formslib.php");
 
         $params = self::validate_parameters(self::get_course_parameters(),
                         array('courseid' => $courseid));
 
+        $isEnrollable = true;
+        
         //retrieve the course
         $course = $DB->get_record('course', array('id' => $params['courseid']), '*', MUST_EXIST);
 
@@ -29,14 +32,6 @@ class course_show_more_external extends external_api
 
         // now security checks
         $context = context_course::instance($course->id, IGNORE_MISSING);
-        // try {
-        //     self::validate_context($context);
-        // } catch (Exception $e) {
-        //     $exceptionparam = new stdClass();
-        //     $exceptionparam->message = $e->getMessage();
-        //     $exceptionparam->courseid = $course->id;
-        //     throw new moodle_exception('errorcoursecontextnotvalid', 'webservice', '', $exceptionparam);
-        // }
 
         //create return value
         $coursecontents = array();
@@ -296,9 +291,28 @@ class course_show_more_external extends external_api
             );
         }
 
+        // get all enrol forms available in this course
+        $enrols = enrol_get_plugins(true);
+        $enrolinstances = enrol_get_instances($course->id, true);
+        $forms = array();
+        foreach($enrolinstances as $instance) {
+            if (!isset($enrols[$instance->enrol])) {
+                continue;
+            }
+            $form = $enrols[$instance->enrol]->enrol_page_hook($instance);
+            if ($form) {
+                $forms[$instance->id] = $form;
+            }
+        }
+
+        if (!$forms) {
+            $isEnrollable = false;
+        }
+
         return [
             'course' => $course,
-            'modules' => $coursecontents
+            'modules' => $coursecontents,
+            'isEnrollable' => $isEnrollable
         ];
     }
 
@@ -420,7 +434,8 @@ class course_show_more_external extends external_api
                         )
                     )
                 )
-            )
+            ),
+            'isEnrollable' => new external_value(PARAM_BOOL, 'Course enroll able')
         ]);
     }
 }

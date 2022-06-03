@@ -18,7 +18,7 @@ require(['core/first', 'jquery', 'core/ajax'],
                 document.addEventListener('click', closeCourseAbout);
                 courseAboutWrapper
                     .querySelector('div.course-about-participate button')
-                    .addEventListener('click', redirectToCourse);
+                    ?.addEventListener('click', redirectToCourse);
             };
 
             let courseData;
@@ -65,6 +65,13 @@ require(['core/first', 'jquery', 'core/ajax'],
         };
 
         const createCourseAboutWindow = (courseData) => {
+            const buttonData = 
+            `<div class="course-about-participate">
+                <button>
+                    Записаться
+                </button>
+            </div>`;
+
             let teacherData = '';
             let modulesData = '';
             
@@ -140,11 +147,8 @@ require(['core/first', 'jquery', 'core/ajax'],
                         ${modulesData}
                     </div>
 
-                    <div class="course-about-participate">
-                        <button>
-                            Записаться
-                        </button>
-                    </div>
+                    ${courseData.isEnrollable ? buttonData : ""}
+                    
                 </div>
             </div>
             `;

@@ -16427,7 +16427,8 @@ body.path-question-type .mform fieldset.hidden {
   margin: auto; }
 
 .userselector select {
-  width: 100%; }
+  width: 100%;
+}
 
 .userselector div {
   margin-top: 0.2em; }
