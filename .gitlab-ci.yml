@@ -4,4 +4,5 @@ stages:
 deploy-job:
   stage: deploy
   script:
-    - rsync -av $CI_PROJECT_DIR/ /var/www/moodle2/
+    - cd /var/www/moodle
+    - git pull noc_wt dev
