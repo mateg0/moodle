@@ -1,0 +1,7 @@
+stages:
+  - deploy
+
+deploy-job:
+  stage: deploy
+  script:
+    - rsync -av $CI_PROJECT_DIR/ /var/www/moodle2/
