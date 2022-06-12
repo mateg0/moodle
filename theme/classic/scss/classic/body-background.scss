@@ -1,6 +1,13 @@
+:root{
+    --moveBg: -50%; //scroll speed
+}
+
 body {
-    background-image: url($imageurl);
-    background-size: cover;
+    background-position-y: var(--moveBg); 
+    transition: ease-in-out 1s;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative; 
 }
 .region-main .region-main-content {
     padding: 0.875rem;

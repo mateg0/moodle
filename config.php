@@ -8,18 +8,18 @@ $CFG->dbtype    = 'mariadb';
 $CFG->dblibrary = 'native';
 $CFG->dbhost    = 'localhost';
 $CFG->dbname    = 'mdl';
-$CFG->dbuser    = 'moodleuser';
-$CFG->dbpass    = 'Spb78sts!';
+$CFG->dbuser    = 'moodle';  // ЗАМЕНИТЬ
+$CFG->dbpass    = 'm0oD!e';  // ЗАМЕНИТЬ
 $CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
   'dbpersist' => 0,
-  'dbport' => '',
+  'dbport' =>  3307,
   'dbsocket' => '',
   'dbcollation' => 'utf8mb4_bin',
 );
 
-$CFG->wwwroot   = 'https://edu.bonch-ikt.ru';
-$CFG->dataroot  = '/var/www/moodledata';
+$CFG->wwwroot   = 'http://moodle';  // ЗАМЕНИТЬ
+$CFG->dataroot  = 'd:\moodledata';  // ЗАМЕНИТЬ
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 0777;
