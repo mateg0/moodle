@@ -1,14 +1,15 @@
 :root{
-    --moveBg: -50%; //scroll speed
+    --moveBg: 0; 
 }
 
-body {
+body{
     background-position-y: var(--moveBg); 
     transition: ease-in-out 1s;
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative; 
 }
+
 .region-main .region-main-content {
     padding: 0.875rem;
     background-color: $body-bg;
