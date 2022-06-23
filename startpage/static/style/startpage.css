@@ -18,7 +18,7 @@
 body {
   width: 100vw;
   overflow-x: hidden;
-  background: white;
+  /* background: white; */
 }
 
 .shadow {
@@ -526,7 +526,7 @@ div.footer-fragment div.background-and-card-wrapper div.demo-card-wrapper button
 }
 
 body {
-  /*background: url(./assets/background-1.png);*/
+  background: url(./assets/background-1.png);
 }
 .section {
   scroll-behavior: smooth;

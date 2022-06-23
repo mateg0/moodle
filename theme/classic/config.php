@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $THEME->name = 'classic';
 global $CFG, $PAGE, $USER;
 $PAGE->requires->jquery();
-$THEME->javascripts_footer = array("leftcolumntoggle");
+$THEME->javascripts_footer = array_merge(array("leftcolumntoggle"), array("parallax"));
 
 //$THEME->sheets = [];
 $THEME->sheets = array('tmp');
