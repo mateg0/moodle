@@ -1,10 +1,10 @@
 var windowHeight = window.innerHeight;
 var minPos = -500 *( windowHeight  / 996);
-let mainContentHeight = document.querySelector('body').offsetHeight - windowHeight;
 var bg = document.querySelector('body');
-mainContentHeight = document.querySelector('#page-content').offsetHeight - windowHeight;
-value = minPos*  (window.pageYOffset / mainContentHeight * 100)/100;
-if(document.scrollHeight == document.offsetHeight) value = minPos;
+let mainContentHeight = document.querySelector('#page-content').offsetHeight - windowHeight;
+
+if(document.querySelector('#page-content').offsetHeight <= windowHeight) value = minPos;
+else value = minPos*  (window.pageYOffset / mainContentHeight * 100)/100;
 document.documentElement.style.setProperty(`--moveBg`, `${value }px`);
 function moveBg(e){
      mainContentHeight = document.querySelector('#page-content').offsetHeight - windowHeight;

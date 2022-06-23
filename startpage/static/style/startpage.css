@@ -525,9 +525,9 @@ div.footer-fragment div.background-and-card-wrapper div.demo-card-wrapper button
   */
 }
 
-body {
-  background: url(./assets/background-1.png);
-}
+/* body {
+  background: url("/theme/classic/pix/background/background_1.png");
+} */
 .section {
   scroll-behavior: smooth;
   -ms-flex-negative: 0;
@@ -536,8 +536,10 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  background: url(./assets/background-1.png);
+  background: url("/theme/classic/pix/background/background_1.png");
+  background-position-y: bottom;
   background-COLOR: #fff;
+  background-size: contain;
 }
 .section .center-container {
   display: -webkit-box;

@@ -1588,7 +1588,7 @@ body {
   // background-color: $custom-main-bg-color  !important;
   background: $custom-theme-bimage !important;
   background-position-y: var(--moveBg)!important;
-  transition: ease-in-out 1s !important;
+  transition: ease-in-out 0.25s !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
   position: relative !important;
