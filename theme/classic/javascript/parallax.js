@@ -1,22 +1,28 @@
 var windowHeight = window.innerHeight;
-var minPos = -500 *( windowHeight  / 996);
-var bg = document.querySelector('body');
-let mainContentHeight = document.querySelector('#page-content').offsetHeight - windowHeight;
-
-if(document.querySelector('#page-content').offsetHeight <= windowHeight) value = minPos;
-else value = minPos*  (window.pageYOffset / mainContentHeight * 100)/100;
-document.documentElement.style.setProperty(`--moveBg`, `${value }px`);
-function moveBg(e){
-     mainContentHeight = document.querySelector('#page-content').offsetHeight - windowHeight;
-      coeff =  (window.pageYOffset / mainContentHeight * 100)/100
-      if (coeff > 1){coeff = 1}
-      value = minPos*  (window.pageYOffset / mainContentHeight * 100)/100;
-     if (value < minPos){ value = minPos;}
-     document.documentElement.style.setProperty(`--moveBg`, `${value}px`);
-     console.log(value);
+let speed = 0.5;
+let maxPercent = 100;
+var bg = document.querySelector('.parallax-scroll');
+let scrollTopPercent = -50;
+if(windowHeight >= document.querySelector('#page').offsetHeight) { 
+     bg.style.cssText =  `transform:translate(0%, -50%)`; 
+     speed = 0.25;
+}
+else{
+     scrollTopPercent = window.pageYOffset/ (document.querySelector('#page').offsetHeight - windowHeight) * 100;
+     bg.style.cssText =  `transform:translate(0%, -${scrollTopPercent* speed}%)`;
+}
+function moveBg(){
+     if(windowHeight >= document.querySelector('#page').offsetHeight)
+     {
+          speed = 0.25;
+          maxPercent = 200;
+     }
+     scrollTopPercent =Math.abs( window.pageYOffset/ (document.querySelector('#page').offsetHeight - windowHeight) * 100);
+     if (scrollTopPercent > maxPercent) 
+     {
+          scrollTopPercent = maxPercent;
+          
+     }
+     bg.style.cssText =  `transform:translate(0%, -${scrollTopPercent* speed}%)`;
 }
 window.addEventListener('scroll' , moveBg);
-window.scrollBy({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });

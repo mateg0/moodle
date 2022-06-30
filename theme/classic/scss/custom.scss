@@ -3,6 +3,7 @@ $custom-theme-color-1: #C3E4AF;
 $custom-theme-color-2: #F8FFF3;
 $custom-theme-color-3: #4E9A5F;
 $custom-theme-color-4: #C0C7BA;
+$custom-theme-color-5: #c9d7e7;
 // Background image settings-->
 $custom-theme-bimage: url("/theme/classic/pix/background/background_1.png");
 // Subcolors -->
@@ -1582,16 +1583,33 @@ section.block_calendar_month {
 }
 
 body {
+  // z-index: -2;
   font-family: $font-rubik !important;
   line-height: 1.2 !important;
   color: $custom-main-text-color;
-  // background-color: $custom-main-bg-color  !important;
-  background: $custom-theme-bimage !important;
-  background-position-y: var(--moveBg)!important;
-  transition: ease-in-out 0.25s !important;
+  // background-color: background: rgb(2,0,36);
+  background: linear-gradient(180deg, rgba(201,215,224,1) 0%, rgba(255,255,255,0) 100%) !important;
+  // background: $custom-theme-bimage !important;
+  // background-position-y: var(--moveBg)!important;
+  // transition: ease-in-out 0.25s !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
   position: relative !important;
+}
+
+.parallax-scroll{
+  z-index: -1;
+  min-height: 120%;
+  min-width: 100%;
+  top: 45vh;
+  left: 0;
+  border-top: $custom-theme-color-5;
+  background-image: $custom-theme-bimage !important;
+  // background-position-y: var(--moveBg)!important;
+  // transition: ease-in-out 0.25s !important;
+  background-repeat: no-repeat !important;
+  // background-attachment: fixed !important;
+  position: fixed !important;
 }
 
 footer {
