@@ -120,6 +120,9 @@ if ($ADMIN->fulltree) {
                 'custom-theme-color-2' => '#F8FFF3',
                 'custom-theme-color-3' => '#4E9A5F',
                 'custom-theme-color-4' => '#C0C7BA',
+                'custom-theme-color-5' => 'linear-gradient(180deg, rgba(201,215,224,1) 0%, rgba(255,255,255,0) 100%)',
+                // Background image settings
+                'custom-theme-bimage' => 'url("/theme/classic/pix/background/background_1.png")',
                 //subcolors
                 'custom-theme-subcolor-1' =>  '#C3E4AF',
                 'custom-theme-subcolor-2' =>  '#A3D97D',
@@ -161,6 +164,9 @@ if ($ADMIN->fulltree) {
                 'custom-theme-color-2' => '#FFFEF3',
                 'custom-theme-color-3' => '#9A8E4E',
                 'custom-theme-color-4' => '#C7C6BA',
+                'custom-theme-color-5' => 'linear-gradient(180deg, rgba(255, 236, 143,1) 0%, rgba(255,255,255,0) 100%)',
+                // Background image settings
+                'custom-theme-bimage' => 'url("/theme/classic/pix/background/background_2.png")',
                 //subcolors
                 'custom-theme-subcolor-1' =>  '#E9DB94',
                 'custom-theme-subcolor-2' =>  '#E3E4AF',
@@ -202,6 +208,9 @@ if ($ADMIN->fulltree) {
                 'custom-theme-color-2' => '#F3F8FF',
                 'custom-theme-color-3' => '#4E719A',
                 'custom-theme-color-4' => '#BAC2C7',
+                'custom-theme-color-5' => 'linear-gradient(180deg, rgba(201,215,224,1) 0%, rgba(255,255,255,0) 100%)',
+                // Background image settings
+                'custom-theme-bimage' => 'url("/theme/classic/pix/background/background_3.png")',
                 //subcolors
                 'custom-theme-subcolor-1' =>  '#93AED2',
                 'custom-theme-subcolor-2' =>  '#AFCBE4',
@@ -243,6 +252,9 @@ if ($ADMIN->fulltree) {
                 'custom-theme-color-2' => '#F3F3FF',
                 'custom-theme-color-3' => '#4E5A9A',
                 'custom-theme-color-4' => '#BAC2C7',
+                'custom-theme-color-5' => 'linear-gradient(180deg, #a12066, #ff7ca5 75%)',
+                // Background image settings
+                'custom-theme-bimage' => 'url("/theme/classic/pix/background/background_4.png")',
                 //subcolors
                 'custom-theme-subcolor-1' =>  '#A57BB9',
                 'custom-theme-subcolor-2' =>  '#CCCCFE',
@@ -284,6 +296,9 @@ if ($ADMIN->fulltree) {
                 'custom-theme-color-2' => '#F8FFF3',
                 'custom-theme-color-3' => '#92B861',
                 'custom-theme-color-4' => '#C0C7BA',
+                'custom-theme-color-5' => 'linear-gradient(180deg, rgba(196, 255, 224,1) 0%, rgba(255,255,255,0) 100%)',
+                // Background image settings
+                'custom-theme-bimage' => 'url("/theme/classic/pix/background/background_5.png")',
                 //subcolors
                 'custom-theme-subcolor-1' =>  '#AED09A',
 
